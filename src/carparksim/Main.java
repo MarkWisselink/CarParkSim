@@ -10,7 +10,6 @@ package carparksim;
  * @author Mark
  */
 public class Main {
-
     /**
      * @param args the command line arguments
      */
@@ -19,5 +18,4 @@ public class Main {
         Simulator sim = new Simulator();
         sim.run();
     }
-    
 }
