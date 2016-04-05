@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package carparksim;
+package CarParkSim.runner;
+
+import CarParkSim.main.*;
 
 /**
  *
@@ -14,8 +16,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Simulator sim = new Simulator();
-        sim.run();
+        new CarParkSim(args);
     }
 }

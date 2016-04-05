@@ -1,4 +1,6 @@
-package carparksim;
+package CarParkSim.objects;
+
+import old.*;
 
 public class Location {
 

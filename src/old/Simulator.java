@@ -1,6 +1,8 @@
-package carparksim;
+package old;
 
+//import CarParkSim.view.SimulatorView;
 import java.util.Random;
+import CarParkSim.logic.*;
 
 public class Simulator {
 
@@ -84,7 +86,7 @@ public class Simulator {
         }
 
         // Perform car park tick.
-        simulatorView.tick();
+        //simulatorView.tick();
 
         // Add leaving cars to the exit queue.
         while (true) {
