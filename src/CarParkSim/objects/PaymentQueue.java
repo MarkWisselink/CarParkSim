@@ -42,7 +42,7 @@ public class PaymentQueue extends CarQueue {
             return moneyPayable;
         } else{
 
-            moneyPayable= getParkedTime * hourlyRate;
+            moneyPayable= car.getParkedTime() * hourlyRate;
             revenueToday+= moneyPayable;
             return moneyPayable;
         }

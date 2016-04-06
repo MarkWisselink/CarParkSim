@@ -45,8 +45,8 @@ public class Model extends AbstractModel implements Runnable {
         this.rows = 6;
         this.places = 30;
 
-        this.weekDayArrivals = 50;
-        this.weekendArrivals = 90;
+        this.weekDayArrivals = 30;
+        this.weekendArrivals = 30;
 
         this.enterSpeed = 3;
         this.paymentSpeed = 10;
@@ -189,12 +189,12 @@ public class Model extends AbstractModel implements Runnable {
         }
         if (car instanceof BadParkerCar) {
             Location secondLoc = grid.getSecondLocation();
-            if(secondLoc != null){
+            if (secondLoc != null) {
                 grid.setLocationState(secondLoc, 2);
             }
         }
         else if (car instanceof AdHocCar) {
-            
+
         }
         else if (car instanceof Passholders) {
 
@@ -204,24 +204,25 @@ public class Model extends AbstractModel implements Runnable {
         }
 
         grid.setCarAt(freeLocation, car);
+        car.setLocation(freeLocation);
         int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
         car.setMinutesLeft(stayMinutes);
 
     }
-    
+
     public void tickCars() {
-            for (int floor = 0; floor < getNumFloors(); floor++) {
-                for (int row = 0; row < getNumRows(); row++) {
-                    for (int place = 0; place < getNumPlaces(); place++) {
-                        Location location = new Location(floor, row, place);
-                        Car car = grid.getCarAt(location);
-                        if (car != null) {
-                            car.tick();
-                        }
+        for (int floor = 0; floor < getNumFloors(); floor++) {
+            for (int row = 0; row < getNumRows(); row++) {
+                for (int place = 0; place < getNumPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    Car car = grid.getCarAt(location);
+                    if (car != null) {
+                        car.tick();
                     }
                 }
             }
         }
+    }
 
     /**
      * running until stopped or until ticks run out never call outside a thread!
@@ -289,15 +290,20 @@ public class Model extends AbstractModel implements Runnable {
 
         // Perform car park tick.
         tickCars();
-        
+
         // Add leaving cars to the exit queue.
         while (true) {
             Car car = grid.getFirstLeavingCar();
             if (car == null) {
                 break;
             }
-            car.setIsPaying(true);
-            paymentCarQueue.addCar(car);
+            if (car instanceof Passholders) {
+                exitCarQueue.addCar(car);
+            }
+            else {
+                paymentCarQueue.addCar(car);
+                car.setIsPaying(true);
+            }
         }
 
         // Let cars pay.
