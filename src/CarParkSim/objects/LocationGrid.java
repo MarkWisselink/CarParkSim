@@ -64,7 +64,7 @@ public class LocationGrid {
     /**
      *
      * @param loc Location
-     * @param state state to set (0= empty; 1= taken)
+     * @param state state to set (0= empty; 1= taken; 2= taken by bad parker)
      */
     public void setLocationState(Location loc, int state) {
         stateMap.put(loc.toString(), state);
@@ -73,7 +73,7 @@ public class LocationGrid {
     /**
      *
      * @param loc Location
-     * @return int value of the state (0= empty; 1= taken)
+     * @return int value of the state (0= empty; 1= taken; 2= taken by bad parker)
      */
     public int getLocationState(Location loc) {
         if (stateMap.get(loc.toString()) == null) {
@@ -88,12 +88,24 @@ public class LocationGrid {
      * @param car instance of a child of Car, determines the state to be set
      */
     public void setCarAt(Location loc, Car car) {
-        //should depend on car type/info
-        setLocationState(loc, 1);
+        int state = 1; //default
+        if (car instanceof BadParkerCar) {
+            state = 2;
+        }
+        else if (car instanceof AdHocCar) {
+            
+        }
+        else if (car instanceof Passholders) {
+
+        }
+        else if (car instanceof ReservingCar) {
+
+        }
+        setLocationState(loc, state);
         carMap.put(loc.toString(), car);
     }
 
-    private Car getCarAt(Location loc) {
+    public Car getCarAt(Location loc) {
         return carMap.get(loc.toString());
     }
 

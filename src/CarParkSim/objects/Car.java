@@ -8,13 +8,14 @@ public abstract class Car {
 
     protected Location location;
     private int minutesLeft;
+    private float minutesParked = 0;
     private boolean isPaying;
 
     /**
      * Constructor for objects of class Car
      */
     public Car() {
-
+        
     }
 
     /**
@@ -48,6 +49,10 @@ public abstract class Car {
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
+    
+    public float getParkedTime(){
+        return minutesParked;
+    }
 
     /**
      *
@@ -70,6 +75,7 @@ public abstract class Car {
      */
     public void tick() {
         minutesLeft--;
+        minutesParked++;
     }
 
 }

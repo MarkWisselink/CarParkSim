@@ -184,14 +184,17 @@ public class Model extends AbstractModel implements Runnable {
     private void putCarInPark(Car car) {
         Random random = new Random();
         Location freeLocation = grid.getFirstFreeLocation();
-        if(freeLocation == null){
+        if (freeLocation == null) {
             return;
         }
         if (car instanceof BadParkerCar) {
-            
+            Location secondLoc = grid.getSecondLocation();
+            if(secondLoc != null){
+                grid.setLocationState(secondLoc, 2);
+            }
         }
         else if (car instanceof AdHocCar) {
-
+            
         }
         else if (car instanceof Passholders) {
 
@@ -199,12 +202,26 @@ public class Model extends AbstractModel implements Runnable {
         else if (car instanceof ReservingCar) {
 
         }
-        if (freeLocation != null) {
-            grid.setCarAt(freeLocation, car);
-            int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
-            car.setMinutesLeft(stayMinutes);
-        }
+
+        grid.setCarAt(freeLocation, car);
+        int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+        car.setMinutesLeft(stayMinutes);
+
     }
+    
+    public void tickCars() {
+            for (int floor = 0; floor < getNumFloors(); floor++) {
+                for (int row = 0; row < getNumRows(); row++) {
+                    for (int place = 0; place < getNumPlaces(); place++) {
+                        Location location = new Location(floor, row, place);
+                        Car car = grid.getCarAt(location);
+                        if (car != null) {
+                            car.tick();
+                        }
+                    }
+                }
+            }
+        }
 
     /**
      * running until stopped or until ticks run out never call outside a thread!
@@ -271,7 +288,8 @@ public class Model extends AbstractModel implements Runnable {
         }
 
         // Perform car park tick.
-        //simulatorView.tick();
+        tickCars();
+        
         // Add leaving cars to the exit queue.
         while (true) {
             Car car = grid.getFirstLeavingCar();
