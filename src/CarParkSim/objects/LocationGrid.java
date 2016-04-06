@@ -41,6 +41,26 @@ public class LocationGrid {
         return null;
     }
 
+    public Location getSecondLocation() {
+        boolean first = true;
+        for (int floor = 0; floor < model.getNumFloors(); floor++) {
+            for (int row = 0; row < model.getNumRows(); row++) {
+                for (int place = 0; place < model.getNumPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    if (getLocationState(location) == 0) {
+                        if (first) {
+                            first = false;
+                        }
+                        else {
+                            return location;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @param loc Location
@@ -72,8 +92,8 @@ public class LocationGrid {
         setLocationState(loc, 1);
         carMap.put(loc.toString(), car);
     }
-    
-    private Car getCarAt(Location loc){
+
+    private Car getCarAt(Location loc) {
         return carMap.get(loc.toString());
     }
 

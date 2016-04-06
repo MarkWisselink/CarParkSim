@@ -177,8 +177,37 @@ public class Model extends AbstractModel implements Runnable {
         this.ticks = ticks;
     }
 
+    private Car createNewCar() {
+        return new AdHocCar();
+    }
+
+    private void putCarInPark(Car car) {
+        Random random = new Random();
+        Location freeLocation = grid.getFirstFreeLocation();
+        if(freeLocation == null){
+            return;
+        }
+        if (car instanceof BadParkerCar) {
+            
+        }
+        else if (car instanceof AdHocCar) {
+
+        }
+        else if (car instanceof Passholders) {
+
+        }
+        else if (car instanceof ReservingCar) {
+
+        }
+        if (freeLocation != null) {
+            grid.setCarAt(freeLocation, car);
+            int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+            car.setMinutesLeft(stayMinutes);
+        }
+    }
+
     /**
-     * running until stopped or until ticks run out
+     * running until stopped or until ticks run out never call outside a thread!
      */
     @Override
     public void run() {
@@ -227,7 +256,7 @@ public class Model extends AbstractModel implements Runnable {
 
         // Add the cars to the back of the queue.
         for (int i = 0; i < numberOfCarsPerMinute; i++) {
-            Car car = new AdHocCar();
+            Car car = createNewCar();
             entranceCarQueue.addCar(car);
         }
 
@@ -237,13 +266,8 @@ public class Model extends AbstractModel implements Runnable {
             if (car == null) {
                 break;
             }
-            // Find a space for this car.
-            Location freeLocation = grid.getFirstFreeLocation();
-            if (freeLocation != null) {
-                grid.setCarAt(freeLocation, car);
-                int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
-                car.setMinutesLeft(stayMinutes);
-            }
+
+            putCarInPark(car);
         }
 
         // Perform car park tick.
