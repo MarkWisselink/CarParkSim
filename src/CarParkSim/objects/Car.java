@@ -1,14 +1,12 @@
 package CarParkSim.objects;
 
-import old.*;
-
 /**
  *
  * @author Nienke's boys
  */
 public abstract class Car {
 
-    private Location location;
+    protected Location location;
     private int minutesLeft;
     private boolean isPaying;
 
@@ -50,7 +48,7 @@ public abstract class Car {
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
-    
+
     /**
      *
      * @return boolean if car is currently paying
