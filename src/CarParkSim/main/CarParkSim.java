@@ -19,7 +19,7 @@ public class CarParkSim {
 		controller=new Controller(model);
 		screen=new JFrame("Car Park Simulator");
 		screen.setSize(450, 285);
-		screen.setResizable(false);
+		//screen.setResizable(false);
 		screen.setLayout(null);
 		screen.getContentPane().add(carparkView);
 		screen.getContentPane().add(controller);

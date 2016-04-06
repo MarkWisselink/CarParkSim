@@ -22,13 +22,16 @@ public class Model extends AbstractModel implements Runnable {
     private int tickPause = 100;
     private int ticks = 10000;
 
-    int weekDayArrivals; // average number of arriving cars per hour
-    int weekendArrivals; // average number of arriving cars per hour
+    private int weekDayArrivals; // average number of arriving cars per hour
+    private int weekendArrivals; // average number of arriving cars per hour
 
-    int enterSpeed; // number of cars that can enter per minute
-    int paymentSpeed; // number of cars that can pay per minute
-    int exitSpeed; // number of cars that can leave per minute
+    private int enterSpeed; // number of cars that can enter per minute
+    private int paymentSpeed; // number of cars that can pay per minute
+    private int exitSpeed; // number of cars that can leave per minute
 
+    /**
+     * no param -> uses default values
+     */
     public Model() {
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
@@ -46,6 +49,19 @@ public class Model extends AbstractModel implements Runnable {
         this.exitSpeed = 9;
     }
 
+    /**
+     * @param floors the number of floors
+     * @param rows the number of rows
+     * @param places the number of places
+     * @param weekDayArrivals average number of cars/hour during weekdays
+     * @param weekendArrivals average number of cars/hour during weekends
+     * @param enterSpeed number of minutes it takes for any car to go from front
+     * of enterqueue to parking
+     * @param paymentSpeed number of minutes it takes for any car to go from
+     * front of paymentqueue to exitqueue
+     * @param exitSpeed number of minutes it takes for any car to go from front
+     * of exitqueue to going away
+     */
     public Model(int floors, int rows, int places, int weekDayArrivals, int weekendArrivals, int enterSpeed, int paymentSpeed, int exitSpeed) {
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
@@ -62,28 +78,65 @@ public class Model extends AbstractModel implements Runnable {
         this.exitSpeed = exitSpeed;
     }
 
+    /**
+     * @return number of floors
+     */
     public int getNumFloors() {
         return floors;
     }
 
+    /**
+     *
+     * @param floors number of floors
+     */
     public void setNumFloors(int floors) {
-        this.floors = floors;
+        if (floors > 0) {
+            this.floors = floors;
+        }else{
+            //throw exeption
+        }
     }
 
+    /**
+     *
+     * @return number of rows
+     */
     public int getNumRows() {
         return rows;
     }
 
+    /**
+     *
+     * @param rows number of rows (above 0)
+     */
     public void setNumRows(int rows) {
-        this.rows = rows;
+        if (rows > 0) {
+            this.rows = rows;
+        }
+        else {
+            //throw exeption
+        }
     }
 
+    /**
+     *
+     * @return number of places
+     */
     public int getNumPlaces() {
         return places;
     }
 
+    /**
+     *
+     * @param places number of places (above 0)
+     */
     public void setNumPlaces(int places) {
-        this.places = places;
+        if (places > 0) {
+            this.places = places;
+        }
+        else {
+            //throw exeption
+        }
     }
 
     public int getLocInfo(Location location) {
