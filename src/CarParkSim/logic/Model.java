@@ -3,6 +3,10 @@ package CarParkSim.logic;
 import CarParkSim.objects.*;
 import java.util.Random;
 
+/**
+ *
+ * @author Nienke's boys
+ */
 public class Model extends AbstractModel implements Runnable {
 
     private int floors;
@@ -139,29 +143,48 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param location
+     * @return int state of the location
+     */
     public int getLocInfo(Location location) {
         return grid.getLocationState(location);
     }
 
+    /**
+     * start a threaded process, if not already running
+     */
     public void start() {
         if (!run) {
             new Thread(this).start();
         }
     }
 
+    /**
+     * stop all actions
+     */
     public void stop() {
         run = false;
     }
 
+    /**
+     *
+     * @param ticks the amount of minutes the simulation will run for
+     */
     public void setTicks(int ticks) {
         this.ticks = ticks;
     }
 
+    /**
+     * running until stopped or until ticks run out
+     */
     @Override
     public void run() {
         run = true;
-        while (run && ticks >= 0) {
+        while (run && (ticks >= 0)) {
             try {
+                ticks -= 1;
                 doTick();
                 Thread.sleep(tickPause);
                 notifyViews();
@@ -171,6 +194,9 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
+    /**
+     * actions to perform while running
+     */
     private void doTick() {
         // Advance the time by one minute.
         minute++;
