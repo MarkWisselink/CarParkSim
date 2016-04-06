@@ -2,6 +2,10 @@ package CarParkSim.objects;
 
 import old.*;
 
+/**
+ *
+ * @author Nienke's boys
+ */
 public class Location {
 
     private int floor;
@@ -10,6 +14,9 @@ public class Location {
 
     /**
      * Constructor for objects of class Location
+     * @param floor the floor of this location
+     * @param row the row of this location
+     * @param place the place of this location
      */
     public Location(int floor, int row, int place) {
         this.floor = floor;
@@ -19,6 +26,7 @@ public class Location {
 
     /**
      * Implement content equality.
+     * @return equal or not
      */
     public boolean equals(Object obj) {
         if(obj instanceof Location) {

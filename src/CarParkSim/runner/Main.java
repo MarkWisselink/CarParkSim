@@ -9,7 +9,7 @@ import CarParkSim.main.*;
 
 /**
  *
- * @author Mark
+ * @author Nienke's boys
  */
 public class Main {
     /**
