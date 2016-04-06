@@ -6,18 +6,20 @@ package CarParkSim.objects;
  *
  * BENODIGD:
  * -  UURTARIEF [check]
+ * - RESERVEERSTARTTARIEF [check]
  * - TIJD DIE EEN AUTO GEPARKEERD HEEFT
  * - TOTALE REVENUE VAN DE DAG TOT NU TOE
  * - REVENUE VAN DE AUTO'S DIE OP DIT MOMENT NOG IN DE GARAGE STAAN (DUS EX PASSHOLDERS)
- * - PASSHOLDER JA/NEE -> DOORSTUREN NAAR EXIT
+ * -
  * -
  *
  */
 
 public class PaymentQueue extends CarQueue {
 
-    private double hourlyRate = 1.50; // default number. Method ChangeHourlyRate to change this number.
+    private double QuarterRate = 0.5; // default number. Method ChangeHourlyRate to change this number.
     private double revenueToday = 0;
+    private double reservationStartAmount = 3;
 
     public PaymentQueue(){
     }
@@ -27,8 +29,18 @@ public class PaymentQueue extends CarQueue {
         return hourlyRate;
     }
 
+    // get the starting payment for reservations
+    public double getReservationStartAmount(){
+        return reservationStartAmount;
+    }
+
+    // change the Start payment for reservations
+    public double changeHourlyRate(double StartAmountReservation){
+        reservationStartAmount = StartAmountReservation;
+    }
+
     // change the rate per hour
-    public double ChangeHourlyRate(double RatePerHour) {
+    public double changeHourlyRate(double RatePerHour) {
         hourlyRate = RatePerHour;
         return hourlyRate;
     }
@@ -38,11 +50,14 @@ public class PaymentQueue extends CarQueue {
     public double PaymentAmount(Car car){
         double moneyPayable = 0;
 
-        if(car instanceof Passholders){
+        if(car instanceof ReservingCar){
+            moneyPayable = reservationStartAmount + (car.getParkedTime() * QuarterRate);
+            revenueToday+= moneyPayable;
             return moneyPayable;
+
         } else{
 
-            moneyPayable= getParkedTime * hourlyRate;
+            moneyPayable= car.getParkedTime() * QuarterRate;
             revenueToday+= moneyPayable;
             return moneyPayable;
         }
