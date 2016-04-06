@@ -1,6 +1,5 @@
 package CarParkSim.objects;
 
-
 /**
  *
  * @author Nienke's boys

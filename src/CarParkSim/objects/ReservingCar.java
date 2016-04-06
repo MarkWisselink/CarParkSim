@@ -4,9 +4,9 @@ package CarParkSim.objects;
  *
  * @author Nienke's boys
  */
-public class Passholders extends Car {
+public class ReservingCar extends Car {
 
-    public Passholders() {
+    public ReservingCar() {
 
     }
 }
