@@ -4,6 +4,10 @@ import CarParkSim.objects.*;
 import CarParkSim.logic.*;
 import java.awt.*;
 
+/**
+ *
+ * @author Nienke's boys
+ */
 public class CarParkView extends AbstractView {
 
     private Dimension size;
@@ -18,13 +22,19 @@ public class CarParkView extends AbstractView {
         size = new Dimension(0, 0);
     }
 
-    
+    /**
+     * 
+     * @return Dimension class, with default size
+     */
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(800, 500);
     }
 
-    
+    /**
+     * 
+     * @param g paint a graphic into the image
+     */
     @Override
     public void paintComponent(Graphics g) {
         if (carParkImage == null) {
@@ -40,6 +50,9 @@ public class CarParkView extends AbstractView {
         }
     }
 
+    /**
+     * go through every location, and make sure to paint the current verion
+     */
     @Override
     public void updateView() {
         // Create a new car park image if the size has changed.

@@ -1,8 +1,15 @@
 package CarParkSim.objects;
 
-import old.*;
 
+/**
+ *
+ * @author Nienke's boys
+ */
 public class AdHocCar extends Car {
+
+    /**
+     *
+     */
     public AdHocCar() {
 
     }

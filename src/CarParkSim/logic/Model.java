@@ -17,7 +17,7 @@ public class Model extends AbstractModel implements Runnable {
     private CarQueue entranceCarQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
-    private LocationGrid grid = new LocationGrid();
+    private LocationGrid grid = new LocationGrid(this);
 
     private int day = 0;
     private int hour = 0;
@@ -96,7 +96,8 @@ public class Model extends AbstractModel implements Runnable {
     public void setNumFloors(int floors) {
         if (floors > 0) {
             this.floors = floors;
-        }else{
+        }
+        else {
             //throw exeption
         }
     }
@@ -237,7 +238,7 @@ public class Model extends AbstractModel implements Runnable {
                 break;
             }
             // Find a space for this car.
-            Location freeLocation = grid.getFirstFreeLocation(this);
+            Location freeLocation = grid.getFirstFreeLocation();
             if (freeLocation != null) {
                 grid.setCarAt(freeLocation, car);
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
