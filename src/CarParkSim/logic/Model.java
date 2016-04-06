@@ -13,8 +13,7 @@ public class Model extends AbstractModel implements Runnable {
     private CarQueue entranceCarQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
-    private LocationGrid grid;
-    //private old.SimulatorView simulatorView;
+    private LocationGrid grid = new LocationGrid();
 
     private int day = 0;
     private int hour = 0;
@@ -38,6 +37,7 @@ public class Model extends AbstractModel implements Runnable {
         this.floors = 3;
         this.rows = 6;
         this.places = 30;
+
         this.weekDayArrivals = 50;
         this.weekendArrivals = 90;
 
@@ -51,7 +51,6 @@ public class Model extends AbstractModel implements Runnable {
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
 
-        
         this.floors = floors;
         this.rows = rows;
         this.places = places;
@@ -88,14 +87,13 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     public int getLocInfo(Location location) {
-        return 0;
+        return grid.getLocationState(location);
     }
 
     public void start() {
-        if (run) {
-            return;
+        if (!run) {
+            new Thread(this).start();
         }
-        new Thread(this).start();
     }
 
     public void stop() {
@@ -160,7 +158,7 @@ public class Model extends AbstractModel implements Runnable {
                 break;
             }
             // Find a space for this car.
-            Location freeLocation = grid.getFirstFreeLocation();
+            Location freeLocation = grid.getFirstFreeLocation(this);
             if (freeLocation != null) {
                 grid.setCarAt(freeLocation, car);
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
