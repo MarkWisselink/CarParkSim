@@ -18,18 +18,21 @@ public class PaymentQueue extends CarQueue {
 
     private double hourlyRate = 1.50; // default number. Method ChangeHourlyRate to change this number.
     private double revenueToday = 0;
-   // private double RatePerhour;
 
+    public PaymentQueue(){
+    }
 
     // get rate per hour
     public double getHourlyRate(){
         return hourlyRate;
     }
 
-    public double ChangeHourlyRate(double RatePerHour){
+    // change the rate per hour
+    public double ChangeHourlyRate(double RatePerHour) {
         hourlyRate = RatePerHour;
         return hourlyRate;
     }
+
 
     // calculates the amount of money that has to be paid to the Parking Garage
     public double PaymentAmount(Car car){
@@ -39,12 +42,16 @@ public class PaymentQueue extends CarQueue {
             return moneyPayable;
         } else{
 
-
-           // moneyPayable = hourlyRate * timeParked;
+            moneyPayable= getParkedTime * hourlyRate;
             revenueToday+= moneyPayable;
             return moneyPayable;
         }
 
+    }
+
+    // returns the total revenue of today until now
+    public double getRevenueToday(){
+        return revenueToday;
     }
 
 }
