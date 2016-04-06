@@ -6,6 +6,8 @@ import java.util.Random;
 /**
  *
  * @author Nienke's boys
+ * 
+ * TODO day/night ritme inbouwen
  */
 public class Model extends AbstractModel implements Runnable {
 
