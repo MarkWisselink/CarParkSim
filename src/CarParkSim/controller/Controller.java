@@ -89,9 +89,22 @@ public class Controller extends AbstractController implements ActionListener {
 
             int option = JOptionPane.showConfirmDialog(null, message, "Edit input", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                model.setNumFloors(parseInt(floor.getText()));
-                model.setNumRows(parseInt(row.getText()));
-                model.setNumPlaces(parseInt(place.getText()));
+                if (floor.getText().equals("")) {
+                }
+                else {
+                    model.setNumFloors(parseInt(floor.getText()));
+                }
+                if (row.getText().equals("")) {
+                }
+                else {
+                    model.setNumRows(parseInt(row.getText()));
+                }
+                if (place.getText().equals("")) {
+                }
+                else {
+                    model.setNumPlaces(parseInt(place.getText()));
+                }
+
             }
             else {
                 return;
