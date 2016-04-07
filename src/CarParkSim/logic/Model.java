@@ -7,7 +7,6 @@ import java.util.Random;
  *
  * @author Nienke's boys
  *
- * TODO day/night ritme inbouwen
  */
 public class Model extends AbstractModel implements Runnable {
 
@@ -63,6 +62,7 @@ public class Model extends AbstractModel implements Runnable {
      * @param places the number of places
      * @param weekDayArrivals average number of cars/hour during weekdays
      * @param weekendArrivals average number of cars/hour during weekends
+     * @param nightReductionRate (average number of cars/hour) / nightReductionRate = avg cars/hour at night
      * @param enterSpeed number of minutes it takes for any car to go from front
      * of enterqueue to parking
      * @param paymentSpeed number of minutes it takes for any car to go from
@@ -88,10 +88,16 @@ public class Model extends AbstractModel implements Runnable {
         this.exitSpeed = exitSpeed;
     }
 
+    /**
+     * speeds up the simulation speed
+     */
     public void speedUp() {
         changeSpeed(50, true);
     }
 
+    /**
+     * slows down the execution speed
+     */
     public void slowDown() {
         changeSpeed(50, false);
     }
@@ -101,12 +107,13 @@ public class Model extends AbstractModel implements Runnable {
             tickPause = tickPause + change;
         }
         else if (change > tickPause) {
-            if((tickPause - change) > 10){
+            if((tickPause - change) > 1){
                 tickPause = tickPause - change;
             }else{
-                tickPause = 10;
+                tickPause = 1;
             }
         }
+        System.out.println("new tickpause:" +tickPause);
     }
 
     /**
@@ -171,6 +178,18 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
+    public int getNumParkingPlaces(){
+        return rows * places * floors;
+    }
+    
+    public int getNumCars(String type){
+        return 9;
+    }
+    
+    public String getTime(){
+        return "";
+    }
+    
     /**
      *
      * @param location
@@ -237,6 +256,9 @@ public class Model extends AbstractModel implements Runnable {
 
     }
 
+    /**
+     *
+     */
     public void tickCars() {
         for (int floor = 0; floor < getNumFloors(); floor++) {
             for (int row = 0; row < getNumRows(); row++) {
