@@ -24,8 +24,9 @@ public class Model extends AbstractModel implements Runnable {
     private int hour = 0;
     private int minute = 0;
 
+    private final static int DEFAULT_NUM_TICKS = 10000;
     private int tickPause = 100;
-    private int ticks = 10000;
+    private int ticks = DEFAULT_NUM_TICKS;
 
     private int weekDayArrivals; // average number of arriving cars per hour on a weekday
     private int weekendArrivals; // average number of arriving cars per hour in the weekend
@@ -62,7 +63,8 @@ public class Model extends AbstractModel implements Runnable {
      * @param places the number of places
      * @param weekDayArrivals average number of cars/hour during weekdays
      * @param weekendArrivals average number of cars/hour during weekends
-     * @param nightReductionRate (average number of cars/hour) / nightReductionRate = avg cars/hour at night
+     * @param nightReductionRate (average number of cars/hour) /
+     * nightReductionRate = avg cars/hour at night
      * @param enterSpeed number of minutes it takes for any car to go from front
      * of enterqueue to parking
      * @param paymentSpeed number of minutes it takes for any car to go from
@@ -106,14 +108,13 @@ public class Model extends AbstractModel implements Runnable {
         if (!increase) {
             tickPause = tickPause + change;
         }
-        else if (change < tickPause) {
-            if((tickPause - change) > 1){
-                tickPause = tickPause - change;
-            }else{
-                tickPause = 1;
-            }
+        else if ((tickPause - change) > 1) {
+            tickPause = tickPause - change;
         }
-        System.out.println("new tickpause:" +tickPause);
+        else {
+            tickPause = 1;
+        }
+        System.out.println("new tickpause:" + tickPause);
     }
 
     /**
@@ -178,18 +179,18 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
-    public int getNumParkingPlaces(){
+    public int getNumParkingPlaces() {
         return rows * places * floors;
     }
-    
-    public int getNumCars(String type){
+
+    public int getNumCars(String type) {
         return 9;
     }
-    
-    public String getTime(){
+
+    public String getTime() {
         return "";
     }
-    
+
     /**
      *
      * @param location
@@ -279,6 +280,9 @@ public class Model extends AbstractModel implements Runnable {
     @Override
     public void run() {
         run = true;
+        if(ticks < 10){
+            ticks = DEFAULT_NUM_TICKS;
+        }
         while (run && (ticks >= 0)) {
             try {
                 ticks -= 1;
@@ -289,6 +293,7 @@ public class Model extends AbstractModel implements Runnable {
             catch (Exception e) {
             }
         }
+        this.stop();
     }
 
     /**
