@@ -64,7 +64,7 @@ public class LocationGrid {
     /**
      *
      * @param loc Location
-     * @param state state to set (0= empty; 1= taken; 2= taken by bad parker)
+     * @param state state to set (0= empty; 1= taken; 2= taken by bad parker; 3= taken by passholder; 4= taken by reserving car; 12 = taken as bad parker's 2nd place)
      */
     public void setLocationState(Location loc, int state) {
         stateMap.put(loc.toString(), state);
@@ -73,7 +73,7 @@ public class LocationGrid {
     /**
      *
      * @param loc Location
-     * @return int value of the state (0= empty; 1= taken; 2= taken by bad parker)
+     * @return int value of the state (0= empty; 1= taken; 2= taken by bad parker; 3= taken by passholder; 4= taken by reserving car; 12 = taken as bad parker's 2nd place)
      */
     public int getLocationState(Location loc) {
         if (stateMap.get(loc.toString()) == null) {
@@ -93,13 +93,13 @@ public class LocationGrid {
             state = 2;
         }
         else if (car instanceof AdHocCar) {
-            
+            state = 1;
         }
         else if (car instanceof Passholders) {
-
+            state = 3;
         }
         else if (car instanceof ReservingCar) {
-
+            state = 4;
         }
         setLocationState(loc, state);
         carMap.put(loc.toString(), car);

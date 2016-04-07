@@ -68,13 +68,26 @@ public class CarParkView extends AbstractView {
                     int state = model.getLocInfo(location);
                     Color color;
                     switch(state){
-                        case 0: color = Color.white;
+                        case 0: color = Color.WHITE;
                         break;
                         
-                        case 1: color = Color.red;
+                        case 1: color = Color.RED;
                         break;
                         
-                        default: color = Color.magenta;
+                        case 2: color = Color.DARK_GRAY;
+                        break;
+                        
+                        case 12: color = Color.LIGHT_GRAY;
+                        break;
+                        
+                        case 3: color = Color.BLUE;
+                        break;
+                        
+                        case 4: color = Color.YELLOW;
+                        break;
+                        
+                        default: color = Color.MAGENTA;
+                        break;
                     }
                     //Color color = car == null ? Color.white : Color.red;
                     drawPlace(graphics, location, color);

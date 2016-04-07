@@ -42,6 +42,16 @@ public class Model extends AbstractModel implements Runnable {
     private int paymentSpeed; // number of cars that can pay per minute
     private int exitSpeed; // number of cars that can leave per minute
 
+    // The probability that a normal car will spawn.
+    //private static final double ADHOC_CAR_CREATION_PROBABILITY = 0.02;
+    //unused; this car is spawned by default, unles any other is spawned instead
+    // The probability that a passholder car will spawn.
+    private static double PASSHOLDER_CAR_CREATION_PROBABILITY = 2.0;
+    // The probability that a reserving car will spawn.
+    private static double RESERVING_CAR_CREATION_PROBABILITY = 4.0;
+    // The probability that a bad parker will spawn.
+    private static double BADPARKER_CAR_CREATION_PROBABILITY = 0.1;
+
     /**
      * no param -> uses default values
      */
@@ -54,13 +64,13 @@ public class Model extends AbstractModel implements Runnable {
         this.rows = 6;
         this.places = 30;
 
-        this.weekDayArrivals = 100;
-        this.weekendArrivals = 80;
+        this.weekDayArrivals = 80;
+        this.weekendArrivals = 50;
         this.nightReductionRate = 3;
 
-        this.enterSpeed = 3;
-        this.paymentSpeed = 10;
-        this.exitSpeed = 9;
+        this.enterSpeed = 2;
+        this.paymentSpeed = 6;
+        this.exitSpeed = 4;
     }
 
     /**
@@ -120,7 +130,6 @@ public class Model extends AbstractModel implements Runnable {
         else {
             tickPause = 1;
         }
-        System.out.println("new tickpause:" + tickPause);
     }
 
     /**
@@ -291,7 +300,19 @@ public class Model extends AbstractModel implements Runnable {
 //    }
 //
     private Car createNewCar() {
-        return new AdHocCar();
+        Random rand = new Random();
+        if (rand.nextDouble() <= PASSHOLDER_CAR_CREATION_PROBABILITY) {
+            return new Passholders();
+        }
+        else if (rand.nextDouble() <= BADPARKER_CAR_CREATION_PROBABILITY) {
+            return new BadParkerCar();
+        }
+        else if (rand.nextDouble() <= RESERVING_CAR_CREATION_PROBABILITY) {
+            return new ReservingCar();
+        }
+        else {
+            return new AdHocCar();
+        }
     }
 
     private void putCarInPark(Car car) {
@@ -303,7 +324,7 @@ public class Model extends AbstractModel implements Runnable {
         if (car instanceof BadParkerCar) {
             Location secondLoc = grid.getSecondLocation();
             if (secondLoc != null) {
-                grid.setLocationState(secondLoc, 2);
+                grid.setLocationState(secondLoc, 12);
             }
         }
         else if (car instanceof AdHocCar) {
@@ -371,12 +392,10 @@ public class Model extends AbstractModel implements Runnable {
         while (minute > 59) {
             minute = 0;
             hour++;
-            System.out.println("hour:" + hour);
         }
         while (hour > 23) {
             hour -= 24;
             day++;
-            System.out.println("day:" + day);
         }
         while (day > 6) {
             day -= 7;
