@@ -93,8 +93,9 @@ public class Controller extends AbstractController implements ActionListener {
                 model.setNumRows(parseInt(row.getText()));
                 model.setNumPlaces(parseInt(place.getText()));
             }
-            else
-               return;
+            else {
+                return;
+            }
         }
     }
 }
