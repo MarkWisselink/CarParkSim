@@ -88,6 +88,27 @@ public class Model extends AbstractModel implements Runnable {
         this.exitSpeed = exitSpeed;
     }
 
+    public void speedUp() {
+        changeSpeed(20, true);
+    }
+
+    public void slowDown() {
+        changeSpeed(20, false);
+    }
+
+    private void changeSpeed(int change, boolean increase) {
+        if (!increase) {
+            tickPause = tickPause + change;
+        }
+        else if (change > tickPause) {
+            if((tickPause - change) > 10){
+                tickPause = tickPause - change;
+            }else{
+                tickPause = 10;
+            }
+        }
+    }
+
     /**
      * @return number of floors
      */
@@ -257,12 +278,12 @@ public class Model extends AbstractModel implements Runnable {
         while (minute > 59) {
             minute = 0;
             hour++;
-            System.out.println("hour:"+hour);
+            System.out.println("hour:" + hour);
         }
         while (hour > 23) {
             hour -= 24;
             day++;
-            System.out.println("day:"+day);
+            System.out.println("day:" + day);
         }
         while (day > 6) {
             day -= 7;
