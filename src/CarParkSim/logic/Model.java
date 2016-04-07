@@ -89,11 +89,11 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     public void speedUp() {
-        changeSpeed(20, true);
+        changeSpeed(50, true);
     }
 
     public void slowDown() {
-        changeSpeed(20, false);
+        changeSpeed(50, false);
     }
 
     private void changeSpeed(int change, boolean increase) {
