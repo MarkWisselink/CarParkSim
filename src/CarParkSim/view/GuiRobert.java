@@ -1,7 +1,9 @@
 package CarParkSim.view;
 
 import CarParkSim.logic.*;
+import java.awt.Dimension;
 import javax.swing.*;
+
 
 /**
  *
@@ -19,22 +21,22 @@ public class GuiRobert extends AbstractView {
     public GuiRobert(Model model) {
         super(model);
         //LEGE USER INTERFACE MET ALLEMAAL LEGE TEKSTBLOKKEN EN WEET IK VEEL WAT VOOR DINGEN JE ER ALLEMAAL IN WILT STOPPEN.
-        fieldNumCarsEntering = new JTextField();
+        fieldNumCarsEntering = new JTextField(25);
         fieldNumCarsEntering.setEditable(false);
 
-        fieldNumCarsParked = new JTextField();
+        fieldNumCarsParked = new JTextField(25);
         fieldNumCarsParked.setEditable(false);
 
-        fieldNumCarsPaying = new JTextField();
+        fieldNumCarsPaying = new JTextField(25);
         fieldNumCarsPaying.setEditable(false);
 
-        fieldNumCarsExiting = new JTextField();
+        fieldNumCarsExiting = new JTextField(25);
         fieldNumCarsExiting.setEditable(false);
 
-        fieldNumFloors = new JTextField();
+        fieldNumFloors = new JTextField(25);
         fieldNumFloors.setEditable(false);
-
-        fieldTime = new JTextField();
+        
+        fieldTime = new JTextField(25);
         fieldTime.setEditable(false);
 
         //alle tekstvelden etc aanmaken
@@ -44,7 +46,7 @@ public class GuiRobert extends AbstractView {
     public void updateView() {
         //tekstvelden updaten
         fieldNumCarsEntering.setText("Number of cars in entrance queue: " + model.getNumCars("enterq"));
-
+        
         fieldNumCarsParked.setText("Number of cars parked: " + model.getNumCars("parked"));
 
         fieldNumCarsPaying.setText("Number of cars in payment queue: " + model.getNumCars("payq"));
