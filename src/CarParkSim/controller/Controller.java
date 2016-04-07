@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.System.exit;
 
 /**
  *
@@ -86,11 +87,15 @@ public class Controller extends AbstractController implements ActionListener {
                     "Places:", place
             };
 
-            JOptionPane.showConfirmDialog(null, message, "Edit input", JOptionPane.OK_CANCEL_OPTION);
-            model.setNumFloors(parseInt(floor.getText()));
-            model.setNumRows(parseInt(row.getText()));
-            model.setNumPlaces(parseInt(place.getText()));
-        }
+            int option = JOptionPane.showConfirmDialog(null, message, "Edit input", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                model.setNumFloors(parseInt(floor.getText()));
+                model.setNumRows(parseInt(row.getText()));
+                model.setNumPlaces(parseInt(place.getText()));
+            }
+            else
+               return;
         }
     }
+}
 
