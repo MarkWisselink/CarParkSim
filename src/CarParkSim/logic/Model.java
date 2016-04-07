@@ -106,7 +106,7 @@ public class Model extends AbstractModel implements Runnable {
         if (!increase) {
             tickPause = tickPause + change;
         }
-        else if (change > tickPause) {
+        else if (change < tickPause) {
             if((tickPause - change) > 1){
                 tickPause = tickPause - change;
             }else{
