@@ -43,15 +43,15 @@ public class GuiRobert extends AbstractView {
     @Override
     public void updateView() {
         //tekstvelden updaten
-        fieldNumCarsEntering.setText("Number of cars in entrance queue " + model.getNumCars("enter") + ".");
+        fieldNumCarsEntering.setText("Number of cars in entrance queue " + model.getNumCars("enterq") + ".");
         
-        fieldNumCarsParked.setText("Number of cars parked " + model.getNumCars("enter") + ".");
+        fieldNumCarsParked.setText("Number of cars parked " + model.getNumCars("parked") + ".");
         
-        fieldNumCarsPaying.setText("Number of cars in payment queue " + model.getNumCars("enter") + ".");
+        fieldNumCarsPaying.setText("Number of cars in payment queue " + model.getNumCars("payq") + ".");
         
-        fieldNumCarsExiting.setText("Number of cars in exit queue " + model.getNumCars("enter") + ".");
+        fieldNumCarsExiting.setText("Number of cars in exit queue " + model.getNumCars("exitq") + ".");
         
-        fieldNumFloors.setText("Total number of parking spots " + model.getNumParkingPlaces() + " (" + "" + "spots free).");
+        fieldNumFloors.setText("Total number of parking spots " + model.getNumParkingPlaces() + " (" + (model.getNumParkingPlaces()-model.getNumCars("parked")) + "spots free).");
         
         fieldTime.setText("Time :" + model.getTime() + ".");
 
