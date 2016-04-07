@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  *
  * @author Nienke's boys
- * 
+ *
  * TODO day/night ritme inbouwen
  */
 public class Model extends AbstractModel implements Runnable {
@@ -28,8 +28,9 @@ public class Model extends AbstractModel implements Runnable {
     private int tickPause = 100;
     private int ticks = 10000;
 
-    private int weekDayArrivals; // average number of arriving cars per hour
-    private int weekendArrivals; // average number of arriving cars per hour
+    private int weekDayArrivals; // average number of arriving cars per hour on a weekday
+    private int weekendArrivals; // average number of arriving cars per hour in the weekend
+    private int nightReductionRate; // average number of arriving cars per hour / nightReductionRate = avg num/hour at night
 
     private int enterSpeed; // number of cars that can enter per minute
     private int paymentSpeed; // number of cars that can pay per minute
@@ -40,15 +41,16 @@ public class Model extends AbstractModel implements Runnable {
      */
     public Model() {
         entranceCarQueue = new CarQueue();
-        paymentCarQueue = new CarQueue();
+        paymentCarQueue = new PaymentQueue();
         exitCarQueue = new CarQueue();
 
         this.floors = 3;
         this.rows = 6;
         this.places = 30;
 
-        this.weekDayArrivals = 30;
-        this.weekendArrivals = 30;
+        this.weekDayArrivals = 80;
+        this.weekendArrivals = 50;
+        this.nightReductionRate = 3;
 
         this.enterSpeed = 3;
         this.paymentSpeed = 10;
@@ -68,16 +70,18 @@ public class Model extends AbstractModel implements Runnable {
      * @param exitSpeed number of minutes it takes for any car to go from front
      * of exitqueue to going away
      */
-    public Model(int floors, int rows, int places, int weekDayArrivals, int weekendArrivals, int enterSpeed, int paymentSpeed, int exitSpeed) {
+    public Model(int floors, int rows, int places, int weekDayArrivals, int weekendArrivals, int nightReductionRate, int enterSpeed, int paymentSpeed, int exitSpeed) {
         entranceCarQueue = new CarQueue();
-        paymentCarQueue = new CarQueue();
+        paymentCarQueue = new PaymentQueue();
         exitCarQueue = new CarQueue();
 
         this.floors = floors;
         this.rows = rows;
         this.places = places;
+
         this.weekDayArrivals = weekDayArrivals;
         this.weekendArrivals = weekendArrivals;
+        this.nightReductionRate = nightReductionRate;
 
         this.enterSpeed = enterSpeed;
         this.paymentSpeed = paymentSpeed;
@@ -253,10 +257,12 @@ public class Model extends AbstractModel implements Runnable {
         while (minute > 59) {
             minute = 0;
             hour++;
+            System.out.println("hour:"+hour);
         }
         while (hour > 23) {
             hour -= 24;
             day++;
+            System.out.println("day:"+day);
         }
         while (day > 6) {
             day -= 7;
@@ -265,9 +271,16 @@ public class Model extends AbstractModel implements Runnable {
         Random random = new Random();
 
         // Get the average number of cars that arrive per hour.
-        int averageNumberOfCarsPerHour = day < 5
-                ? weekDayArrivals // <- if day < 5
-                : weekendArrivals; //<- else
+        int averageNumberOfCarsPerHour;
+        if (day < 5) {
+            averageNumberOfCarsPerHour = weekDayArrivals;
+        }
+        else {
+            averageNumberOfCarsPerHour = weekendArrivals;
+        }
+        if (hour > 20 || hour < 7) {
+            averageNumberOfCarsPerHour = (int) Math.ceil(averageNumberOfCarsPerHour / nightReductionRate);
+        }
 
         // Calculate the number of cars that arrive this minute.
         double standardDeviation = averageNumberOfCarsPerHour * 0.1;
