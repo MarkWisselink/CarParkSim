@@ -6,10 +6,6 @@ import javax.swing.*;
  *
  * @author Nienke's boys
  */
-/**
- *
- * @author Robert
- */
 public class GuiRobert extends AbstractView {
 
     private JTextField fieldNumCars;
@@ -29,7 +25,7 @@ public class GuiRobert extends AbstractView {
     @Override
     public void updateView() {
         //tekstvelden updaten
-        int numCars = model.getNumberOfCars();
+        int numCars = model.getNumCars();
         fieldNumCars.setText("Number of cars " + numCars + ".");
         fieldNumCars.setEditable(false);        
         int numFloors = model.getNumFloors();
