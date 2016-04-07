@@ -46,11 +46,11 @@ public class Model extends AbstractModel implements Runnable {
     //private static final double ADHOC_CAR_CREATION_PROBABILITY = 0.02;
     //unused; this car is spawned by default, unles any other is spawned instead
     // The probability that a passholder car will spawn.
-    private static double PASSHOLDER_CAR_CREATION_PROBABILITY = 2.0;
+    private double PASSHOLDER_CAR_CREATION_PROBABILITY = 0.3;
     // The probability that a reserving car will spawn.
-    private static double RESERVING_CAR_CREATION_PROBABILITY = 4.0;
+    private double RESERVING_CAR_CREATION_PROBABILITY = 0.2;
     // The probability that a bad parker will spawn.
-    private static double BADPARKER_CAR_CREATION_PROBABILITY = 0.1;
+    private double BADPARKER_CAR_CREATION_PROBABILITY = 0.01;
 
     /**
      * no param -> uses default values
@@ -324,6 +324,7 @@ public class Model extends AbstractModel implements Runnable {
         if (car instanceof BadParkerCar) {
             Location secondLoc = grid.getSecondLocation();
             if (secondLoc != null) {
+                ((BadParkerCar) car).setSecondLocation(secondLoc);
                 grid.setLocationState(secondLoc, 12);
             }
         }
@@ -451,6 +452,8 @@ public class Model extends AbstractModel implements Runnable {
             if (car instanceof Passholders) {
                 exitCarQueue.addCar(car);
                 exitQCounter++;
+                car.setIsPaying(true);
+                grid.removeCarAt(car.getLocation());
             }
             else {
                 paymentCarQueue.addCar(car);
@@ -466,6 +469,10 @@ public class Model extends AbstractModel implements Runnable {
                 break;
             }
             paymentQCounter--;
+            if (car instanceof BadParkerCar) {
+                grid.setLocationState(((BadParkerCar) car).getSecondLocation(), 0);
+                //grid.removeCarAt(((BadParkerCar) car).getSecondLocation());
+            }
             grid.removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
             exitQCounter++;
