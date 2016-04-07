@@ -35,7 +35,7 @@ public class CarParkSim {
 		screen.getContentPane().add(carparkView);
 		screen.getContentPane().add(controller);
                 infoView.setBounds(850,100,300,150);
-		carparkView.setBounds(0, 0, 900, 370);
+		carparkView.setBounds(0, 0, 850, 370);
 		controller.setBounds(0, 370, 800, 130);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 screen.setVisible(true);

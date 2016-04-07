@@ -181,7 +181,7 @@ public class Model extends AbstractModel implements Runnable {
 
     public int getNumParkingPlaces(String query) {
         if (query.equals("free")) {
-            return ((rows * places * floors)-getNumCars("parked"));
+            return ((rows * places * floors) - getNumCars("parked"));
         }
         return rows * places * floors;
     }
@@ -191,7 +191,48 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     public String getTime() {
-        return "";
+        String daystr;
+        String hourstr = "";
+        String minstr = "";
+        switch (day) {
+            case 0:
+                daystr = "Monday";
+                break;
+            case 1:
+                daystr = "Tuesday";
+                break;
+            case 2:
+                daystr = "Wednesday";
+                break;
+            case 3:
+                daystr = "Thursday";
+                break;
+            case 4:
+                daystr = "Friday";
+                break;
+            case 5:
+                daystr = "Saturday";
+                break;
+            case 6:
+                daystr = "Sunday";
+                break;
+            default:
+                daystr = "Unknown";
+        }
+        
+        if(hour<10){
+            hourstr = "0"+((Integer)hour).toString();
+        }else{
+            hourstr = ""+hour;
+        }
+        
+        if(minute<10){
+            minstr = "0"+((Integer)minute).toString();
+        }else{
+            minstr = ""+minute;
+        }
+        
+        return daystr + ". " + hourstr + ":" + minstr;
     }
 
     /**

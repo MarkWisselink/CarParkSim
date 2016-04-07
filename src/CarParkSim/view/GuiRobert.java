@@ -51,9 +51,9 @@ public class GuiRobert extends AbstractView {
 
         fieldNumCarsExiting.setText("Number of cars in exit queue: " + model.getNumCars("exitq"));
 
-        fieldNumFloors.setText("Total number of parking spots: " + model.getNumParkingPlaces("total") + " (" + model.getNumParkingPlaces("free") + " spots free).");
+        fieldNumFloors.setText("Total number of parking spots: " + model.getNumParkingPlaces("total") + " (" + model.getNumParkingPlaces("free") + " spots free)");
 
-        fieldTime.setText("Time :" + model.getTime() + ".");
+        fieldTime.setText("Time :" + model.getTime());
 
         add(fieldNumCarsEntering);
         add(fieldNumCarsParked);
@@ -62,8 +62,8 @@ public class GuiRobert extends AbstractView {
         add(fieldNumFloors);
         add(fieldTime);
         //Alle releveante info ophalen en die in de tekst velden stoppen. 
-        
-	validate();
+
+        validate();
         repaint();
     }
 
