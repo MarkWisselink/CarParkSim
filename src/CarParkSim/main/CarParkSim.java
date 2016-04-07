@@ -26,11 +26,11 @@ public class CarParkSim {
 		model.addView(carparkView);
 		controller=new Controller(model);
 		screen=new JFrame("Car Park Simulator");
-		screen.setSize(800, 500);
+		screen.setSize(1200, 500);
 		screen.setLayout(null);
 		screen.getContentPane().add(carparkView);
 		screen.getContentPane().add(controller);
-		carparkView.setBounds(0, 0, 300, 370);
+		carparkView.setBounds(0, 0, 900, 370);
 		controller.setBounds(0, 370, 800, 130);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		screen.setVisible(true);

@@ -24,9 +24,9 @@ public class Model extends AbstractModel implements Runnable {
     private int hour = 0;
     private int minute = 0;
 
-    private final static int DEFAULT_NUM_TICKS = 10000;
+    //private final static int DEFAULT_NUM_TICKS = 10000;
     private int tickPause = 100;
-    private int ticks = DEFAULT_NUM_TICKS;
+    //private int ticks = DEFAULT_NUM_TICKS;
 
     private int weekDayArrivals; // average number of arriving cars per hour on a weekday
     private int weekendArrivals; // average number of arriving cars per hour in the weekend
@@ -216,13 +216,13 @@ public class Model extends AbstractModel implements Runnable {
         run = false;
     }
 
-    /**
-     *
-     * @param ticks the amount of minutes the simulation will run for
-     */
-    public void setTicks(int ticks) {
-        this.ticks = ticks;
-    }
+//    /**
+//     *
+//     * @param ticks the amount of minutes the simulation will run for
+//     */
+//    public void setTicks(int ticks) {
+//        this.ticks = ticks;
+//    }
 
     private Car createNewCar() {
         return new AdHocCar();
@@ -280,12 +280,12 @@ public class Model extends AbstractModel implements Runnable {
     @Override
     public void run() {
         run = true;
-        if(ticks < 10){
-            ticks = DEFAULT_NUM_TICKS;
-        }
-        while (run && (ticks >= 0)) {
+//        if(ticks < 10){
+//            ticks = DEFAULT_NUM_TICKS;
+//        }
+        while (run /*&& (ticks >= 0)*/) {
             try {
-                ticks -= 1;
+                //ticks -= 1;
                 doTick();
                 Thread.sleep(tickPause);
                 notifyViews();

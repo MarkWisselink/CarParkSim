@@ -23,6 +23,7 @@ public class Simulator {
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 10; // number of cars that can pay per minute
     int exitSpeed = 9; // number of cars that can leave per minute
+    
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
