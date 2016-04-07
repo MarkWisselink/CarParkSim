@@ -54,7 +54,7 @@ public class InfoView extends AbstractView {
 
         fieldNumFloors.setText("Total number of parking spots: " + model.getNumParkingPlaces("total") + " (" + model.getNumParkingPlaces("free") + " spots free)");
 
-        fieldTime.setText("Time :" + model.getTime());
+        fieldTime.setText("Time: " + model.getTime());
 
         add(fieldNumCarsEntering);
         add(fieldNumCarsParked);
