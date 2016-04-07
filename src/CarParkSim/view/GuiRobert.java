@@ -51,7 +51,7 @@ public class GuiRobert extends AbstractView {
 
         fieldNumCarsExiting.setText("Number of cars in exit queue: " + model.getNumCars("exitq"));
 
-        fieldNumFloors.setText("Total number of parking spots: " + model.getNumParkingPlaces("total") + " (" + model.getNumParkingPlaces("free") + "spots free).");
+        fieldNumFloors.setText("Total number of parking spots: " + model.getNumParkingPlaces("total") + " (" + model.getNumParkingPlaces("free") + " spots free).");
 
         fieldTime.setText("Time :" + model.getTime() + ".");
 
