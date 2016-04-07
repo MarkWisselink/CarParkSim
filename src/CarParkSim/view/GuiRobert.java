@@ -21,22 +21,22 @@ public class GuiRobert extends AbstractView {
     public GuiRobert(Model model) {
         super(model);
         //LEGE USER INTERFACE MET ALLEMAAL LEGE TEKSTBLOKKEN EN WEET IK VEEL WAT VOOR DINGEN JE ER ALLEMAAL IN WILT STOPPEN.
-        fieldNumCarsEntering = new JTextField(25);
+        fieldNumCarsEntering = new JTextField(27);
         fieldNumCarsEntering.setEditable(false);
 
-        fieldNumCarsParked = new JTextField(25);
+        fieldNumCarsParked = new JTextField(27);
         fieldNumCarsParked.setEditable(false);
 
-        fieldNumCarsPaying = new JTextField(25);
+        fieldNumCarsPaying = new JTextField(27);
         fieldNumCarsPaying.setEditable(false);
 
-        fieldNumCarsExiting = new JTextField(25);
+        fieldNumCarsExiting = new JTextField(27);
         fieldNumCarsExiting.setEditable(false);
 
-        fieldNumFloors = new JTextField(25);
+        fieldNumFloors = new JTextField(27);
         fieldNumFloors.setEditable(false);
         
-        fieldTime = new JTextField(25);
+        fieldTime = new JTextField(27);
         fieldTime.setEditable(false);
 
         //alle tekstvelden etc aanmaken
