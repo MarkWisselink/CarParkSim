@@ -9,7 +9,7 @@ import javax.swing.*;
  *
  * @author Nienke's boys
  */
-public class GuiRobert extends AbstractView {
+public class InfoView extends AbstractView {
 
     private JTextField fieldNumCarsEntering;
     private JTextField fieldNumCarsParked;
@@ -18,7 +18,7 @@ public class GuiRobert extends AbstractView {
     private JTextField fieldNumFloors;
     private JTextField fieldTime;
 
-    public GuiRobert(Model model) {
+    public InfoView(Model model) {
         super(model);
         //LEGE USER INTERFACE MET ALLEMAAL LEGE TEKSTBLOKKEN EN WEET IK VEEL WAT VOOR DINGEN JE ER ALLEMAAL IN WILT STOPPEN.
         fieldNumCarsEntering = new JTextField(27);
