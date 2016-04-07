@@ -24,6 +24,12 @@ public class Model extends AbstractModel implements Runnable {
     private int hour = 0;
     private int minute = 0;
 
+    private int entranceQCounter = 0;
+    private int parkedCounter = 0;
+    private int paymentQCounter = 0;
+    private int exitQCounter = 0;
+    private int totalRevenueCounter = 0;
+
     //private final static int DEFAULT_NUM_TICKS = 10000;
     private int tickPause = 100;
     //private int ticks = DEFAULT_NUM_TICKS;
@@ -48,8 +54,8 @@ public class Model extends AbstractModel implements Runnable {
         this.rows = 6;
         this.places = 30;
 
-        this.weekDayArrivals = 80;
-        this.weekendArrivals = 50;
+        this.weekDayArrivals = 100;
+        this.weekendArrivals = 80;
         this.nightReductionRate = 3;
 
         this.enterSpeed = 3;
@@ -187,13 +193,27 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     public int getNumCars(String type) {
-        return 9;
+        if (type.equalsIgnoreCase("enterq")) {
+            return entranceQCounter;
+        }
+        else if (type.equalsIgnoreCase("parked")) {
+            return parkedCounter;
+        }
+        else if (type.equalsIgnoreCase("payq")) {
+            return paymentQCounter;
+        }
+        else if (type.equalsIgnoreCase("exitq")) {
+            return exitQCounter;
+        }
+        else {
+            return 0;
+        }
     }
 
     public String getTime() {
         String daystr;
-        String hourstr = "";
-        String minstr = "";
+        String hourstr;
+        String minstr;
         switch (day) {
             case 0:
                 daystr = "Monday";
@@ -219,19 +239,21 @@ public class Model extends AbstractModel implements Runnable {
             default:
                 daystr = "Unknown";
         }
-        
-        if(hour<10){
-            hourstr = "0"+((Integer)hour).toString();
-        }else{
-            hourstr = ""+hour;
+
+        if (hour < 10) {
+            hourstr = "0" + ((Integer) hour).toString();
         }
-        
-        if(minute<10){
-            minstr = "0"+((Integer)minute).toString();
-        }else{
-            minstr = ""+minute;
+        else {
+            hourstr = "" + hour;
         }
-        
+
+        if (minute < 10) {
+            minstr = "0" + ((Integer) minute).toString();
+        }
+        else {
+            minstr = "" + minute;
+        }
+
         return daystr + ". " + hourstr + ":" + minstr;
     }
 
@@ -267,6 +289,7 @@ public class Model extends AbstractModel implements Runnable {
 //    public void setTicks(int ticks) {
 //        this.ticks = ticks;
 //    }
+//
     private Car createNewCar() {
         return new AdHocCar();
     }
@@ -382,6 +405,7 @@ public class Model extends AbstractModel implements Runnable {
         for (int i = 0; i < numberOfCarsPerMinute; i++) {
             Car car = createNewCar();
             entranceCarQueue.addCar(car);
+            entranceQCounter++;
         }
 
         // Remove car from the front of the queue and assign to a parking space.
@@ -390,7 +414,8 @@ public class Model extends AbstractModel implements Runnable {
             if (car == null) {
                 break;
             }
-
+            entranceQCounter--;
+            parkedCounter++;
             putCarInPark(car);
         }
 
@@ -403,11 +428,14 @@ public class Model extends AbstractModel implements Runnable {
             if (car == null) {
                 break;
             }
+            parkedCounter--;
             if (car instanceof Passholders) {
                 exitCarQueue.addCar(car);
+                exitQCounter++;
             }
             else {
                 paymentCarQueue.addCar(car);
+                paymentQCounter++;
                 car.setIsPaying(true);
             }
         }
@@ -418,9 +446,10 @@ public class Model extends AbstractModel implements Runnable {
             if (car == null) {
                 break;
             }
-            // TODO Handle payment.
+            paymentQCounter--;
             grid.removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
+            exitQCounter++;
         }
 
         // Let cars leave.
@@ -429,6 +458,7 @@ public class Model extends AbstractModel implements Runnable {
             if (car == null) {
                 break;
             }
+            exitQCounter--;
             // Bye!
         }
 
