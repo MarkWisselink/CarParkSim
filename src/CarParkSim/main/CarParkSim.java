@@ -24,7 +24,7 @@ public class CarParkSim {
     public CarParkSim(String[] args) {
 		model=new Model();
                 carparkView = new CarParkView(model);
-                infoView = new GuiRobert(model);
+                infoView = new InfoView(model);
 		model.addView(carparkView);
                 model.addView(infoView);
 		controller=new Controller(model);
