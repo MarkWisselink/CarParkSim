@@ -17,10 +17,11 @@ public class Controller extends AbstractController implements ActionListener {
      *
      * @param model the model this controller controls
      */
+
     public Controller(Model model) {
         super(model);
 
-        setSize(450, 50);
+        setSize(450, 100);
         start = new JButton("Start");
         start.addActionListener(this);
         stop = new JButton("Stop");
@@ -29,9 +30,8 @@ public class Controller extends AbstractController implements ActionListener {
         this.setLayout(null);
         add(start);
         add(stop);
-        start.setBounds(229, 10, 70, 30);
-        stop.setBounds(319, 10, 70, 30);
-
+        start.setBounds(300, 35, 70, 30);
+        stop.setBounds(400, 35, 70, 30);
         setVisible(true);
     }
 

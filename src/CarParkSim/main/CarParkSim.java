@@ -23,16 +23,15 @@ public class CarParkSim {
     public CarParkSim(String[] args) {
 		model=new Model();
                 carparkView = new CarParkView(model);
-                model.addView(carparkView);
+		model.addView(carparkView);
 		controller=new Controller(model);
 		screen=new JFrame("Car Park Simulator");
-		screen.setSize(450, 450);
-		//screen.setResizable(false);
+		screen.setSize(800, 500);
 		screen.setLayout(null);
 		screen.getContentPane().add(carparkView);
 		screen.getContentPane().add(controller);
-		carparkView.setBounds(0, 0, 200, 370);
-		controller.setBounds(0, 210, 450, 50);
+		carparkView.setBounds(0, 0, 300, 370);
+		controller.setBounds(0, 370, 800, 130);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		screen.setVisible(true);
 	}
