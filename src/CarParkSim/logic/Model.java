@@ -179,7 +179,7 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
-    public int getNumParkingPlaces() {
+    public int getNumParkingPlaces(String query) {
         return rows * places * floors;
     }
 

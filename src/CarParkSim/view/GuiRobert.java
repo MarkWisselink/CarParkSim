@@ -43,25 +43,27 @@ public class GuiRobert extends AbstractView {
     @Override
     public void updateView() {
         //tekstvelden updaten
-        fieldNumCarsEntering.setText("Number of cars in entrance queue " + model.getNumCars("enterq") + ".");
-        
-        fieldNumCarsParked.setText("Number of cars parked " + model.getNumCars("parked") + ".");
-        
-        fieldNumCarsPaying.setText("Number of cars in payment queue " + model.getNumCars("payq") + ".");
-        
-        fieldNumCarsExiting.setText("Number of cars in exit queue " + model.getNumCars("exitq") + ".");
-        
-        fieldNumFloors.setText("Total number of parking spots " + model.getNumParkingPlaces() + " (" + (model.getNumParkingPlaces()-model.getNumCars("parked")) + "spots free).");
-        
+        fieldNumCarsEntering.setText("Number of cars in entrance queue: " + model.getNumCars("enterq"));
+
+        fieldNumCarsParked.setText("Number of cars parked: " + model.getNumCars("parked"));
+
+        fieldNumCarsPaying.setText("Number of cars in payment queue: " + model.getNumCars("payq"));
+
+        fieldNumCarsExiting.setText("Number of cars in exit queue: " + model.getNumCars("exitq"));
+
+        fieldNumFloors.setText("Total number of parking spots: " + model.getNumParkingPlaces("taken") + " (" + model.getNumParkingPlaces("free") + "spots free).");
+
         fieldTime.setText("Time :" + model.getTime() + ".");
 
-        this.add(fieldNumCarsEntering);
-        this.add(fieldNumCarsParked);
-        this.add(fieldNumCarsPaying);
-        this.add(fieldNumCarsExiting);
-        this.add(fieldNumFloors);
-        this.add(fieldTime);
+        add(fieldNumCarsEntering);
+        add(fieldNumCarsParked);
+        add(fieldNumCarsPaying);
+        add(fieldNumCarsExiting);
+        add(fieldNumFloors);
+        add(fieldTime);
         //Alle releveante info ophalen en die in de tekst velden stoppen. 
+        
+	validate();
         repaint();
     }
 
