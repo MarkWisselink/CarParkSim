@@ -12,14 +12,14 @@ public class BadParkerCar extends Car {
         
     }
     
-    /**
-     *
-     * @return returns location object
-     */
-    @Override
-    public Location getLocation() {
-        return location;
-    }
+//    /**
+//     *
+//     * @return returns location object
+//     */
+//    @Override
+//    public Location getLocation() {
+//        return location;
+//    }
     
     /**
      *
@@ -29,14 +29,14 @@ public class BadParkerCar extends Car {
         return loc2;
     }
 
-    /**
-     *
-     * @param location location object of the car
-     */
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+//    /**
+//     *
+//     * @param location location object of the car
+//     */
+//    @Override
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
     
     /**
      *
