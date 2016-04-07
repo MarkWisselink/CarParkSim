@@ -2,7 +2,11 @@ package CarParkSim.controller;
 
 import javax.swing.*;
 import CarParkSim.logic.*;
+
+import java.awt.*;
 import java.awt.event.*;
+
+import static java.lang.Integer.parseInt;
 
 /**
  *
@@ -73,7 +77,20 @@ public class Controller extends AbstractController implements ActionListener {
         }
 
         if (e.getSource() == input) {
-            //TODO DINGEN
+            JTextField floor = new JTextField();
+            JTextField row = new JTextField();
+            JTextField place = new JTextField();
+            Object[] message = {
+                    "Floors:", floor,
+                    "Rows:", row,
+                    "Places:", place
+            };
+
+            JOptionPane.showConfirmDialog(null, message, "Edit input", JOptionPane.OK_CANCEL_OPTION);
+            model.setNumFloors(parseInt(floor.getText()));
+            model.setNumRows(parseInt(row.getText()));
+            model.setNumPlaces(parseInt(place.getText()));
+        }
         }
     }
-}
+
