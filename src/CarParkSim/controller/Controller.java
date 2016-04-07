@@ -12,6 +12,9 @@ public class Controller extends AbstractController implements ActionListener {
 
     private JButton start;
     private JButton stop;
+    private JButton faster;
+    private JButton slower;
+    private JButton input;
 
     /**
      *
@@ -22,16 +25,28 @@ public class Controller extends AbstractController implements ActionListener {
         super(model);
 
         setSize(450, 100);
+        input = new JButton("Input");
+        input.addActionListener(this);
+        faster = new JButton("Faster");
+        faster.addActionListener(this);
+        slower = new JButton("Slower");
+        slower.addActionListener(this);
         start = new JButton("Start");
         start.addActionListener(this);
         stop = new JButton("Stop");
         stop.addActionListener(this);
 
         this.setLayout(null);
+        add(slower);
+        add(faster);
         add(start);
         add(stop);
-        start.setBounds(300, 35, 70, 30);
-        stop.setBounds(400, 35, 70, 30);
+        add(input);
+        start.setBounds(100, 35, 90, 30);
+        stop.setBounds(200, 35, 90, 30);
+        faster.setBounds(330, 35, 90, 30);
+        slower.setBounds(430, 35, 90, 30);
+        input.setBounds(570, 35, 90, 30);
         setVisible(true);
     }
 
@@ -47,6 +62,18 @@ public class Controller extends AbstractController implements ActionListener {
 
         if (e.getSource() == stop) {
             model.stop();
+        }
+
+        if (e.getSource() == faster) {
+            model.speedUp();
+        }
+
+        if (e.getSource() == slower) {
+            model.slowDown();
+        }
+
+        if (e.getSource() == input) {
+            //TODO DINGEN
         }
     }
 }
