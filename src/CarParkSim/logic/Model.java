@@ -180,6 +180,9 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     public int getNumParkingPlaces(String query) {
+        if (query.equals("free")) {
+            return ((rows * places * floors)-getNumCars("parked"));
+        }
         return rows * places * floors;
     }
 
@@ -223,7 +226,6 @@ public class Model extends AbstractModel implements Runnable {
 //    public void setTicks(int ticks) {
 //        this.ticks = ticks;
 //    }
-
     private Car createNewCar() {
         return new AdHocCar();
     }
