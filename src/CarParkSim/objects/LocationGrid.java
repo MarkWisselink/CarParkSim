@@ -19,8 +19,8 @@ public class LocationGrid {
      */
     public LocationGrid(Model model) {
         this.model = model;
-        stateMap = new HashMap<String, Integer>();
-        carMap = new HashMap<String, Car>();
+        stateMap = new HashMap<>();
+        carMap = new HashMap<>();
     }
 
     /**

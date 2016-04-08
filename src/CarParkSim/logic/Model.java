@@ -28,7 +28,6 @@ public class Model extends AbstractModel implements Runnable {
     private int rows;
     private int places;
 
-
     private int tickPause = 100;
 
     private int weekDayArrivals; // average number of arriving cars per hour on a weekday

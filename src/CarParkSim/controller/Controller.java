@@ -3,11 +3,11 @@ package CarParkSim.controller;
 import javax.swing.*;
 import CarParkSim.logic.*;
 
-import java.awt.*;
+//import java.awt.*;
 import java.awt.event.*;
 
 import static java.lang.Integer.parseInt;
-import static java.lang.System.exit;
+//import static java.lang.System.exit;
 
 /**
  *
@@ -41,7 +41,7 @@ public class Controller extends AbstractController implements ActionListener {
         stop = new JButton("Stop");
         stop.addActionListener(this);
 
-        this.setLayout(null);
+        setLayout(null);
         add(slower);
         add(faster);
         add(start);
@@ -105,9 +105,6 @@ public class Controller extends AbstractController implements ActionListener {
                     model.setNumPlaces(parseInt(place.getText()));
                 }
 
-            }
-            else {
-                return;
             }
         }
     }
