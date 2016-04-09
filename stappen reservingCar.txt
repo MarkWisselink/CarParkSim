@@ -1,0 +1,8 @@
+stapsgewijs als een klant het reservering proces begint: 
+- check of er een plek vrij is, zo niet dan wordt hij verwijderd
+- betaling wordt opgeteld bij de rest
+- het aantal uur dat de plek gereserveerd is wordt random gegenereerd (enkele uren)
+- het moment dat de auto daadwerkelijk aankomt wordt random gegenereerd
+- bij aankomst sluit de auto zich achteraan de rij
+- klant blijft tot einde reservering staan
+- klant slaat de betalingen rij over, en vertrekt direct
