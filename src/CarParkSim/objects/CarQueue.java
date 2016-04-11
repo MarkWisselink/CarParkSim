@@ -9,7 +9,7 @@ import java.util.Queue;
  * @author Nienke's boys
  */
 public class CarQueue {
-    private Queue<Car> queue = new LinkedList<>();
+    protected  Queue<Car> queue = new LinkedList<>();
 
     /**
      *
