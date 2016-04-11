@@ -26,5 +26,9 @@ public class CarQueue {
     public Car removeCar() {
         return queue.poll();
     }
+    
+    public int size(){
+        return queue.size();
+    }
 
 }

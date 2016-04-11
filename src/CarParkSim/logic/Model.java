@@ -66,7 +66,7 @@ public class Model extends AbstractModel implements Runnable {
         this.paymentSpeed = 6;
         this.exitSpeedMult = 4;
         this.gateSpeed = 1;
-        this.numberOfGates = 2;
+        this.numberOfGates = 1;
     }
 
     /**
@@ -339,7 +339,7 @@ public class Model extends AbstractModel implements Runnable {
             ReservingCar car = new ReservingCar();
             car.setLocation(freeLocation);
             car.setMinutesLeft(generateStayMinutes());
-            int minutesTillArrived = (int)(random.nextFloat() * 60 *3);
+            int minutesTillArrived = (int) (random.nextFloat() * 60 * 3);
             car.setMinutesTillArrived(minutesTillArrived);
             grid.setCarAt(freeLocation, car);
             counterIncrease("reserved");
@@ -390,6 +390,26 @@ public class Model extends AbstractModel implements Runnable {
             stayMinutes += (int) (random.nextFloat() * 1.5 * 60);
         }
         return stayMinutes;
+    }
+
+    private HashMap<String, Integer> processGateState() {
+        HashMap<String, Integer> ret = new HashMap<>();
+        int enterQSize = entranceCarQueue.size();
+        int exitQSize = exitCarQueue.size();
+        int enterGates = 0;
+        int exitGates = 0;
+        for (int i = 0; i < numberOfGates; i++) {
+            if (0 < enterQSize && enterQSize >= exitQSize) {// enter queue length is between 0 and the exit queue length
+                enterGates++;
+                enterQSize -= gateSpeed * exitSpeedMult;
+            } else if (0 < exitQSize && exitQSize >= enterQSize) { // exit queue length is between 0 and the enter queue length
+                exitGates++;
+                exitQSize -= gateSpeed * enterSpeedMult;
+            }
+        }
+        ret.put("enter", enterGates);
+        ret.put("exit", exitGates);
+        return ret;
     }
 
     /**
@@ -508,20 +528,6 @@ public class Model extends AbstractModel implements Runnable {
                 this.counterIncrease("entranceQ");
             }
         }
-        //get gate 
-
-        // Remove car from the front of the queue and assign to a parking space.
-        for (int i = 0; i < (int) (gateSpeed * enterSpeedMult); i++) {
-            Car car = entranceCarQueue.removeCar();
-            if (car == null) {
-                break;
-            }
-            if (putCarInPark(car)) {
-                this.counterDecrease("entranceQ");
-                this.counterIncrease("parkedCurrent");
-                this.counterIncrease("parkedTotal");
-            }
-        }
 
         // Perform car park tick.
         tickCars();
@@ -561,8 +567,30 @@ public class Model extends AbstractModel implements Runnable {
             this.counterIncrease("exitQ");
         }
 
+        //process car queues
+        //
+        //get gate states
+        HashMap<String, Integer> gates = new HashMap<>();
+        gates = processGateState();
+
+        int entranceGates = gates.get("enter");
+        int exitGates = gates.get("exit");
+
+        // Remove car from the front of the queue and assign to a parking space.
+        for (int i = 0; i < (int) (gateSpeed * enterSpeedMult * entranceGates); i++) {
+            Car car = entranceCarQueue.removeCar();
+            if (car == null) {
+                break;
+            }
+            if (putCarInPark(car)) {
+                this.counterDecrease("entranceQ");
+                this.counterIncrease("parkedCurrent");
+                this.counterIncrease("parkedTotal");
+            }
+        }
+
         // Let cars leave.
-        for (int i = 0; i < (int) (gateSpeed * exitSpeedMult); i++) {
+        for (int i = 0; i < (int) (gateSpeed * exitSpeedMult * exitGates); i++) {
             Car car = exitCarQueue.removeCar();
             if (car == null) {
                 break;
