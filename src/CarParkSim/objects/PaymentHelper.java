@@ -5,9 +5,9 @@ package CarParkSim.objects;
  */
 public class PaymentHelper {
     private double quarterRate = 0.5; // default number. Method ChangeHourlyRate to change this number.
-    private double revenueToday = 0;
+    private double revenueToday;
     private double reservationStartAmount = 3;
-
+    private double revenueTotal;
 
     // get rate per hour
     public double getQuarterRate() {
@@ -39,6 +39,7 @@ public class PaymentHelper {
 
         if (car instanceof ReservingCar) {
             moneyPayable = reservationStartAmount + (quarterAmount * quarterRate);
+            revenueTotal += moneyPayable;
             revenueToday += moneyPayable;
             return moneyPayable;
 
@@ -46,6 +47,7 @@ public class PaymentHelper {
         else {
 
             moneyPayable = quarterAmount * quarterRate;
+            revenueTotal += moneyPayable;
             revenueToday += moneyPayable;
             return moneyPayable;
         }
