@@ -69,6 +69,10 @@ public class PaymentQueue extends CarQueue {
     public double getRevenueToday(){
         return revenueToday;
     }
+    
+    public Car remove(){
+        
+    }
 
 }
 
