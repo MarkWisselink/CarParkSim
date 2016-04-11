@@ -1,15 +1,14 @@
 package CarParkSim.objects;
 
-import old.*;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  *
  * @author Nienke's boys
  */
 public class CarQueue {
-    protected  Queue<Car> queue = new LinkedList<>();
+
+    protected Queue<Car> queue = new LinkedList<>();
 
     /**
      *
