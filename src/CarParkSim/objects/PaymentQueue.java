@@ -39,7 +39,7 @@ public class PaymentQueue extends CarQueue {
     }
 
     // calculates the amount of money that has to be paid to the Parking Garage
-    public double paymentAmount(Car car) {
+    private double paymentAmount(Car car) {
         double moneyPayable;
         int quarterAmount = (int) Math.ceil(car.getParkedTime() / 15);
 
@@ -48,7 +48,8 @@ public class PaymentQueue extends CarQueue {
             revenueToday += moneyPayable;
             return moneyPayable;
 
-        } else {
+        }
+        else {
 
             moneyPayable = quarterAmount * quarterRate;
             revenueToday += moneyPayable;
@@ -61,14 +62,17 @@ public class PaymentQueue extends CarQueue {
     public double getRevenueToday() {
         return revenueToday;
     }
-    
-    public Car remove(){
-        
+
+    private void procesCarPayment(Car car) {
+        paymentAmount(car);
     }
 
+    @Override
     public Car removeCar() {
         Car car = queue.poll();
-        paymentAmount(car);
+        if (car != null) {
+            procesCarPayment(car);
+        }
 
         return car;
     }

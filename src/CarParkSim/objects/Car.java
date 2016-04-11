@@ -8,8 +8,8 @@ package CarParkSim.objects;
 public abstract class Car {
 
     protected Location location;
-    private int minutesLeft;
-    private float minutesParked = 0;
+    protected int minutesLeft;
+    protected float minutesParked = 0;
     private boolean isPaying;
 
     /**
