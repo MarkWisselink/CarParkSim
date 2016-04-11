@@ -23,6 +23,8 @@ public class PaymentQueue extends CarQueue {
         return quarterRate;
     }
 
+
+
     // get the starting payment for reservations
     public double getReservationStartAmount() {
         return reservationStartAmount;
@@ -37,6 +39,8 @@ public class PaymentQueue extends CarQueue {
     public void setQuarterRate(double RatePerQuarter) {
         quarterRate = RatePerQuarter;
     }
+
+
 
     // calculates the amount of money that has to be paid to the Parking Garage
     private double paymentAmount(Car car) {
@@ -57,6 +61,22 @@ public class PaymentQueue extends CarQueue {
         }
 
     }
+
+    private double resetRevenueToday(){
+        revenueToday = 0;
+
+        return revenueToday;
+    }
+
+   /** public void getExpectedRevenue{
+        int i = 0;
+        for (car: Car)
+        {
+
+        }
+
+    }
+    */
 
     // returns the total revenue of today until now
     public double getRevenueToday() {
