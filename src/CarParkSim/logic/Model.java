@@ -2,6 +2,7 @@ package CarParkSim.logic;
 
 import CarParkSim.objects.*;
 import java.util.*;
+import java.lang.reflect.Field;
 
 /**
  *
@@ -65,6 +66,30 @@ public class Model extends AbstractModel implements Runnable {
         this.exitSpeedMult = 4;
         this.gateSpeed = 1;
         this.numberOfGates = 2;
+    }
+
+    /**
+     * HEAVY WIP! proof of concept only currently
+     */
+    public void changeSetting() {
+        Class<?> c = this.getClass();
+        try {
+            System.out.println("floors-before:" + floors);
+            Field pausefield = c.getDeclaredField("tickPause");
+            Field floorsfield = c.getDeclaredField("floors");
+            pausefield.set(this, 20);
+            floorsfield.set(this, 1);
+            System.out.println("floors after:" + floors);
+        }
+        catch (NoSuchFieldException x) {
+            System.out.println("no such field");
+            //x.printStackTrace();
+        }
+        catch (IllegalAccessException x) {
+            System.out.println("illegal access");
+            //x.printStackTrace();
+        }
+
     }
 
     /**
@@ -157,7 +182,7 @@ public class Model extends AbstractModel implements Runnable {
 
     public int getNumParkingPlaces(String query) {
         if (query.equals("free")) {
-            return ((rows * places * floors) - getNumCars("parked"));
+            return (((rows * places * floors) - getNumCars("parked")) - getStat("reserved"));
         }
         return rows * places * floors;
     }
@@ -312,8 +337,17 @@ public class Model extends AbstractModel implements Runnable {
             return new BadParkerCar();
         }
         else if (rand.nextDouble() <= RESERVING_CAR_CREATION_PROBABILITY) {
+            Location freeLocation = grid.getFirstFreeLocation();
+            if (freeLocation == null) {//no free spot => no reservation possible
+                counterIncrease("totalAdHocCar");
+                return new AdHocCar();
+            }
             counterIncrease("totalReservingCar");
-            return new ReservingCar();
+            ReservingCar car = new ReservingCar();
+            car.setLocation(freeLocation);
+            grid.setCarAt(freeLocation, car);
+            this.counterIncrease("reserved");
+            return car;
         }
         else {
             counterIncrease("totalAdHocCar");
@@ -321,11 +355,11 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
-    private void putCarInPark(Car car) {
+    private boolean putCarInPark(Car car) {
         Random random = new Random();
         Location freeLocation = grid.getFirstFreeLocation();
         if (freeLocation == null) {
-            return;
+            return false;
         }
         if (car instanceof BadParkerCar) {
             Location secondLoc = grid.getSecondLocation();
@@ -334,16 +368,25 @@ public class Model extends AbstractModel implements Runnable {
                 grid.setLocationState(secondLoc, 12);
             }
         }
+        else if (car instanceof ReservingCar) {
+            grid.setLocationState(car.getLocation(), 4);
+            return true;
+        }
         /*else if (car instanceof AdHocCar) {
 
         } else if (car instanceof Passholders) {
 
-        } else if (car instanceof ReservingCar) {
-
-        }*/
+        } */
 
         grid.setCarAt(freeLocation, car);
         car.setLocation(freeLocation);
+        int stayMinutes = generateStayMinutes();
+        car.setMinutesLeft(stayMinutes);
+        return true;
+    }
+
+    private int generateStayMinutes() {
+        Random random = new Random();
         int stayMinutes;
         if (night) {
             stayMinutes = 8 * 60 + (int) (random.nextFloat() * 2 * 60);
@@ -354,7 +397,7 @@ public class Model extends AbstractModel implements Runnable {
         if (weekend) {
             stayMinutes += (int) (random.nextFloat() * 1.5 * 60);
         }
-        car.setMinutesLeft(stayMinutes);
+        return stayMinutes;
     }
 
     /**
@@ -369,9 +412,11 @@ public class Model extends AbstractModel implements Runnable {
                     if (car != null) {
                         car.tick();
                         if (car instanceof ReservingCar) {
-                            if (((ReservingCar) car).getMinutesTillArrived() <= 0) {
-                                if (grid.getLocationState(location) == 14) {
-                                    entranceCarQueue.addCar(car);
+                            ReservingCar reservingCar = (ReservingCar) car;
+                            if (reservingCar.getMinutesTillArrived() <= 0) {
+                                if (grid.getLocationState(location) == 14 && !reservingCar.getArrived()) {
+                                    reservingCar.setArrived(true);
+                                    entranceCarQueue.addCar(reservingCar);
                                     this.counterIncrease("entranceQ");
                                 }
                             }
@@ -475,17 +520,18 @@ public class Model extends AbstractModel implements Runnable {
             }
         }
         //get gate 
-        
+
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < (int) (gateSpeed * enterSpeedMult); i++) {
             Car car = entranceCarQueue.removeCar();
             if (car == null) {
                 break;
             }
-            this.counterDecrease("entranceQ");
-            this.counterIncrease("parkedCurrent");
-            this.counterIncrease("parkedTotal");
-            putCarInPark(car);
+            if (putCarInPark(car)) {
+                this.counterDecrease("entranceQ");
+                this.counterIncrease("parkedCurrent");
+                this.counterIncrease("parkedTotal");
+            }
         }
 
         // Perform car park tick.

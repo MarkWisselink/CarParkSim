@@ -33,6 +33,7 @@ public class LocationGrid {
                 for (int place = 0; place < model.getNumPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     if (getLocationState(location) == 0) {
+                        
                         return location;
                     }
                 }
@@ -114,7 +115,7 @@ public class LocationGrid {
             state = 3;
         }
         else if (car instanceof ReservingCar) {
-            state = 4;
+            state = 14; //not yet parked
         }
         setLocationState(loc, state);
         carMap.put(loc.toString(), car);
