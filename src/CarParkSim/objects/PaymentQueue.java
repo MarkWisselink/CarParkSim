@@ -70,12 +70,12 @@ public class PaymentQueue extends CarQueue {
         return revenueToday;
     }
 
-    public Car removeCar(){
-        Car car = queue.poll();
-        paymentAmount(car);
+   // public Car removeCar(){
+     //   Car car = queue.poll();
+       // paymentAmount(car);
 
-        return car;
-    }
+//        return car;
+  //  }
 }
 
 
