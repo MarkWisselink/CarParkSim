@@ -9,7 +9,7 @@ public abstract class Car {
 
     protected Location location;
     protected int minutesLeft;
-    protected float minutesParked = 0;
+    protected int minutesParked = 0;
     private boolean isPaying;
 
     /**
@@ -51,7 +51,7 @@ public abstract class Car {
         this.minutesLeft = minutesLeft;
     }
     
-    public float getParkedTime(){
+    public int getParkedTime(){
         return minutesParked;
     }
 
