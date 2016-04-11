@@ -13,15 +13,15 @@ public class PaymentQueue extends CarQueue {
     }
 
 
-    private void procesCarPayment(Car car) {
-        helper.paymentAmount(car);
+    private void processCarPayment(Car car) {
+        helper.paymentAmount(car, false);
     }
 
     @Override
     public Car removeCar() {
         Car car = queue.poll();
         if (car != null) {
-            procesCarPayment(car);
+            processCarPayment(car);
         }
 
         return car;

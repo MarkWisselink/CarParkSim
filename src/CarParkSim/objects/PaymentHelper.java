@@ -33,36 +33,50 @@ public class PaymentHelper {
 
 
     // calculates the amount of money that has to be paid to the Parking Garage
-    public double paymentAmount(Car car) {
+    public double paymentAmount(Car car, boolean expected) {
         double moneyPayable;
-        int quarterAmount = (int) Math.ceil(car.getParkedTime() / 15);
+        int minutes = car.getMinutesLeft();
+        if(minutes < 0){
+            minutes = car.getParkedTime();
+        }else{
+            minutes += car.getParkedTime();
+        }
+        int quarterAmount = (int) Math.ceil(minutes / 15);
 
         if (car instanceof ReservingCar) {
             moneyPayable = reservationStartAmount + (quarterAmount * quarterRate);
+            if(!expected){
             revenueTotal += moneyPayable;
             revenueToday += moneyPayable;
+            }
             return moneyPayable;
 
         }
         else {
 
             moneyPayable = quarterAmount * quarterRate;
-            revenueTotal += moneyPayable;
-            revenueToday += moneyPayable;
+            if(!expected) {
+                revenueTotal += moneyPayable;
+                revenueToday += moneyPayable;
+            }
             return moneyPayable;
         }
 
     }
 
-    private void resetRevenueToday(){
+
+
+
+    public void resetRevenueToday(){
         revenueToday = 0;
     }
-
 
 
     // returns the total revenue of today until now
     public double getRevenueToday() {
         return revenueToday;
     }
+
+    public double getRevenueTotal() { return revenueTotal; }
 
 }
