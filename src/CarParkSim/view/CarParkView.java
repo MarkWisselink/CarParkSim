@@ -71,7 +71,7 @@ public class CarParkView extends AbstractView {
                         case 0: color = Color.WHITE;
                         break;
                         
-                        case 1: color = Color.RED;
+                        case 1: color = Color.YELLOW;
                         break;
                         
                         case 2: color = Color.DARK_GRAY;
@@ -83,7 +83,10 @@ public class CarParkView extends AbstractView {
                         case 3: color = Color.BLUE;
                         break;
                         
-                        case 4: color = Color.YELLOW;
+                        case 4: color = Color.RED;
+                        break;
+                        
+                        case 14: color = Color.PINK;
                         break;
                         
                         default: color = Color.MAGENTA;
