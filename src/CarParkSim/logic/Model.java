@@ -12,9 +12,10 @@ import java.lang.reflect.Field;
 public class Model extends AbstractModel implements Runnable {
 
     private boolean run = false;
+    private PaymentHelper helper = new PaymentHelper();
 
     private CarQueue entranceCarQueue = new CarQueue();
-    private PaymentQueue paymentCarQueue = new PaymentQueue();
+    private PaymentQueue paymentCarQueue = new PaymentQueue(helper);
     private CarQueue exitCarQueue = new CarQueue();
     private LocationGrid grid = new LocationGrid(this);
     private HashMap<String, Integer> stats = new HashMap<>();
