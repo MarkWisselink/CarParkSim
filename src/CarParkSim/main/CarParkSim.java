@@ -28,8 +28,8 @@ public class CarParkSim {
 		model=new Model();
                 carparkView = new CarParkView(model);
                 infoView = new InfoView(model);
-		        chartView = new ChartView(model, "Piechart occupation");
-                barView = new BarView(model, "Barview occupation");
+		        chartView = new ChartView(model);
+                barView = new BarView(model);
 
 		    model.addView(carparkView);
             model.addView(infoView);
