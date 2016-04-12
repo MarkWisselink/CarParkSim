@@ -32,7 +32,7 @@ public class BarView extends AbstractView{
         super(model);
         this.chartTitle = chartTitle;
         dataset = new DefaultCategoryDataset( );
-        barChart = ChartFactory.createBarChart(chartTitle, "Bezetting" , "Aantal", createDataset());
+        barChart = ChartFactory.createBarChart(chartTitle, "Occupation" , "Amount", createDataset());
 
         chartPanel =  new ChartPanel( barChart);
         barChart.addChangeListener(chartPanel);

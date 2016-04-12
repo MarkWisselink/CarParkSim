@@ -10,6 +10,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
+
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
@@ -34,7 +35,7 @@ public class ChartView extends AbstractView{
         super(model);
         this.chartTitle = chartTitle;
         dataset = new DefaultPieDataset( );
-        pieChart = ChartFactory.createPieChart("Yolo", createDataset());
+        pieChart = ChartFactory.createPieChart("Piechart occupation", createDataset());
 
         chartPanel =  new ChartPanel( pieChart);
         pieChart.addChangeListener(chartPanel);
@@ -50,7 +51,7 @@ public class ChartView extends AbstractView{
     }
 
     private void updateDataset(){
-        dataset.clear();
+      //  dataset.clear();
         dataset.setValue("free spaces",(model.getNumParkingPlaces("free")));
         dataset.setValue("passholder", (model.getStat("currentPassholders")));
         dataset.setValue("reservations", (model.getStat("currentReservingCar")));
