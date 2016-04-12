@@ -1,9 +1,13 @@
 package CarParkSim.controller;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import CarParkSim.logic.*;
 
 //import java.awt.*;
+import java.awt.*;
 import java.awt.event.*;
 
 import static java.lang.Integer.parseInt;
@@ -78,35 +82,91 @@ public class Controller extends AbstractController implements ActionListener {
         }
 
         if (e.getSource() == input) {
-            JTextField floor = new JTextField();
-            JTextField row = new JTextField();
-            JTextField place = new JTextField();
-            Object[] message = {
-                    "Floors:", floor,
-                    "Rows:", row,
-                    "Places:", place
-            };
+            JFrame frame = new JFrame("Edit input");
+            frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+            JPanel mainframe = new JPanel();
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Edit input", JOptionPane.OK_CANCEL_OPTION);
-            if (option == JOptionPane.OK_OPTION) {
-                if (floor.getText().equals("")) {
-                }
-                else {
-                    model.setNumFloors(parseInt(floor.getText()));
-                }
-                if (row.getText().equals("")) {
-                }
-                else {
-                    model.setNumRows(parseInt(row.getText()));
-                }
-                if (place.getText().equals("")) {
-                }
-                else {
-                    model.setNumPlaces(parseInt(place.getText()));
-                }
+            // Labels
+            JLabel floorlabel = new JLabel("Floors:");
+            JLabel rowlabel = new JLabel("Rows:");
+            JLabel placelabel = new JLabel("Places:");
+            JLabel gatelabel = new JLabel("Gates:");
 
-            }
+            // TextFields
+            JTextField floortext = new JTextField("3");
+            JTextField rowtext = new JTextField("6");
+            JTextField placetext = new JTextField("30");
+            JTextField gatetext = new JTextField("2");
+
+            // Sliders
+            JSlider floor = new JSlider(1,3,3);
+            floor.setMajorTickSpacing(1);
+            floor.setPaintTicks(true);
+            floor.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    model.setNumFloors(floor.getValue());
+                    floortext.setText("" + floor.getValue());
+                }
+            });
+
+            JSlider row = new JSlider(1,6,6);
+            row.setMajorTickSpacing(1);
+            row.setPaintTicks(true);
+            row.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    model.setNumRows(row.getValue());
+                    rowtext.setText("" + row.getValue());
+                }
+            });
+
+            JSlider place = new JSlider(1,30,30);
+            place.setMajorTickSpacing(10);
+            place.setMinorTickSpacing(1);
+            place.setPaintTicks(true);
+            place.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    model.setNumPlaces(place.getValue());
+                    placetext.setText("" + place.getValue());
+                }
+            });
+
+            JSlider gate = new JSlider(1,3,2);
+            gate.setMajorTickSpacing(1);
+            gate.setPaintTicks(true);
+            gate.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    model.setNumberOfGates(gate.getValue());
+                    gatetext.setText("" + gate.getValue());
+                }
+            });
+
+            // Add to frame
+            mainframe.add(floorlabel);
+            mainframe.add(floor);
+            mainframe.add(floortext);
+
+            mainframe.add(rowlabel);
+            mainframe.add(row);
+            mainframe.add(rowtext);
+
+            mainframe.add(placelabel);
+            mainframe.add(place);
+            mainframe.add(placetext);
+
+            mainframe.add(gatelabel);
+            mainframe.add(gate);
+            mainframe.add(gatetext);
+
+            // Set frame
+            frame.setContentPane(mainframe);
+            frame.setSize(300, 200);
+            frame.setVisible(true);
         }
     }
 }
+
 
