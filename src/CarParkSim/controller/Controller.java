@@ -20,6 +20,14 @@ public class Controller extends AbstractController implements ActionListener {
     private JButton faster;
     private JButton slower;
     private JButton input;
+    private JSlider floor;
+    private JSlider row;
+    private JSlider place;
+    private JSlider gate;
+    private JTextField floortext;
+    private JTextField rowtext;
+    private JTextField placetext;
+    private JTextField gatetext;
 
     /**
      *
@@ -89,17 +97,17 @@ public class Controller extends AbstractController implements ActionListener {
             JLabel gatelabel = new JLabel("Gates:");
 
             // TextFields
-            JTextField floortext = new JTextField("3");
+            floortext = new JTextField("3");
             floortext.setEditable(false);
-            JTextField rowtext = new JTextField("6");
+            rowtext = new JTextField("6");
             rowtext.setEditable(false);
-            JTextField placetext = new JTextField("30");
+            placetext = new JTextField("30");
             placetext.setEditable(false);
-            JTextField gatetext = new JTextField("2");
+            gatetext = new JTextField("2");
             gatetext.setEditable(false);
 
             // Sliders
-            JSlider floor = new JSlider(1,3,3);
+            floor = new JSlider(1,3,3);
             floor.setMajorTickSpacing(1);
             floor.setPaintTicks(true);
             floor.addChangeListener(new ChangeListener() {
@@ -110,7 +118,7 @@ public class Controller extends AbstractController implements ActionListener {
                 }
             });
 
-            JSlider row = new JSlider(1,6,6);
+            row = new JSlider(1,6,6);
             row.setMajorTickSpacing(1);
             row.setPaintTicks(true);
             row.addChangeListener(new ChangeListener() {
@@ -121,7 +129,7 @@ public class Controller extends AbstractController implements ActionListener {
                 }
             });
 
-            JSlider place = new JSlider(1,30,30);
+            place = new JSlider(1,30,30);
             place.setMajorTickSpacing(10);
             place.setMinorTickSpacing(1);
             place.setPaintTicks(true);
@@ -133,7 +141,7 @@ public class Controller extends AbstractController implements ActionListener {
                 }
             });
 
-            JSlider gate = new JSlider(1,3,2);
+            gate = new JSlider(1,3,2);
             gate.setMajorTickSpacing(1);
             gate.setPaintTicks(true);
             gate.addChangeListener(new ChangeListener() {
