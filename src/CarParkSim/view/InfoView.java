@@ -20,6 +20,15 @@ public class InfoView extends AbstractView {
     private JTextField fieldNumFloors;
     private JTextField fieldTime;
     private JTextField fieldPayment;
+    private JTextField fieldcurrentReservingCar;
+    private JTextField fieldtotalReservingCar;
+    private JTextField fieldcurrentAdHocCar;
+    private JTextField fieldtotalAdHocCar;
+    private JTextField fieldcurrentPassholders;
+    private JTextField fieldtotalPassholders;
+    private JTextField fieldparkedTotal;
+    private JTextField fieldrevenueToday;
+    private JTextField fieldrevenueTotal;
     private JButton statsbutton;
     private JCheckBox checkNumCarsEntering;
     private JCheckBox checkNumCarsParked;
@@ -28,6 +37,15 @@ public class InfoView extends AbstractView {
     private JCheckBox checkNumFloors;
     private JCheckBox checkTime;
     private JCheckBox checkPayment;
+    private JCheckBox checkcurrentReservingCar;
+    private JCheckBox checktotalReservingCar;
+    private JCheckBox checkcurrentAdHocCar;
+    private JCheckBox checktotalAdHoccar;
+    private JCheckBox checkcurrentPassholders;
+    private JCheckBox checktotalPassholders;
+    private JCheckBox checkparkedTotal;
+    private JCheckBox checkrevenueToday;
+    private JCheckBox checkrevenueTotal;
 
     /**
      *
@@ -72,9 +90,40 @@ public class InfoView extends AbstractView {
 
         fieldTime = new JTextField(27);
         fieldTime.setEditable(false);
+        add(fieldTime);
+        fieldTime.setVisible(true);
+        fieldTime.setText("Time: " + model.getTime());
 
         fieldPayment = new JTextField(27);
         fieldPayment.setEditable(false);
+
+        fieldcurrentAdHocCar = new JTextField(27);
+        fieldcurrentAdHocCar.setEditable(false);
+
+        fieldtotalAdHocCar = new JTextField(27);
+        fieldtotalAdHocCar.setEditable(false);
+
+        fieldcurrentPassholders = new JTextField(27);
+        fieldcurrentPassholders.setEditable(false);
+
+        fieldtotalPassholders = new JTextField(27);
+        fieldtotalPassholders.setEditable(false);
+
+        fieldcurrentReservingCar = new JTextField(27);
+        fieldcurrentReservingCar.setEditable(false);
+
+        fieldtotalReservingCar = new JTextField(27);
+        fieldtotalReservingCar.setEditable(false);
+
+        fieldparkedTotal = new JTextField(27);
+        fieldparkedTotal.setEditable(false);
+
+        fieldrevenueToday = new JTextField(27);
+        fieldrevenueToday.setEditable(false);
+
+        fieldrevenueTotal = new JTextField(27);
+        fieldrevenueTotal.setEditable(false);
+
 
     }
 
@@ -84,7 +133,7 @@ public class InfoView extends AbstractView {
         JPanel statspanel = new JPanel();
 
         statsframe.setContentPane(statspanel);
-        statsframe.setSize(250, 270);
+        statsframe.setSize(250, 650);
         statsframe.setVisible(true);
 
         checkNumCarsEntering = new JCheckBox("Show number of cars entering");
@@ -109,11 +158,47 @@ public class InfoView extends AbstractView {
 
         checkTime = new JCheckBox("Show time");
         checkTime.setMnemonic(KeyEvent.VK_C);
-        checkTime.setSelected(false);
+        checkTime.setSelected(true);
 
         checkPayment = new JCheckBox("Show payment check");
         checkPayment.setMnemonic(KeyEvent.VK_C);
         checkPayment.setSelected(false);
+
+        checkcurrentReservingCar = new JCheckBox("Show current reserving cars");
+        checkcurrentReservingCar.setMnemonic(KeyEvent.VK_C);
+        checkcurrentReservingCar.setSelected(false);
+
+        checktotalReservingCar = new JCheckBox("Show total reserving cars");
+        checktotalReservingCar.setMnemonic(KeyEvent.VK_C);
+        checktotalReservingCar.setSelected(false);
+
+        checkcurrentAdHocCar = new JCheckBox("Show current ad hoc cars");
+        checkcurrentAdHocCar.setMnemonic(KeyEvent.VK_C);
+        checkcurrentAdHocCar.setSelected(false);
+
+        checktotalAdHoccar = new JCheckBox("Show total ad hoc cars");
+        checktotalAdHoccar.setMnemonic(KeyEvent.VK_C);
+        checktotalAdHoccar.setSelected(false);
+
+        checkcurrentPassholders = new JCheckBox("Show current passholder cars");
+        checkcurrentPassholders.setMnemonic(KeyEvent.VK_C);
+        checkcurrentPassholders.setSelected(false);
+
+        checktotalPassholders = new JCheckBox("Show total ad hoc cars");
+        checktotalPassholders.setMnemonic(KeyEvent.VK_C);
+        checktotalPassholders.setSelected(false);
+
+        checkparkedTotal = new JCheckBox("Show total parked cars");
+        checkparkedTotal.setMnemonic(KeyEvent.VK_C);
+        checkparkedTotal.setSelected(false);
+
+        checkrevenueToday = new JCheckBox("Show today's revenue");
+        checkrevenueToday.setMnemonic(KeyEvent.VK_C);
+        checkrevenueToday.setSelected(false);
+
+        checkrevenueTotal = new JCheckBox("Show total revenue");
+        checkrevenueTotal.setMnemonic(KeyEvent.VK_C);
+        checkrevenueTotal.setSelected(false);
 
         statspanel.add(checkNumCarsEntering);
         statspanel.add(checkNumCarsParked);
@@ -122,6 +207,15 @@ public class InfoView extends AbstractView {
         statspanel.add(checkNumFloors);
         statspanel.add(checkTime);
         statspanel.add(checkPayment);
+        statspanel.add(checkcurrentAdHocCar);
+        statspanel.add(checktotalAdHoccar);
+        statspanel.add(checkcurrentPassholders);
+        statspanel.add(checktotalPassholders);
+        statspanel.add(checkcurrentReservingCar);
+        statspanel.add(checktotalReservingCar);
+        statspanel.add(checkparkedTotal);
+        statspanel.add(checkrevenueToday);
+        statspanel.add(checkrevenueTotal);
 
         checkNumCarsEntering.addActionListener(new ActionListener() {
             @Override
@@ -201,20 +295,122 @@ public class InfoView extends AbstractView {
             }
         });
 
-        checkPayment.addActionListener(new ActionListener() {
+        checkcurrentReservingCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                add(fieldNumCarsEntering);
-                if (checkPayment.isSelected()) {
-                    add(fieldPayment);
-                    fieldPayment.setVisible(true);
+                if (checkcurrentReservingCar.isSelected()) {
+                    add(fieldcurrentReservingCar);
+                    fieldcurrentReservingCar.setVisible(true);
                 }
                 else {
-                    fieldPayment.setVisible(false);
+                    fieldcurrentReservingCar.setVisible(false);
                 }
             }
         });
 
+        checktotalReservingCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checktotalReservingCar.isSelected()) {
+                    add(fieldtotalReservingCar);
+                    fieldtotalReservingCar.setVisible(true);
+                }
+                else {
+                    fieldtotalReservingCar.setVisible(false);
+                }
+            }
+        });
+
+        checkcurrentAdHocCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkcurrentAdHocCar.isSelected()) {
+                    add(fieldcurrentAdHocCar);
+                    fieldcurrentAdHocCar.setVisible(true);
+                }
+                else {
+                    fieldcurrentAdHocCar.setVisible(false);
+                }
+            }
+        });
+
+        checktotalAdHoccar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checktotalAdHoccar.isSelected()) {
+                    add(fieldtotalAdHocCar);
+                    fieldtotalAdHocCar.setVisible(true);
+                }
+                else {
+                    fieldtotalAdHocCar.setVisible(false);
+                }
+            }
+        });
+
+        checkcurrentPassholders.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkcurrentPassholders.isSelected()) {
+                    add(fieldcurrentPassholders);
+                    fieldcurrentPassholders.setVisible(true);
+                }
+                else {
+                    fieldcurrentPassholders.setVisible(false);
+                }
+            }
+        });
+
+        checktotalPassholders.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checktotalPassholders.isSelected()) {
+                    add(fieldtotalPassholders);
+                    fieldtotalPassholders.setVisible(true);
+                }
+                else {
+                    fieldtotalPassholders.setVisible(false);
+                }
+            }
+        });
+
+        checkparkedTotal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkparkedTotal.isSelected()) {
+                    add(fieldparkedTotal);
+                    fieldparkedTotal.setVisible(true);
+                }
+                else {
+                    fieldparkedTotal.setVisible(false);
+                }
+            }
+        });
+
+        checkrevenueToday.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkrevenueToday.isSelected()) {
+                    add(fieldrevenueToday);
+                    fieldrevenueToday.setVisible(true);
+                }
+                else {
+                    fieldrevenueToday.setVisible(false);
+                }
+            }
+        });
+
+        checkrevenueTotal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkrevenueTotal.isSelected()) {
+                    add(fieldrevenueTotal);
+                    fieldrevenueTotal.setVisible(true);
+                }
+                else {
+                    fieldrevenueTotal.setVisible(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -233,7 +429,23 @@ public class InfoView extends AbstractView {
 
         fieldTime.setText("Time: " + model.getTime());
 
-        fieldPayment.setText("Total revenue " + model.getStat("revenueTotal") + ".");
+        fieldcurrentReservingCar.setText("Number of reserving cars: " + model.getStat("currentReservingCar") + ".");
+
+        fieldtotalReservingCar.setText("Total reserving cars: " + model.getStat("totalReservingCar") + ".");
+
+        fieldcurrentAdHocCar.setText("Number of ad hoc cars: " + model.getStat("currentAdHocCar") + ".");
+
+        fieldtotalAdHocCar.setText("Total ad hoc cars: " + model.getStat("totalAdHocCar") + ".");
+
+        fieldcurrentPassholders.setText("Number of passholder cars: " + model.getStat("currentPassholders") + ".");
+
+        fieldtotalPassholders.setText("Total passholder cars: " + model.getStat("totalPassholders") + ".");
+
+        fieldparkedTotal.setText("Total parked cars: " + model.getStat("parkedTotal") + ".");
+
+        fieldrevenueToday.setText("Today's revenue: " + model.getStat("revenueToday", true) + ".");
+
+        fieldrevenueTotal.setText("Total revenue: " + model.getStat("revenueTotal", true) + ".");
 
         validate();
         repaint();

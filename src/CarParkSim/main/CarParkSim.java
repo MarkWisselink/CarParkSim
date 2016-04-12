@@ -51,7 +51,7 @@ public class CarParkSim {
 		controller.setBounds(0, 370, 800, 130);
 		chartView.setBounds(40,500,560,400);
         barView.setBounds(640, 500, 560, 400);
-		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 screen.setVisible(true);
 	}
 }
