@@ -1,14 +1,25 @@
 package CarParkSim.objects;
 
-
 /**
  *
  * @author Nienke's boys
  */
 public abstract class Car {
 
+    /**
+     * location of this car
+     */
     protected Location location;
+
+    /**
+     * amount of minutes until the car will try leave
+     */
     protected int minutesLeft;
+
+    /**
+     * the amount of minutes the car has parked (used for determining the ticket
+     * price)
+     */
     protected int minutesParked = 0;
     private boolean isPaying;
 
@@ -16,7 +27,7 @@ public abstract class Car {
      * Constructor for objects of class Car
      */
     public Car() {
-        
+
     }
 
     /**
@@ -50,8 +61,12 @@ public abstract class Car {
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
-    
-    public int getParkedTime(){
+
+    /**
+     *
+     * @return int of the minutes that the car has been staying
+     */
+    public int getParkedTime() {
         return minutesParked;
     }
 

@@ -19,22 +19,22 @@ public abstract class AbstractView extends JPanel {
      * @param model the model to be viewed
      */
     public AbstractView(Model model) {
-		this.model=model;
-		//model.addView(this);
-	}
-	
+        this.model = model;
+        //model.addView(this);
+    }
+
     /**
      *
      * @return find out what model this view is using
      */
     public Model getModel() {
-		return model;
-	}
-	
+        return model;
+    }
+
     /**
      * repaint
      */
     public void updateView() {
-		repaint();
-	}
+        repaint();
+    }
 }

@@ -10,14 +10,26 @@ public class ReservingCar extends Car {
     private int minutesTillArrived = 0;
     private int payedTime = 0;
 
+    /**
+     * constructor for a reserving car, this car type needs more work in the
+     * model than a default car
+     */
     public ReservingCar() {
 
     }
 
+    /**
+     *
+     * @return the amount of minutes until this car will arrive
+     */
     public int getMinutesTillArrived() {
         return minutesTillArrived;
     }
 
+    /**
+     *
+     * @param min the amount of minutes until this car will arrive
+     */
     public void setMinutesTillArrived(int min) {
         if (min >= 0) {
             payedTime = (payedTime - minutesTillArrived) + min;
@@ -31,23 +43,36 @@ public class ReservingCar extends Car {
      */
     @Override
     public void setMinutesLeft(int minutesLeft) {
-        if(this.minutesLeft==0){
+        if (this.minutesLeft == 0) {
             payedTime += minutesLeft;
-        }else{
+        }
+        else {
             payedTime = (payedTime - this.minutesLeft) + minutesLeft;
         }
         this.minutesLeft = minutesLeft;
     }
 
+    /**
+     *
+     * @return the amount of time this car will pay for
+     */
     public int getPayedTime() {
         return payedTime;
     }
-    
-    public void setArrived(boolean arrived){
+
+    /**
+     *
+     * @param arrived if this car has arrived
+     */
+    public void setArrived(boolean arrived) {
         this.arrived = arrived;
     }
-    
-    public boolean getArrived(){
+
+    /**
+     *
+     * @return if this car has arrived
+     */
+    public boolean getArrived() {
         return arrived;
     }
 
