@@ -96,7 +96,7 @@ public class Controller extends AbstractController implements ActionListener {
             JTextField placetext = new JTextField("30");
             placetext.setEditable(false);
             JTextField gatetext = new JTextField("2");
-            placetext.setEditable(false);
+            gatetext.setEditable(false);
 
             // Sliders
             JSlider floor = new JSlider(1,3,3);
