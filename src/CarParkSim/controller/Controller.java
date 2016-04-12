@@ -6,12 +6,8 @@ import javax.swing.event.ChangeListener;
 
 import CarParkSim.logic.*;
 
-//import java.awt.*;
-import java.awt.*;
 import java.awt.event.*;
 
-import static java.lang.Integer.parseInt;
-//import static java.lang.System.exit;
 
 /**
  *
@@ -94,9 +90,13 @@ public class Controller extends AbstractController implements ActionListener {
 
             // TextFields
             JTextField floortext = new JTextField("3");
+            floortext.setEditable(false);
             JTextField rowtext = new JTextField("6");
+            floortext.setEditable(false);
             JTextField placetext = new JTextField("30");
+            floortext.setEditable(false);
             JTextField gatetext = new JTextField("2");
+            floortext.setEditable(false);
 
             // Sliders
             JSlider floor = new JSlider(1,3,3);
