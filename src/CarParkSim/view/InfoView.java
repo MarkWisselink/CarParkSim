@@ -1,19 +1,18 @@
 package CarParkSim.view;
 
 import CarParkSim.logic.*;
+
+import java.awt.*;
 import java.util.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
  *
  * @author Nienke's boys
  */
-public class InfoView extends AbstractView implements ActionListener {
+public class InfoView extends AbstractView {
 
-    private HashMap<String, Boolean> selectedStats;
     private JTextField fieldNumCarsEntering;
     private JTextField fieldNumCarsParked;
     private JTextField fieldNumCarsPaying;
@@ -21,7 +20,7 @@ public class InfoView extends AbstractView implements ActionListener {
     private JTextField fieldNumFloors;
     private JTextField fieldTime;
     private JTextField fieldPayment;
-    private JButton bluescreen;
+    private JButton statsbutton;
     private JCheckBox checkNumCarsEntering;
     private JCheckBox checkNumCarsParked;
     private JCheckBox checkNumCarsPaying;
@@ -36,18 +35,22 @@ public class InfoView extends AbstractView implements ActionListener {
      */
     public InfoView(Model model) {
         super(model);
-        selectedStats = new HashMap<>();
-//        selectedStats.put("numCarsEntering", true);
-//        selectedStats.put("numCarsParked",true);
-//        selectedStats.put("numCarsPaying",true);
-//        selectedStats.put("numCarsExiting",true);
-//        selectedStats.put("numFloors",true);
-//        selectedStats.put("time",true);
-//        selectedStats.put("payment",true);
+        statsbutton = new JButton("Stats");
+        add(statsbutton);
+        statsbutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // this makes sure the button you are pressing is the button variable
+                if (e.getSource() == statsbutton) {
+                    showFrame();
+                }
+            }
+        });
 
-        //LEGE USER INTERFACE MET ALLEMAAL LEGE TEKSTBLOKKEN EN WEET IK VEEL WAT VOOR DINGEN JE ER ALLEMAAL IN WILT STOPPEN.
         fieldNumCarsEntering = new JTextField(27);
         fieldNumCarsEntering.setEditable(false);
+        add(fieldNumCarsEntering);
+        fieldNumCarsEntering.setVisible(true);
+        fieldNumCarsEntering.setText("Number of cars in entrance queue: " + model.getNumCars("enterq"));
 
         fieldNumCarsParked = new JTextField(27);
         fieldNumCarsParked.setEditable(false);
@@ -57,9 +60,15 @@ public class InfoView extends AbstractView implements ActionListener {
 
         fieldNumCarsExiting = new JTextField(27);
         fieldNumCarsExiting.setEditable(false);
+        add(fieldNumCarsExiting);
+        fieldNumCarsExiting.setVisible(true);
+        fieldNumCarsExiting.setText("Number of cars in exit queue: " + model.getNumCars("exitq"));
 
         fieldNumFloors = new JTextField(27);
         fieldNumFloors.setEditable(false);
+        add(fieldNumFloors);
+        fieldNumFloors.setVisible(true);
+        fieldNumFloors.setText("Total number of parking spots: " + model.getNumParkingPlaces("total") + " (" + model.getNumParkingPlaces("free") + " spots free)");
 
         fieldTime = new JTextField(27);
         fieldTime.setEditable(false);
@@ -67,13 +76,17 @@ public class InfoView extends AbstractView implements ActionListener {
         fieldPayment = new JTextField(27);
         fieldPayment.setEditable(false);
 
-        bluescreen = new JButton("Button voor BLUESCREEN!");
-        //add(bluescreen);
-        //image = new ImageIcon(getClass().getResource(""));
+    }
 
-        /*
-        Onderstaande code voegt alle checkboxen toe. 
-         */
+    public void showFrame() {
+        JFrame statsframe = new JFrame("Edit input");
+        statsframe.setDefaultCloseOperation(statsframe.DISPOSE_ON_CLOSE);
+        JPanel statspanel = new JPanel();
+
+        statsframe.setContentPane(statspanel);
+        statsframe.setSize(250, 270);
+        statsframe.setVisible(true);
+
         checkNumCarsEntering = new JCheckBox("Show number of cars entering");
         checkNumCarsEntering.setMnemonic(KeyEvent.VK_C);
         checkNumCarsEntering.setSelected(true);
@@ -102,66 +115,110 @@ public class InfoView extends AbstractView implements ActionListener {
         checkPayment.setMnemonic(KeyEvent.VK_C);
         checkPayment.setSelected(false);
 
-        bluescreen.addActionListener(this);
+        statspanel.add(checkNumCarsEntering);
+        statspanel.add(checkNumCarsParked);
+        statspanel.add(checkNumCarsPaying);
+        statspanel.add(checkNumCarsExiting);
+        statspanel.add(checkNumFloors);
+        statspanel.add(checkTime);
+        statspanel.add(checkPayment);
 
-        //alle tekstvelden etc aanmaken
+        checkNumCarsEntering.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkNumCarsEntering.isSelected()) {
+                    add(fieldNumCarsEntering);
+                    fieldNumCarsEntering.setVisible(true);
+                }
+                else {
+                    fieldNumCarsEntering.setVisible(false);
+                }
+            }
+        });
+
+        checkNumCarsParked.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkNumCarsParked.isSelected()) {
+                    add(fieldNumCarsParked);
+                    fieldNumCarsParked.setVisible(true);
+                }
+                else {
+                    fieldNumCarsParked.setVisible(false);
+                }
+            }
+        });
+
+        checkNumCarsPaying.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkNumCarsPaying.isSelected()) {
+                    add(fieldNumCarsPaying);
+                    fieldNumCarsPaying.setVisible(true);
+                }
+                else {
+                    fieldNumCarsPaying.setVisible(false);
+                }
+            }
+        });
+
+        checkNumCarsExiting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkNumCarsExiting.isSelected()) {
+                    add(fieldNumCarsExiting);
+                    fieldNumCarsExiting.setVisible(true);
+                }
+                else {
+                    fieldNumCarsExiting.setVisible(false);
+                }
+            }
+        });
+
+        checkNumFloors.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkNumFloors.isSelected()) {
+                    add(fieldNumFloors);
+                    fieldNumFloors.setVisible(true);
+                }
+                else {
+                    fieldNumFloors.setVisible(false);
+                }
+            }
+        });
+
+        checkTime.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkTime.isSelected()) {
+                    add(fieldTime);
+                    fieldTime.setVisible(true);
+                }
+                else {
+                    fieldTime.setVisible(false);
+                }
+            }
+        });
+
+        checkPayment.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                add(fieldNumCarsEntering);
+                if (checkPayment.isSelected()) {
+                    add(fieldPayment);
+                    fieldPayment.setVisible(true);
+                }
+                else {
+                    fieldPayment.setVisible(false);
+                }
+            }
+        });
+
     }
 
     @Override
     public void updateView() {
-
-        /*
-        Wanneer checkbox is geselecteerd dan plaats <hashmap> true
-         */
-        if (checkNumCarsEntering.isSelected()) {
-            selectedStats.put("numCarsEntering", true);
-
-        }
-        else {
-            selectedStats.put("numCarsEntering", false);
-        }
-
-        if (checkNumCarsParked.isSelected()) {
-            selectedStats.put("numCarsParked", true);
-        }
-        else {
-            selectedStats.put("numCarsParked", false);
-        }
-
-        if (checkNumCarsPaying.isSelected()) {
-            selectedStats.put("numCarsPaying", true);
-        }
-        else {
-            selectedStats.put("numCarsPaying", false);
-        }
-
-        if (checkNumCarsExiting.isSelected()) {
-            selectedStats.put("numCarsExiting", true);
-        }
-        else {
-            selectedStats.put("numCarsExiting", false);
-        }
-
-        if (checkNumFloors.isSelected()) {
-            selectedStats.put("numFloors", true);
-        }
-        else {
-            selectedStats.put("numFloors", false);
-        }
-
-        if (checkTime.isSelected()) {
-            selectedStats.put("time", true);
-        }
-        else {
-            selectedStats.put("time", false);
-        }
-
-        if (checkPayment.isSelected()) {
-            selectedStats.put("payment", true);
-        }
-        else {
-            selectedStats.put("payment", false);
-        }
 
         //tekstvelden updaten
         fieldNumCarsEntering.setText("Number of cars in entrance queue: " + model.getNumCars("enterq"));
@@ -178,95 +235,8 @@ public class InfoView extends AbstractView implements ActionListener {
 
         fieldPayment.setText("Total revenue " + model.getStat("revenueTotal") + ".");
 
-        //add(fieldNumCarsEntering); 
-        //add(fieldNumCarsParked);
-        //add(fieldNumCarsPaying);
-        //add(fieldNumCarsExiting);
-        //add(fieldNumFloors);
-        //add(fieldPayment);
-        //add(fieldTime);
-        add(checkNumCarsEntering);
-        add(checkNumCarsParked);
-        add(checkNumCarsPaying);
-        add(checkNumCarsExiting);
-        add(checkNumFloors);
-        add(checkTime);
-        add(checkPayment);
-        //add(bluescreen);
-        //als check of je t moet adden:
-
-        /*
-          Wanneer de iets is geselecteerd wordt field toegevoegd en op visible gezet.
-          Wanneer het niet is geselecteerd wordt de visibilty van het field op false geplaatst.
-         */
-        if (selectedStats.get("numCarsEntering")) {
-            add(fieldNumCarsEntering);
-            fieldNumCarsEntering.setVisible(true);
-        }
-        else {
-            fieldNumCarsEntering.setVisible(false);
-        }
-
-        if (selectedStats.get("numCarsParked")) {
-            add(fieldNumCarsParked);
-            fieldNumCarsParked.setVisible(true);
-        }
-        else {
-            fieldNumCarsParked.setVisible(false);
-        }
-
-        if (selectedStats.get("numCarsPaying")) {
-            add(fieldNumCarsPaying);
-            fieldNumCarsPaying.setVisible(true);
-        }
-        else {
-            fieldNumCarsPaying.setVisible(false);
-        }
-
-        if (selectedStats.get("numCarsExiting")) {
-            add(fieldNumCarsExiting);
-            fieldNumCarsExiting.setVisible(true);
-        }
-        else {
-            fieldNumCarsExiting.setVisible(false);
-        }
-
-        if (selectedStats.get("numFloors")) {
-            add(fieldNumFloors);
-            fieldNumFloors.setVisible(true);
-        }
-        else {
-            fieldNumFloors.setVisible(false);
-        }
-        if (selectedStats.get("time")) {
-            add(fieldTime);
-            fieldTime.setVisible(true);
-        }
-        else {
-            fieldTime.setVisible(false);
-        }
-
-        if (selectedStats.get("payment")) {
-            add(fieldPayment);
-            fieldPayment.setVisible(true);
-        }
-        else {
-            fieldPayment.setVisible(false);
-        }
-
-        //Alle releveante info ophalen en die in de tekst velden stoppen. 
         validate();
         repaint();
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == bluescreen) {
-            //doe dingen
-
-            //RYAN RAMPE STAMPEN 
-        }
-
-        //als een checkbox ingevuld wordt doe je:
     }
 
 }
