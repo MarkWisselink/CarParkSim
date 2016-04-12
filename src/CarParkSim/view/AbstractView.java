@@ -8,7 +8,6 @@ import CarParkSim.logic.*;
  * @author Nienke's boys
  */
 public abstract class AbstractView extends JPanel {
-	private static final long serialVersionUID = -2767764579227738552L;
 
     /**
      *
