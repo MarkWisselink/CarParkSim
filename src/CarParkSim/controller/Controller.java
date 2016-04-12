@@ -46,6 +46,7 @@ public class Controller extends AbstractController implements ActionListener {
     private JTextField passholdertext;
     private JTextField reservingtext;
     private JTextField badparkertext;
+    private JFrame frame;
 
     /**
      * @param model the model this controller controls
@@ -101,7 +102,12 @@ public class Controller extends AbstractController implements ActionListener {
         }
 
         if (e.getSource() == input) {
-            JFrame frame = new JFrame("Edit input");
+            if (frame == null) {
+                frame = new JFrame("Edit input");
+            }
+            else{
+                // Do something
+            }
             frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
             JPanel mainframe = new JPanel();
 
@@ -376,8 +382,10 @@ public class Controller extends AbstractController implements ActionListener {
             frame.setSize(260, 810);
             frame.setVisible(true);
 
+            }
+
         }
 
     }
 
-}
+

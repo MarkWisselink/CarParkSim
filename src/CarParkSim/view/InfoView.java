@@ -46,6 +46,7 @@ public class InfoView extends AbstractView {
     private JCheckBox checkparkedTotal;
     private JCheckBox checkrevenueToday;
     private JCheckBox checkrevenueTotal;
+    private JFrame statsframe;
 
     /**
      *
@@ -131,13 +132,14 @@ public class InfoView extends AbstractView {
      * shows a popup window with checkboxes, to select which stats to show
      */
     public void showFrame() {
-        JFrame statsframe = new JFrame("Edit input");
+        if (statsframe == null) {
+            statsframe = new JFrame("Edit stats");
+        }
+        else{
+            // Do something
+        }
         statsframe.setDefaultCloseOperation(statsframe.DISPOSE_ON_CLOSE);
         JPanel statspanel = new JPanel();
-
-        statsframe.setContentPane(statspanel);
-        statsframe.setSize(250, 650);
-        statsframe.setVisible(true);
 
         checkNumCarsEntering = new JCheckBox("Show number of cars entering");
         checkNumCarsEntering.setMnemonic(KeyEvent.VK_C);
@@ -414,6 +416,10 @@ public class InfoView extends AbstractView {
                 }
             }
         });
+
+        statsframe.setContentPane(statspanel);
+        statsframe.setSize(250, 650);
+        statsframe.setVisible(true);
     }
 
     @Override
