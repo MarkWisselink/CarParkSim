@@ -23,6 +23,11 @@ public class BarView extends AbstractView {
     private DefaultCategoryDataset dataset;
     JFreeChart barChart;
 
+    /**
+     *
+     * @param model 
+     * @param chartTitle
+     */
     public BarView(Model model, String chartTitle) {
         super(model);
         this.chartTitle = chartTitle;
