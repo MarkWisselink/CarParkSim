@@ -12,10 +12,10 @@ import CarParkSim.main.*;
  * @author Nienke's boys
  */
 public class Main {
+
     /**
      * @param args the command line arguments
      */
-
     public static void main(String[] args) {
         new CarParkSim(args);
     }

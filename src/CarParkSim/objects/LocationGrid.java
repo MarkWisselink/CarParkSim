@@ -24,26 +24,12 @@ public class LocationGrid {
     }
 
     /**
-     *
+     * @param skipFirst if you want to skip the first result<br>
+     * true: skips the first; false: returns on the first result
      * @return Location object for a free location
      */
-    public Location getFirstFreeLocation() {
-        for (int floor = 0; floor < model.getNumFloors(); floor++) {
-            for (int row = 0; row < model.getNumRows(); row++) {
-                for (int place = 0; place < model.getNumPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    if (getLocationState(location) == 0) {
-                        
-                        return location;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public Location getSecondLocation() {
-        boolean first = true;
+    public Location getFirstFreeLocation(boolean skipFirst) {
+        boolean first = skipFirst;
         for (int floor = 0; floor < model.getNumFloors(); floor++) {
             for (int row = 0; row < model.getNumRows(); row++) {
                 for (int place = 0; place < model.getNumPlaces(); place++) {
@@ -64,16 +50,15 @@ public class LocationGrid {
 
     /**
      *
+     * @return gets the first free location
+     */
+    public Location getFirstFreeLocation() {
+        return getFirstFreeLocation(false);
+    }
+
+    /**
+     *
      * @param loc Location
-     * @param state state to set 
-     * @param state 0= empty
-     * @param state 1= taken
-     * @param state 2= taken by bad parker
-     * @param state 3= taken by passholder
-     * @param state 4= taken by reserving car
-     * @param state 12 = taken as bad parker's 2nd place
-     * @param state 12 = taken as bad parker's 2nd place
-     * @param state 14= reserved by a car/not yet arrived
      */
     public void setLocationState(Location loc, int state) {
         stateMap.put(loc.toString(), state);
@@ -82,14 +67,14 @@ public class LocationGrid {
     /**
      *
      * @param loc Location
-     * @return int value of the state
-     * @return 0= empty
-     * @return 1= taken
-     * @return 2= taken by bad parker
-     * @return 3= taken by passholder
-     * @return 4= taken by reserving car
-     * @return 12 = taken as bad parker's 2nd place
-     * @return 14= reserved by a car/not yet arrived
+     * @return int value of the state<br>
+     * 0= empty<br>
+     * 1= taken<br>
+     * 2= taken by bad parker<br>
+     * 3= taken by passholder<br>
+     * 4= taken by reserving car<br>
+     * 12= taken as bad parker's 2nd place<br>
+     * 14= reserved by a car/not yet arrived
      */
     public int getLocationState(Location loc) {
         if (stateMap.get(loc.toString()) == null) {
@@ -121,6 +106,11 @@ public class LocationGrid {
         carMap.put(loc.toString(), car);
     }
 
+    /**
+     *
+     * @param loc the location from which you wish to retrieve the object
+     * @return car object
+     */
     public Car getCarAt(Location loc) {
         return carMap.get(loc.toString());
     }

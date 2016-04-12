@@ -62,18 +62,18 @@ public class CarParkView extends AbstractView {
             g.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
         }
     }
-    
-    private boolean parkChanged(){
+
+    private boolean parkChanged() {
         boolean ret = false;
-        if(prevFloors != model.getNumFloors()){
+        if (prevFloors != model.getNumFloors()) {
             ret = true;
             prevFloors = model.getNumFloors();
         }
-        if(prevRows != model.getNumRows()){
+        if (prevRows != model.getNumRows()) {
             ret = true;
             prevRows = model.getNumRows();
         }
-        if(prevPlaces != model.getNumPlaces()){
+        if (prevPlaces != model.getNumPlaces()) {
             ret = true;
             prevPlaces = model.getNumPlaces();
         }
@@ -86,7 +86,7 @@ public class CarParkView extends AbstractView {
     @Override
     public void updateView() {
         // Create a new car park image if the size has changed.
-        
+
         if (!size.equals(getSize()) || parkChanged()) {
             size = getSize();
             carParkImage = createImage(size.width, size.height);

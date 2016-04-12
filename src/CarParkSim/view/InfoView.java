@@ -4,17 +4,15 @@ import CarParkSim.logic.*;
 
 import java.awt.*;
 import java.util.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 
 /**
  *
  * @author Nienke's boys
  */
 public class InfoView extends AbstractView {
+
     private JTextField fieldNumCarsEntering;
     private JTextField fieldNumCarsParked;
     private JTextField fieldNumCarsPaying;
@@ -31,6 +29,10 @@ public class InfoView extends AbstractView {
     private JCheckBox checkTime;
     private JCheckBox checkPayment;
 
+    /**
+     *
+     * @param model the model this view uses
+     */
     public InfoView(Model model) {
         super(model);
         statsbutton = new JButton("Stats");
@@ -38,7 +40,7 @@ public class InfoView extends AbstractView {
         statsbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // this makes sure the button you are pressing is the button variable
-                if(e.getSource() == statsbutton) {
+                if (e.getSource() == statsbutton) {
                     showFrame();
                 }
             }
@@ -127,7 +129,8 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsEntering.isSelected()) {
                     add(fieldNumCarsEntering);
                     fieldNumCarsEntering.setVisible(true);
-                } else {
+                }
+                else {
                     fieldNumCarsEntering.setVisible(false);
                 }
             }
@@ -139,7 +142,8 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsParked.isSelected()) {
                     add(fieldNumCarsParked);
                     fieldNumCarsParked.setVisible(true);
-                } else {
+                }
+                else {
                     fieldNumCarsParked.setVisible(false);
                 }
             }
@@ -151,7 +155,8 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsPaying.isSelected()) {
                     add(fieldNumCarsPaying);
                     fieldNumCarsPaying.setVisible(true);
-                } else {
+                }
+                else {
                     fieldNumCarsPaying.setVisible(false);
                 }
             }
@@ -163,7 +168,8 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsExiting.isSelected()) {
                     add(fieldNumCarsExiting);
                     fieldNumCarsExiting.setVisible(true);
-                } else {
+                }
+                else {
                     fieldNumCarsExiting.setVisible(false);
                 }
             }
@@ -175,7 +181,8 @@ public class InfoView extends AbstractView {
                 if (checkNumFloors.isSelected()) {
                     add(fieldNumFloors);
                     fieldNumFloors.setVisible(true);
-                } else {
+                }
+                else {
                     fieldNumFloors.setVisible(false);
                 }
             }
@@ -187,7 +194,8 @@ public class InfoView extends AbstractView {
                 if (checkTime.isSelected()) {
                     add(fieldTime);
                     fieldTime.setVisible(true);
-                } else {
+                }
+                else {
                     fieldTime.setVisible(false);
                 }
             }
@@ -200,7 +208,8 @@ public class InfoView extends AbstractView {
                 if (checkPayment.isSelected()) {
                     add(fieldPayment);
                     fieldPayment.setVisible(true);
-                } else {
+                }
+                else {
                     fieldPayment.setVisible(false);
                 }
             }
@@ -224,7 +233,7 @@ public class InfoView extends AbstractView {
 
         fieldTime.setText("Time: " + model.getTime());
 
-        fieldPayment.setText("Total revenue " + model.getStat("totalRevenue") + ".");
+        fieldPayment.setText("Total revenue " + model.getStat("revenueTotal") + ".");
 
         validate();
         repaint();

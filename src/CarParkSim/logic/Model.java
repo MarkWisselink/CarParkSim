@@ -89,12 +89,12 @@ public class Model extends AbstractModel implements Runnable {
             Field f = c.getDeclaredField(settingName);
             Type t = f.getGenericType();
             type = t.toString();
-            
+
             if ((type.equals("int"))) {
                 f.set(this, (int) value);
             }
-            else if(type.equals("double")){
-                f.set(this,(double) value);
+            else if (type.equals("double")) {
+                f.set(this, (double) value);
             }
         }
         catch (NoSuchFieldException x) {
@@ -103,9 +103,9 @@ public class Model extends AbstractModel implements Runnable {
         catch (IllegalAccessException x) {
             System.out.println("illegal access");
         }
-        catch(ClassCastException x){
-            System.out.println("class cast exception; name:"+type);
-            
+        catch (ClassCastException x) {
+            System.out.println("class cast exception; name:" + type);
+
         }
     }
 
@@ -264,9 +264,9 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     /**
-     *
-     * @param key
-     * @return
+     * @param key string name of the stat
+     * @return int value corresponding to the stat name<br>
+     * returns 0 if stat wasn't found
      */
     public int getStat(String key) {
         if (stats.get(key) != null) {
@@ -276,9 +276,35 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     /**
+     * @param key string name of the stat
+     * @param rev set to true if you want revenue related stats<br>
+     * false if you want to retrieve a double variant of a stat
+     * @return double value corresponding to the stat name<br>
+     * returns 0 if stat wasn't found
+     */
+    public double getStat(String key, boolean rev) {
+        if (rev) {
+            if (key.equals("revenueTotal")) {
+                return helper.getRevenueTotal();
+            }
+            else if (key.equals("revenueToday")) {
+                return helper.getRevenueToday();
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            return (double) getStat(key);
+        }
+    }
+
+    /**
+     * sets a stat with name: key; value: val<br>
+     * updates if a duplicate name is found<br>
      *
-     * @param key
-     * @param val
+     * @param key string name; preferably logical, and unused
+     * @param val int value
      */
     public void setStat(String key, int val) {
         if (val >= 0) {
@@ -288,7 +314,8 @@ public class Model extends AbstractModel implements Runnable {
 
     /**
      *
-     * @return
+     * @return a string representation of the time<br>
+     * "NameOfDay. hh:mm" with leading zeros
      */
     public String getTime() {
         String daystr;
@@ -374,9 +401,15 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     /**
-     *
      * @param location
-     * @return int state of the location
+     * @return int state of the location<br>
+     * 0= empty<br>
+     * 1= taken<br>
+     * 2= taken by bad parker<br>
+     * 3= taken by passholder<br>
+     * 4= taken by reserving car<br>
+     * 12= taken as bad parker's 2nd place<br>
+     * 14= reserved by a car/not yet arrived
      */
     public int getLocInfo(Location location) {
         return grid.getLocationState(location);
@@ -425,6 +458,10 @@ public class Model extends AbstractModel implements Runnable {
             int minutesTillArrived = (int) (random.nextFloat() * 60 * 3);
             car.setMinutesTillArrived(minutesTillArrived);
             grid.setCarAt(freeLocation, car);
+
+            //process payment
+            helper.paymentAmount(car, false);
+
             return car;
         }
         else {
@@ -440,7 +477,7 @@ public class Model extends AbstractModel implements Runnable {
             return false;
         }
         if (car instanceof BadParkerCar) {
-            Location secondLoc = grid.getSecondLocation();
+            Location secondLoc = grid.getFirstFreeLocation(true);
             if (secondLoc != null) {
                 ((BadParkerCar) car).setSecondLocation(secondLoc);
                 grid.setLocationState(secondLoc, 12);
@@ -499,10 +536,8 @@ public class Model extends AbstractModel implements Runnable {
         return ret;
     }
 
-    /**
-     *
-     */
     private void tickCars() {
+        helper.resetRevenueToday();
         for (int floor = 0; floor < getNumFloors(); floor++) {
             for (int row = 0; row < getNumRows(); row++) {
                 for (int place = 0; place < getNumPlaces(); place++) {
@@ -510,6 +545,7 @@ public class Model extends AbstractModel implements Runnable {
                     Car car = grid.getCarAt(location);
                     if (car != null) {
                         car.tick();
+                        helper.paymentAmount(car, true);
                         if (car instanceof ReservingCar) {
                             ReservingCar reservingCar = (ReservingCar) car;
                             if (reservingCar.getMinutesTillArrived() <= 0) {
@@ -527,17 +563,14 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     /**
-     * running until stopped or until ticks run out never call outside a thread!
+     * running until stopped<br>
+     * never call outside a thread!
      */
     @Override
     public void run() {
         run = true;
-//        if(ticks < 10){
-//            ticks = DEFAULT_NUM_TICKS;
-//        }
-        while (run /*&& (ticks >= 0)*/) {
+        while (run) {
             try {
-                //ticks -= 1;
                 doTick();
                 Thread.sleep(tickPause);
                 notifyViews();
@@ -548,9 +581,6 @@ public class Model extends AbstractModel implements Runnable {
         this.stop();
     }
 
-    /**
-     * actions to perform while running
-     */
     private void doTick() {
         // Advance the time by one minute.
         minute++;
@@ -686,6 +716,19 @@ public class Model extends AbstractModel implements Runnable {
             if (car == null) {
                 break;
             }
+            if (car instanceof AdHocCar) {
+                this.counterDecrease("currentAdHocCar");
+            }
+            else if (car instanceof BadParkerCar) {
+                this.counterDecrease("currentBadParkerCar");
+            }
+            else if (car instanceof Passholders) {
+                this.counterDecrease("currentPassholders");
+            }
+            else if (car instanceof ReservingCar) {
+                this.counterDecrease("currentReservingCar");
+            }
+
             this.counterDecrease("exitQ");
             // Bye!
         }

@@ -5,22 +5,17 @@ package CarParkSim.objects;
  * @author Nienke's boys
  */
 public class BadParkerCar extends Car {
-    
+
     private Location loc2;
 
-    public BadParkerCar(){
-        
+    /**
+     * create a bad parker, this car uses 2 parking spots<br>
+     * has 2 additional methods, neither of which exist in the super class Car
+     */
+    public BadParkerCar() {
+
     }
-    
-//    /**
-//     *
-//     * @return returns location object
-//     */
-//    @Override
-//    public Location getLocation() {
-//        return location;
-//    }
-    
+
     /**
      *
      * @return returns location object
@@ -29,15 +24,6 @@ public class BadParkerCar extends Car {
         return loc2;
     }
 
-//    /**
-//     *
-//     * @param location location object of the car
-//     */
-//    @Override
-//    public void setLocation(Location location) {
-//        this.location = location;
-//    }
-    
     /**
      *
      * @param location 2nd location object of the car
@@ -45,6 +31,4 @@ public class BadParkerCar extends Car {
     public void setSecondLocation(Location location) {
         this.loc2 = location;
     }
-    
-    
 }

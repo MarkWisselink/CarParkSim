@@ -8,12 +8,15 @@ import java.util.*;
  */
 public class CarQueue {
 
+    /**
+     * a LinkedList object, containing all cars currently in queue
+     */
     protected Queue<Car> queue = new LinkedList<>();
 
     /**
      *
      * @param car instance of Car to be added to queue
-     * @return fail or succes
+     * @return fail or success
      */
     public boolean addCar(Car car) {
         return queue.add(car);
@@ -26,8 +29,12 @@ public class CarQueue {
     public Car removeCar() {
         return queue.poll();
     }
-    
-    public int size(){
+
+    /**
+     *
+     * @return
+     */
+    public int size() {
         return queue.size();
     }
 

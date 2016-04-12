@@ -1,6 +1,5 @@
 package CarParkSim.objects;
 
-
 /**
  *
  * @author Nienke's boys
@@ -13,6 +12,7 @@ public class Location {
 
     /**
      * Constructor for objects of class Location
+     *
      * @param floor the floor of this location
      * @param row the row of this location
      * @param place the place of this location
@@ -25,10 +25,11 @@ public class Location {
 
     /**
      * Implement content equality.
+     *
      * @return equal or not
      */
     public boolean equals(Object obj) {
-        if(obj instanceof Location) {
+        if (obj instanceof Location) {
             Location other = (Location) obj;
             return floor == other.getFloor() && row == other.getRow() && place == other.getPlace();
         }
@@ -39,6 +40,7 @@ public class Location {
 
     /**
      * Return a string of the form floor,row,place.
+     *
      * @return A string representation of the location.
      */
     public String toString() {
@@ -46,9 +48,10 @@ public class Location {
     }
 
     /**
-     * Use the 10 bits for each of the floor, row and place
-     * values. Except for very big car parks, this should give
-     * a unique hash code for each (floor, row, place) tupel.
+     * Use the 10 bits for each of the floor, row and place values. Except for
+     * very big car parks, this should give a unique hash code for each (floor,
+     * row, place) tupel.
+     *
      * @return A hashcode for the location.
      */
     public int hashCode() {
