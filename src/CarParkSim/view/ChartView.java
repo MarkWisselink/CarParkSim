@@ -21,7 +21,7 @@ public class ChartView extends AbstractView {
         super(model);
         //this.chartTitle = chartTitle;
         dataset = new DefaultPieDataset();
-        pieChart = ChartFactory.createPieChart("Yolo", createDataset());
+        pieChart = ChartFactory.createPieChart("Piechart occupation", createDataset());
 
         chartPanel = new ChartPanel(pieChart);
         pieChart.addChangeListener(chartPanel);
