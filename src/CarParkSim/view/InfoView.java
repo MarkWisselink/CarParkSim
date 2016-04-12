@@ -82,7 +82,7 @@ public class InfoView extends AbstractView {
         JPanel statspanel = new JPanel();
 
         statsframe.setContentPane(statspanel);
-        statsframe.setSize(300, 300);
+        statsframe.setSize(250, 270);
         statsframe.setVisible(true);
 
         checkNumCarsEntering = new JCheckBox("Show number of cars entering");
