@@ -12,7 +12,7 @@ public abstract class AbstractModel {
     private List<AbstractView> views;
 
     /**
-     *
+     * creates a list of the views for this model
      */
     public AbstractModel() {
         views = new ArrayList<AbstractView>();
