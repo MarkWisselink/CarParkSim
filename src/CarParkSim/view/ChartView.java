@@ -17,9 +17,12 @@ public class ChartView extends AbstractView {
     private DefaultPieDataset dataset;
     private JFreeChart pieChart;
 
-    public ChartView(Model model, String chartTitle) {
+    /**
+     *
+     * @param model reference to the model
+     */
+    public ChartView(Model model) {
         super(model);
-        //this.chartTitle = chartTitle;
         dataset = new DefaultPieDataset();
         pieChart = ChartFactory.createPieChart("Piechart occupation", createDataset());
 

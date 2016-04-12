@@ -59,6 +59,14 @@ public class LocationGrid {
     /**
      *
      * @param loc Location
+     * @param state int value of the state<br>
+     * 0= empty<br>
+     * 1= taken<br>
+     * 2= taken by bad parker<br>
+     * 3= taken by passholder<br>
+     * 4= taken by reserving car<br>
+     * 12= taken as bad parker's 2nd place<br>
+     * 14= reserved by a car/not yet arrived
      */
     public void setLocationState(Location loc, int state) {
         stateMap.put(loc.toString(), state);
