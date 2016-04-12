@@ -1,17 +1,14 @@
 package CarParkSim.view;
 
 import CarParkSim.logic.*;
-import java.awt.*;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
+
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.Dataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
 
 /**
  * Created by Nienke's boys on 12-4-2016.
@@ -57,8 +54,7 @@ public class BarView extends AbstractView{
 
     public void updateView(){
 
-        //barChart = ChartFactory.createBarChart(chartTitle, "Bezetting" , "Aantal", createDataset());
-//barChart.fireChartChanged();
+
         chartPanel.updateUI();
         add(chartPanel);
         updateDataset();
