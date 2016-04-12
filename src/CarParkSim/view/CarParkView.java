@@ -92,7 +92,6 @@ public class CarParkView extends AbstractView {
                         default: color = Color.MAGENTA;
                         break;
                     }
-                    //Color color = car == null ? Color.white : Color.red;
                     drawPlace(graphics, location, color);
                 }
             }
