@@ -458,7 +458,7 @@ public class Model extends AbstractModel implements Runnable {
             int minutesTillArrived = (int) (random.nextFloat() * 60 * 3);
             car.setMinutesTillArrived(minutesTillArrived);
             grid.setCarAt(freeLocation, car);
-            
+
             //process payment
             helper.paymentAmount(car, false);
 

@@ -54,7 +54,7 @@ public class CarParkSim {
         barView.setBounds(600, 500, 560, 400);
         screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         screen.setVisible(true);
-        
+
         model.notifyViews();
     }
 
