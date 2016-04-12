@@ -84,18 +84,17 @@ public class Model extends AbstractModel implements Runnable {
             return;
         }
         Class<?> c = this.getClass();
+        String type = "";
         try {
             Field f = c.getDeclaredField(settingName);
             Type t = f.getGenericType();
-            String s = f.getName();
-//            if (f.getName().equalsIgnoreCase("double")) {
-//                f.set(this, (double) value);
-//
-//            }
-            if ((double) f.get(this) % 1 == 0) {
+            type = t.toString();
+            
+            if ((type.equals("int"))) {
                 f.set(this, (int) value);
             }
-            else {
+            else if(type.equals("double")){
+                f.set(this,(double) value);
             }
         }
         catch (NoSuchFieldException x) {
@@ -103,6 +102,10 @@ public class Model extends AbstractModel implements Runnable {
         }
         catch (IllegalAccessException x) {
             System.out.println("illegal access");
+        }
+        catch(ClassCastException x){
+            System.out.println("class cast exception; name:"+type);
+            
         }
     }
 
