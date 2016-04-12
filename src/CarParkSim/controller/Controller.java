@@ -25,6 +25,10 @@ public class Controller extends AbstractController implements ActionListener {
     private JSlider weekday;
     private JSlider weekend;
     private JSlider nightrate;
+    private JSlider payspeed;
+    private JSlider gatespeed;
+    private JSlider enterspeed;
+    private JSlider exitspeed;
     private JTextField floortext;
     private JTextField rowtext;
     private JTextField placetext;
@@ -32,6 +36,10 @@ public class Controller extends AbstractController implements ActionListener {
     private JTextField weekdaytext;
     private JTextField weekendtext;
     private JTextField nightratetext;
+    private JTextField payspeedtext;
+    private JTextField gatespeedtext;
+    private JTextField enterspeedtext;
+    private JTextField exitspeedtext;
 
     /**
      * @param model the model this controller controls
@@ -100,6 +108,10 @@ public class Controller extends AbstractController implements ActionListener {
                 JLabel weekdaylabel = new JLabel("Weekday arrivals:");
                 JLabel weekendlabel = new JLabel("Weekend arrivals:");
                 JLabel nightratelabel = new JLabel("Night reduction rate:");
+                JLabel payspeedlabel = new JLabel("Payment speed");
+                JLabel gatespeedlabel = new JLabel("Gate speed:");
+                JLabel enterspeedlabel = new JLabel("Enter speed:");
+                JLabel exitspeedlabel = new JLabel("Exit speed:");
 
                 // TextFields
                 floortext = new JTextField("3");
@@ -116,6 +128,14 @@ public class Controller extends AbstractController implements ActionListener {
                 weekendtext.setEditable(false);
                 nightratetext = new JTextField("3");
                 nightratetext.setEditable(false);
+                payspeedtext = new JTextField("6");
+                payspeedtext.setEditable(false);
+                gatespeedtext = new JTextField("2");
+                gatespeedtext.setEditable(false);
+                enterspeedtext = new JTextField("1");
+                enterspeedtext.setEditable(false);
+                exitspeedtext = new JTextField("1");
+                exitspeedtext.setEditable(false);
 
                 // Sliders
                 floor = new JSlider(1, 3, 3);
@@ -196,6 +216,50 @@ public class Controller extends AbstractController implements ActionListener {
                     }
                 });
 
+                 payspeed = new JSlider(2, 10, 6);
+                 payspeed.setMajorTickSpacing(1);
+                 payspeed.setPaintTicks(true);
+                 payspeed.addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        model.changeSetting("paymentSpeed", payspeed.getValue());
+                        payspeedtext.setText("" + payspeed.getValue());
+                     }
+                 });
+
+                gatespeed = new JSlider(1, 3, 2);
+                gatespeed.setMajorTickSpacing(1);
+                gatespeed.setPaintTicks(true);
+                gatespeed.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                        model.changeSetting("gateSpeed", gatespeed.getValue());
+                        gatespeedtext.setText("" + gatespeed.getValue());
+                    }
+                });
+
+                enterspeed = new JSlider(1, 5, 1);
+                enterspeed.setMajorTickSpacing(1);
+                enterspeed.setPaintTicks(true);
+                enterspeed.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    model.changeSetting("enterSpeedMult", enterspeed.getValue());
+                    enterspeedtext.setText("" + enterspeed.getValue());
+                    }
+                });
+
+                exitspeed = new JSlider(1, 5, 1);
+                exitspeed.setMajorTickSpacing(1);
+                exitspeed.setPaintTicks(true);
+                exitspeed.addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        model.changeSetting("exitSpeedMult", exitspeed.getValue());
+                        exitspeedtext.setText("" + exitspeed.getValue());
+                    }
+                });
+
                 // Add to frame
                 mainframe.add(floorlabel);
                 mainframe.add(floor);
@@ -225,10 +289,25 @@ public class Controller extends AbstractController implements ActionListener {
                 mainframe.add(nightrate);
                 mainframe.add(nightratetext);
 
+                mainframe.add(payspeedlabel);
+                mainframe.add(payspeed);
+                mainframe.add(payspeedtext);
+
+                mainframe.add(gatespeedlabel);
+                mainframe.add(gatespeed);
+                mainframe.add(gatespeedtext);
+
+                mainframe.add(enterspeedlabel);
+                mainframe.add(enterspeed);
+                mainframe.add(enterspeedtext);
+
+                mainframe.add(exitspeedlabel);
+                mainframe.add(exitspeed);
+                mainframe.add(exitspeedtext);
 
                 // Set frame
                 frame.setContentPane(mainframe);
-                frame.setSize(300, 200);
+                frame.setSize(350, 500);
                 frame.setVisible(true);
 
 
