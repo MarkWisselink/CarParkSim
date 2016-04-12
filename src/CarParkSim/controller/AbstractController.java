@@ -9,6 +9,9 @@ import javax.swing.*;
  */
 public abstract class AbstractController extends JPanel {
 
+    /**
+     * reference to the model this controller controls
+     */
     protected Model model;
 
     /**
