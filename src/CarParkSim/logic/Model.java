@@ -2,7 +2,7 @@ package CarParkSim.logic;
 
 import CarParkSim.objects.*;
 import java.util.*;
-import java.lang.reflect.Field;
+import java.lang.reflect.*;
 
 /**
  *
@@ -51,14 +51,17 @@ public class Model extends AbstractModel implements Runnable {
     private double BADPARKER_CAR_CREATION_PROBABILITY = 0.01;
 
     /**
-     *
+     * model for the Car Park Simulator
      */
     public Model() {
 
     }
 
     /**
-     * should work now
+     * changes settings based on the name of a field
+     *
+     * @param settingName string of the fieldname (some fields are forbidden)
+     * @param value a double or int value
      */
     public void changeSetting(String settingName, double value) {
         //forbidden names
@@ -83,18 +86,24 @@ public class Model extends AbstractModel implements Runnable {
         Class<?> c = this.getClass();
         try {
             Field f = c.getDeclaredField(settingName);
-            f.set(this, value);
-
+            Type t = f.getGenericType();
+            String s = f.getName();
+//            if (f.getName().equalsIgnoreCase("double")) {
+//                f.set(this, (double) value);
+//
+//            }
+            if ((double) f.get(this) % 1 == 0) {
+                f.set(this, (int) value);
+            }
+            else {
+            }
         }
         catch (NoSuchFieldException x) {
             System.out.println("no such field");
-            //x.printStackTrace();
         }
         catch (IllegalAccessException x) {
             System.out.println("illegal access");
-            //x.printStackTrace();
         }
-
     }
 
     /**
@@ -153,7 +162,7 @@ public class Model extends AbstractModel implements Runnable {
 
     /**
      *
-     * @param floors number of floors
+     * @param floors number of floors (above 0)
      */
     public void setNumFloors(int floors) {
         if (floors > 0) {
@@ -206,6 +215,12 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param query either "free" to find the amount of free spots, or anything
+     * else to find the full spots
+     * @return int value of the number of free/taken spots
+     */
     public int getNumParkingPlaces(String query) {
         if (query.equals("free")) {
             return (((rows * places * floors) - getNumCars("parked")) - getStat("reserved"));
@@ -213,6 +228,20 @@ public class Model extends AbstractModel implements Runnable {
         return rows * places * floors;
     }
 
+    /**
+     *
+     * @return int value of the number of taken spots
+     */
+    public int getNumParkingPlaces() {
+        return getNumParkingPlaces("taken");
+    }
+
+    /**
+     * deprecated. only used for backwards compatibility using getStat is better
+     *
+     * @param type enterq, parked, payq, or exitq
+     * @return number of cars, in a given state
+     */
     public int getNumCars(String type) {
         if (type.equalsIgnoreCase("enterq")) {
             return getStat("entranceQ");
@@ -231,6 +260,11 @@ public class Model extends AbstractModel implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     */
     public int getStat(String key) {
         if (stats.get(key) != null) {
             return stats.get(key);
@@ -238,12 +272,21 @@ public class Model extends AbstractModel implements Runnable {
         return 0;
     }
 
+    /**
+     *
+     * @param key
+     * @param val
+     */
     public void setStat(String key, int val) {
         if (val >= 0) {
             stats.put(key, val);
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTime() {
         String daystr;
         String hourstr;
