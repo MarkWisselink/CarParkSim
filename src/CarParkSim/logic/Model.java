@@ -34,7 +34,7 @@ public class Model extends AbstractModel implements Runnable {
 
     private int weekDayArrivals = 80; // average number of arriving cars per hour on a weekday
     private int weekendArrivals = 100; // average number of arriving cars per hour in the weekend
-    private double nightReductionRate = 2.5; // average number of arriving cars per hour / nightReductionRate = avg num/hour at night
+    private double nightReductionRate = 3; // average number of arriving cars per hour / nightReductionRate = avg num/hour at night
 
     private int paymentSpeed = 6; // number of cars that can pay per minute
     private int numberOfGates = 2; // number of gates

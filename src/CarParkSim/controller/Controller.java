@@ -122,7 +122,8 @@ public class Controller extends AbstractController implements ActionListener {
                 placetext.setEditable(false);
                 gatetext = new JTextField("2");
                 gatetext.setEditable(false);
-                weekdaytext = new JTextField("80");
+                weekdaytext = new JTextField(2);
+                weekdaytext.setText("80");
                 weekdaytext.setEditable(false);
                 weekendtext = new JTextField("100");
                 weekendtext.setEditable(false);
@@ -307,7 +308,7 @@ public class Controller extends AbstractController implements ActionListener {
 
                 // Set frame
                 frame.setContentPane(mainframe);
-                frame.setSize(350, 500);
+                frame.setSize(260, 640);
                 frame.setVisible(true);
 
 
