@@ -402,30 +402,34 @@ public class Model extends AbstractModel implements Runnable {
         Random random = new Random();
         if (random.nextDouble() <= PASSHOLDER_CAR_CREATION_PROBABILITY) {
             counterIncrease("totalPassholders");
+            counterIncrease("currentPassholders");
             return new Passholders();
         }
         else if (random.nextDouble() <= BADPARKER_CAR_CREATION_PROBABILITY) {
             counterIncrease("totalBadParkerCar");
+            counterIncrease("currentBadParkerCar");
             return new BadParkerCar();
         }
         else if (random.nextDouble() <= RESERVING_CAR_CREATION_PROBABILITY) {
             Location freeLocation = grid.getFirstFreeLocation();
             if (freeLocation == null) {//no free spot => no reservation allowed
                 counterIncrease("totalAdHocCar");
+                counterIncrease("currentAdHocCar");
                 return new AdHocCar();
             }
             counterIncrease("totalReservingCar");
+            counterIncrease("currentReservingCar");
             ReservingCar car = new ReservingCar();
             car.setLocation(freeLocation);
             car.setMinutesLeft(generateStayMinutes());
             int minutesTillArrived = (int) (random.nextFloat() * 60 * 3);
             car.setMinutesTillArrived(minutesTillArrived);
             grid.setCarAt(freeLocation, car);
-            counterIncrease("reserved");
             return car;
         }
         else {
             counterIncrease("totalAdHocCar");
+            counterIncrease("currentAdHocCar");
             return new AdHocCar();
         }
     }
