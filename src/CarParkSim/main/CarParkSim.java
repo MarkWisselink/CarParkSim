@@ -16,6 +16,7 @@ public class CarParkSim {
 	private AbstractView carparkView;
         private AbstractView infoView;
 	private Controller controller;
+	private ChartView chartView;
 	
     /**
      *
@@ -25,8 +26,10 @@ public class CarParkSim {
 		model=new Model();
                 carparkView = new CarParkView(model);
                 infoView = new InfoView(model);
+		chartView = new ChartView(model, "Plekgebruik in de Garage");
 		model.addView(carparkView);
                 model.addView(infoView);
+		model.addView(chartView);
 		controller=new Controller(model);
 		screen=new JFrame("Car Park Simulator");
 		screen.setSize(1200, 500);
@@ -34,9 +37,11 @@ public class CarParkSim {
                 screen.getContentPane().add(infoView);
 		screen.getContentPane().add(carparkView);
 		screen.getContentPane().add(controller);
+		screen.getContentPane().add(chartView);
                 infoView.setBounds(850,100,320,150);
 		carparkView.setBounds(0, 0, 850, 370);
 		controller.setBounds(0, 370, 800, 130);
+		chartView.setBounds(0,500,560,275);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 screen.setVisible(true);
 	}
