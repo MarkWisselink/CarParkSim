@@ -78,6 +78,9 @@ public class InfoView extends AbstractView {
 
     }
 
+    /**
+     * shows a popup window with checkboxes, to select which stats to show
+     */
     public void showFrame() {
         JFrame statsframe = new JFrame("Edit input");
         statsframe.setDefaultCloseOperation(statsframe.DISPOSE_ON_CLOSE);
