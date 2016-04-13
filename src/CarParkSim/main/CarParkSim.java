@@ -53,5 +53,6 @@ public class CarParkSim {
         barView.setBounds(640, 500, 560, 400);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         screen.setVisible(true);
+        screen.setResizable(false);
     }
 }

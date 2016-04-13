@@ -416,8 +416,9 @@ public class InfoView extends AbstractView {
         });
 
         statsframe.setContentPane(statspanel);
-        statsframe.setSize(250, 650);
+        statsframe.setSize(250, 500);
         statsframe.setVisible(true);
+        statsframe.setResizable(false);
     }
 
     @Override

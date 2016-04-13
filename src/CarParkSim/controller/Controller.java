@@ -181,6 +181,7 @@ public class Controller extends AbstractController implements ActionListener {
             frame2.setContentPane(legendframe);
             frame2.setSize(500, 200);
             frame2.setVisible(true);
+            frame2.setResizable(false);
         }
 
         if (e.getSource() == input) {
@@ -462,6 +463,7 @@ public class Controller extends AbstractController implements ActionListener {
             frame.setContentPane(mainframe);
             frame.setSize(260, 810);
             frame.setVisible(true);
+            frame.setResizable(false);
 
         }
 
