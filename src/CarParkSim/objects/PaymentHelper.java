@@ -6,9 +6,10 @@ package CarParkSim.objects;
 public class PaymentHelper {
 
     private double quarterRate = 0.5; // default number. Method ChangeHourlyRate to change this number.
-    private double revenueToday;
     private double reservationStartAmount = 3;
     private double revenueTotal;
+    private double revenueToday;
+    private double revenueExpected;
 
     /**
      *
@@ -81,6 +82,8 @@ public class PaymentHelper {
             if (!expected) {
                 revenueTotal += moneyPayable;
                 revenueToday += moneyPayable;
+            }else{
+                revenueExpected += moneyPayable;
             }
             return moneyPayable;
         }
@@ -100,6 +103,21 @@ public class PaymentHelper {
      */
     public double getRevenueToday() {
         return revenueToday;
+    }
+    
+    /**
+     * call this method at the start of each tick
+     */
+    public void resetRevenueExpected() {
+        revenueExpected = 0;
+    }
+
+    /**
+     *
+     * @return the total expected revenue
+     */
+    public double getRevenueExpected() {
+        return revenueExpected;
     }
 
     /**

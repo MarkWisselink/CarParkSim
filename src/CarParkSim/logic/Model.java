@@ -269,6 +269,8 @@ public class Model extends AbstractModel implements Runnable {
                 return helper.getRevenueTotal();
             } else if (key.equals("revenueToday")) {
                 return helper.getRevenueToday();
+            } else if (key.equals("revenueExpected")) {
+                return helper.getRevenueExpected();
             } else {
                 return 0;
             }
@@ -495,6 +497,7 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     private void tickCars() {
+        helper.resetRevenueExpected();
         for (int floor = 0; floor < getNumFloors(); floor++) {
             for (int row = 0; row < getNumRows(); row++) {
                 for (int place = 0; place < getNumPlaces(); place++) {
