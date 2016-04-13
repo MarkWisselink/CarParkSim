@@ -78,11 +78,11 @@ public class Controller extends AbstractController implements ActionListener {
         add(stop);
         add(input);
         add(legend);
-        start.setBounds(100, 35, 90, 30);
-        stop.setBounds(200, 35, 90, 30);
-        faster.setBounds(330, 35, 90, 30);
-        slower.setBounds(430, 35, 90, 30);
-        input.setBounds(570, 35, 90, 30);
+        start.setBounds(80, 35, 90, 30);
+        stop.setBounds(180, 35, 90, 30);
+        faster.setBounds(340, 35, 90, 30);
+        slower.setBounds(440, 35, 90, 30);
+        input.setBounds(600, 35, 90, 30);
         legend.setBounds(700, 35, 90, 30);
         setVisible(true);
     }
