@@ -21,6 +21,7 @@ public class BarView extends AbstractView {
     private final String passholder = "PASSHOLDER";
     private final String reservering = "RESEVERING";
     private final String adhoc = "ADHOC";
+    private final String badparker = "BADPARKER";
     private String chartTitle;
     private ChartPanel chartPanel;
     private DefaultCategoryDataset dataset;
@@ -46,6 +47,7 @@ public class BarView extends AbstractView {
         dataset.addValue(model.getStat("currentPassholders"), passholder, passholder);
         dataset.addValue(model.getStat("currentReservingCar"), reservering, reservering);
         dataset.addValue(model.getStat("currentAdHocCar"), adhoc, adhoc);
+        dataset.addValue(model.getStat("currentBadParkerCar"),badparker, badparker);
 
         return dataset;
     }
@@ -56,7 +58,7 @@ public class BarView extends AbstractView {
         dataset.addValue(model.getStat("currentPassholders"), passholder, passholder);
         dataset.addValue(model.getStat("currentReservingCar"), reservering, reservering);
         dataset.addValue(model.getStat("currentAdHocCar"), adhoc, adhoc);
-
+        dataset.addValue(model.getStat("currentBadParkerCar"), badparker, badparker);
     }
 
     public void updateView() {
