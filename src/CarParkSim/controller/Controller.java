@@ -5,6 +5,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import CarParkSim.logic.*;
 
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -18,6 +19,7 @@ public class Controller extends AbstractController implements ActionListener {
     private JButton faster;
     private JButton slower;
     private JButton input;
+    private JButton legend;
     private JSlider floor;
     private JSlider row;
     private JSlider place;
@@ -47,6 +49,7 @@ public class Controller extends AbstractController implements ActionListener {
     private JTextField reservingtext;
     private JTextField badparkertext;
     private JFrame frame;
+    private JFrame frame2;
 
     /**
      * @param model the model this controller controls
@@ -65,6 +68,8 @@ public class Controller extends AbstractController implements ActionListener {
         start.addActionListener(this);
         stop = new JButton("Stop");
         stop.addActionListener(this);
+        legend = new JButton("Legend");
+        legend.addActionListener(this);
 
         setLayout(null);
         add(slower);
@@ -72,13 +77,17 @@ public class Controller extends AbstractController implements ActionListener {
         add(start);
         add(stop);
         add(input);
+        add(legend);
         start.setBounds(100, 35, 90, 30);
         stop.setBounds(200, 35, 90, 30);
         faster.setBounds(330, 35, 90, 30);
         slower.setBounds(430, 35, 90, 30);
         input.setBounds(570, 35, 90, 30);
+        legend.setBounds(700, 35, 90, 30);
         setVisible(true);
     }
+
+
 
     /**
      * @param e the ActionEvent
@@ -99,6 +108,43 @@ public class Controller extends AbstractController implements ActionListener {
 
         if (e.getSource() == slower) {
             model.slowDown();
+        }
+
+        if (e.getSource() == legend) {
+            if (frame2 == null) {
+                frame2 = new JFrame("Legend");
+            }
+            else{
+                // Do something
+            }
+            frame2.setDefaultCloseOperation(frame2.DISPOSE_ON_CLOSE);
+            JPanel legendframe = new JPanel();
+            legendframe.setLayout(new BorderLayout());
+
+            JTextField red = new JTextField(20);
+            red.setText("Red");
+            red.setForeground(Color.RED);
+            JTextField pink = new JTextField(20);
+            pink.setText("Pink");
+            pink.setForeground(Color.pink);
+            JTextField blue = new JTextField(20);
+            blue.setText("Blue");
+            blue.setForeground(Color.BLUE);
+            JTextField yellow = new JTextField(20);
+            yellow.setText("Yellow");
+            yellow.setForeground(Color.YELLOW);
+            JTextField black = new JTextField(20);
+            black.setText("Black");
+            black.setForeground(Color.BLACK);
+            JTextField grey = new JTextField(20);
+            grey.setText("Grey");
+            grey.setForeground(Color.GRAY);
+
+            legendframe.add(red);
+
+            frame2.setContentPane(legendframe);
+            frame2.setSize(300, 200);
+            frame2.setVisible(true);
         }
 
         if (e.getSource() == input) {
