@@ -434,7 +434,7 @@ public class Model extends AbstractModel implements Runnable {
             if (secondLoc != null) {
                 ((BadParkerCar) car).setSecondLocation(secondLoc);
                 grid.setLocationState(secondLoc, 12);
-            }else{
+            } else {
                 return false;
             }
         } else if (car instanceof ReservingCar) {
@@ -513,7 +513,7 @@ public class Model extends AbstractModel implements Runnable {
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }

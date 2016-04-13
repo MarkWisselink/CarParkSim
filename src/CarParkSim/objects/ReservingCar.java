@@ -46,8 +46,7 @@ public class ReservingCar extends Car {
     public void setMinutesLeft(int minutesLeft) {
         if (this.minutesLeft == 0) {
             payedTime += minutesLeft;
-        }
-        else {
+        } else {
             payedTime = (payedTime - this.minutesLeft) + minutesLeft;
         }
         this.minutesLeft = minutesLeft;
@@ -76,9 +75,10 @@ public class ReservingCar extends Car {
     public boolean getArrived() {
         return arrived;
     }
+
     /**
      *
-     * @param arrived if this car is arriving/in entranceQ
+     * @param arriving if this car is currently arriving/in entranceQ
      */
     public void setArriving(boolean arriving) {
         this.arriving = arriving;
@@ -86,7 +86,7 @@ public class ReservingCar extends Car {
 
     /**
      *
-     * @return if this car is arriving/in entranceQ
+     * @return if this car is currently arriving/in entranceQ
      */
     public boolean getArriving() {
         return arriving;
@@ -99,8 +99,7 @@ public class ReservingCar extends Car {
     public void tick() {
         if (!arriving && !arrived) {
             minutesTillArrived--;
-        }
-        else {
+        } else {
             minutesLeft--;
             minutesParked++;
         }

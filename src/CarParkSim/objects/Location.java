@@ -32,8 +32,7 @@ public class Location {
         if (obj instanceof Location) {
             Location other = (Location) obj;
             return floor == other.getFloor() && row == other.getRow() && place == other.getPlace();
-        }
-        else {
+        } else {
             return false;
         }
     }

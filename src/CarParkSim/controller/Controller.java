@@ -104,8 +104,7 @@ public class Controller extends AbstractController implements ActionListener {
         if (e.getSource() == input) {
             if (frame == null) {
                 frame = new JFrame("Edit input");
-            }
-            else{
+            } else {
                 // Do something
             }
             frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
@@ -382,10 +381,8 @@ public class Controller extends AbstractController implements ActionListener {
             frame.setSize(260, 810);
             frame.setVisible(true);
 
-            }
-
         }
 
     }
 
-
+}

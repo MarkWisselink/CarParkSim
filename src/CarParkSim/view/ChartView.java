@@ -55,7 +55,7 @@ public class ChartView extends AbstractView {
         // Specify the colors here
         plot = (PiePlot) pieChart.getPlot();
         plot.setSectionPaint("Free spaces", Color.GREEN);
-        plot.setSectionPaint("Passholder", Color. BLUE);
+        plot.setSectionPaint("Passholder", Color.BLUE);
         plot.setSectionPaint("Reservations", Color.PINK);
         plot.setSectionPaint("Ad hoc", Color.YELLOW);
         plot.setSectionPaint("Bad parker", Color.BLACK);

@@ -125,7 +125,6 @@ public class InfoView extends AbstractView {
         fieldrevenueTotal = new JTextField(27);
         fieldrevenueTotal.setEditable(false);
 
-
     }
 
     /**
@@ -134,8 +133,7 @@ public class InfoView extends AbstractView {
     public void showFrame() {
         if (statsframe == null) {
             statsframe = new JFrame("Edit stats");
-        }
-        else{
+        } else {
             // Do something
         }
         statsframe.setDefaultCloseOperation(statsframe.DISPOSE_ON_CLOSE);
@@ -228,8 +226,7 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsEntering.isSelected()) {
                     add(fieldNumCarsEntering);
                     fieldNumCarsEntering.setVisible(true);
-                }
-                else {
+                } else {
                     fieldNumCarsEntering.setVisible(false);
                 }
             }
@@ -241,8 +238,7 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsParked.isSelected()) {
                     add(fieldNumCarsParked);
                     fieldNumCarsParked.setVisible(true);
-                }
-                else {
+                } else {
                     fieldNumCarsParked.setVisible(false);
                 }
             }
@@ -254,8 +250,7 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsPaying.isSelected()) {
                     add(fieldNumCarsPaying);
                     fieldNumCarsPaying.setVisible(true);
-                }
-                else {
+                } else {
                     fieldNumCarsPaying.setVisible(false);
                 }
             }
@@ -267,8 +262,7 @@ public class InfoView extends AbstractView {
                 if (checkNumCarsExiting.isSelected()) {
                     add(fieldNumCarsExiting);
                     fieldNumCarsExiting.setVisible(true);
-                }
-                else {
+                } else {
                     fieldNumCarsExiting.setVisible(false);
                 }
             }
@@ -280,8 +274,7 @@ public class InfoView extends AbstractView {
                 if (checkNumFloors.isSelected()) {
                     add(fieldNumFloors);
                     fieldNumFloors.setVisible(true);
-                }
-                else {
+                } else {
                     fieldNumFloors.setVisible(false);
                 }
             }
@@ -293,8 +286,7 @@ public class InfoView extends AbstractView {
                 if (checkTime.isSelected()) {
                     add(fieldTime);
                     fieldTime.setVisible(true);
-                }
-                else {
+                } else {
                     fieldTime.setVisible(false);
                 }
             }
@@ -306,8 +298,7 @@ public class InfoView extends AbstractView {
                 if (checkcurrentReservingCar.isSelected()) {
                     add(fieldcurrentReservingCar);
                     fieldcurrentReservingCar.setVisible(true);
-                }
-                else {
+                } else {
                     fieldcurrentReservingCar.setVisible(false);
                 }
             }
@@ -319,8 +310,7 @@ public class InfoView extends AbstractView {
                 if (checktotalReservingCar.isSelected()) {
                     add(fieldtotalReservingCar);
                     fieldtotalReservingCar.setVisible(true);
-                }
-                else {
+                } else {
                     fieldtotalReservingCar.setVisible(false);
                 }
             }
@@ -332,8 +322,7 @@ public class InfoView extends AbstractView {
                 if (checkcurrentAdHocCar.isSelected()) {
                     add(fieldcurrentAdHocCar);
                     fieldcurrentAdHocCar.setVisible(true);
-                }
-                else {
+                } else {
                     fieldcurrentAdHocCar.setVisible(false);
                 }
             }
@@ -345,8 +334,7 @@ public class InfoView extends AbstractView {
                 if (checktotalAdHoccar.isSelected()) {
                     add(fieldtotalAdHocCar);
                     fieldtotalAdHocCar.setVisible(true);
-                }
-                else {
+                } else {
                     fieldtotalAdHocCar.setVisible(false);
                 }
             }
@@ -358,8 +346,7 @@ public class InfoView extends AbstractView {
                 if (checkcurrentPassholders.isSelected()) {
                     add(fieldcurrentPassholders);
                     fieldcurrentPassholders.setVisible(true);
-                }
-                else {
+                } else {
                     fieldcurrentPassholders.setVisible(false);
                 }
             }
@@ -371,8 +358,7 @@ public class InfoView extends AbstractView {
                 if (checktotalPassholders.isSelected()) {
                     add(fieldtotalPassholders);
                     fieldtotalPassholders.setVisible(true);
-                }
-                else {
+                } else {
                     fieldtotalPassholders.setVisible(false);
                 }
             }
@@ -384,8 +370,7 @@ public class InfoView extends AbstractView {
                 if (checkparkedTotal.isSelected()) {
                     add(fieldparkedTotal);
                     fieldparkedTotal.setVisible(true);
-                }
-                else {
+                } else {
                     fieldparkedTotal.setVisible(false);
                 }
             }
@@ -397,8 +382,7 @@ public class InfoView extends AbstractView {
                 if (checkrevenueToday.isSelected()) {
                     add(fieldrevenueToday);
                     fieldrevenueToday.setVisible(true);
-                }
-                else {
+                } else {
                     fieldrevenueToday.setVisible(false);
                 }
             }
@@ -410,8 +394,7 @@ public class InfoView extends AbstractView {
                 if (checkrevenueTotal.isSelected()) {
                     add(fieldrevenueTotal);
                     fieldrevenueTotal.setVisible(true);
-                }
-                else {
+                } else {
                     fieldrevenueTotal.setVisible(false);
                 }
             }
