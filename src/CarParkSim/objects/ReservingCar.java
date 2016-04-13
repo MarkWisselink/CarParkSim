@@ -46,7 +46,8 @@ public class ReservingCar extends Car {
     public void setMinutesLeft(int minutesLeft) {
         if (this.minutesLeft == 0) {
             payedTime += minutesLeft;
-        } else {
+        }
+        else {
             payedTime = (payedTime - this.minutesLeft) + minutesLeft;
         }
         this.minutesLeft = minutesLeft;
@@ -99,7 +100,8 @@ public class ReservingCar extends Car {
     public void tick() {
         if (!arriving && !arrived) {
             minutesTillArrived--;
-        } else {
+        }
+        else {
             minutesLeft--;
             minutesParked++;
         }

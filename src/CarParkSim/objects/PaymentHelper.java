@@ -69,11 +69,13 @@ public class PaymentHelper {
             }
             return moneyPayable;
 
-        } else {
+        }
+        else {
             minutes = car.getMinutesLeft();
             if (minutes < 0) {
                 minutes = car.getParkedTime();
-            } else {
+            }
+            else {
                 minutes += car.getParkedTime();
             }
             quarterAmount = (int) Math.ceil(minutes / 15);
@@ -82,7 +84,8 @@ public class PaymentHelper {
             if (!expected) {
                 revenueTotal += moneyPayable;
                 revenueToday += moneyPayable;
-            }else{
+            }
+            else {
                 revenueExpected += moneyPayable;
             }
             return moneyPayable;
@@ -104,7 +107,7 @@ public class PaymentHelper {
     public double getRevenueToday() {
         return revenueToday;
     }
-    
+
     /**
      * call this method at the start of each tick
      */

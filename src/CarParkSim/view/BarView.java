@@ -48,7 +48,7 @@ public class BarView extends AbstractView {
         dataset.addValue(model.getStat("currentPassholders"), passholder, passholder);
         dataset.addValue(model.getStat("currentReservingCar"), reservering, reservering);
         dataset.addValue(model.getStat("currentAdHocCar"), adhoc, adhoc);
-        dataset.addValue(model.getStat("currentBadParkerCar"),badparker, badparker);
+        dataset.addValue(model.getStat("currentBadParkerCar"), badparker, badparker);
 
         return dataset;
     }
