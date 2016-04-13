@@ -6,7 +6,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -25,8 +28,7 @@ public class BarView extends AbstractView {
     private String chartTitle;
     private ChartPanel chartPanel;
     private DefaultCategoryDataset dataset;
-    private PiePlot plot;
-    JFreeChart barChart;
+    private JFreeChart barChart;
 
     /**
      *
@@ -37,7 +39,6 @@ public class BarView extends AbstractView {
         this.chartTitle = "Barchart occupation";
         dataset = new DefaultCategoryDataset();
         barChart = ChartFactory.createBarChart(chartTitle, "Occupation", "Amount", createDataset());
-
         chartPanel = new ChartPanel(barChart);
         barChart.addChangeListener(chartPanel);
     }
@@ -59,6 +60,15 @@ public class BarView extends AbstractView {
         dataset.addValue(model.getStat("currentReservingCar"), reservering, reservering);
         dataset.addValue(model.getStat("currentAdHocCar"), adhoc, adhoc);
         dataset.addValue(model.getStat("currentBadParkerCar"), badparker, badparker);
+
+        CategoryPlot p = barChart.getCategoryPlot();
+
+        CategoryAxis axis = p.getDomainAxis();
+        axis.setLowerMargin(0.1);
+        axis.setUpperMargin(0.1);
+        axis.setCategoryMargin(0.1);
+        BarRenderer renderer = (BarRenderer) p.getRenderer();
+        renderer.setItemMargin(0.1);
     }
 
     public void updateView() {
