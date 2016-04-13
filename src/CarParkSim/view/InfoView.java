@@ -209,7 +209,6 @@ public class InfoView extends AbstractView {
         statspanel.add(checkNumCarsExiting);
         statspanel.add(checkNumFloors);
         statspanel.add(checkTime);
-        statspanel.add(checkPayment);
         statspanel.add(checkcurrentAdHocCar);
         statspanel.add(checktotalAdHoccar);
         statspanel.add(checkcurrentPassholders);
