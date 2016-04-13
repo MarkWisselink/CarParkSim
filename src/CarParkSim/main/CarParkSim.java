@@ -46,7 +46,7 @@ public class CarParkSim {
         screen.getContentPane().add(controller);
         screen.getContentPane().add(chartView);
         screen.getContentPane().add(barView);
-        infoView.setBounds(850, 55, 350, 370);
+        infoView.setBounds(850, 55, 350, 420);
         carparkView.setBounds(0, 0, 850, 370);
         controller.setBounds(0, 370, 800, 130);
         chartView.setBounds(40, 500, 560, 400);
