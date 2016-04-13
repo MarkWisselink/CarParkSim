@@ -37,8 +37,7 @@ public class LocationGrid {
                     if (getLocationState(location) == 0) {
                         if (first) {
                             first = false;
-                        }
-                        else {
+                        } else {
                             return location;
                         }
                     }
@@ -68,8 +67,14 @@ public class LocationGrid {
      * 12= taken as bad parker's 2nd place<br>
      * 14= reserved by a car/not yet arrived
      */
-    public void setLocationState(Location loc, int state) {
-        stateMap.put(loc.toString(), state);
+    public void setLocationState(Location loc, Integer state) {
+        if (state == 0) {
+            stateMap.remove(loc.toString());
+        } else if (state == null) {
+            stateMap.remove(loc.toString());
+        } else {
+            stateMap.put(loc.toString(), state);
+        }
     }
 
     /**
@@ -100,14 +105,11 @@ public class LocationGrid {
         int state = 1; //default
         if (car instanceof BadParkerCar) {
             state = 2;
-        }
-        else if (car instanceof AdHocCar) {
+        } else if (car instanceof AdHocCar) {
             state = 1;
-        }
-        else if (car instanceof Passholders) {
+        } else if (car instanceof Passholders) {
             state = 3;
-        }
-        else if (car instanceof ReservingCar) {
+        } else if (car instanceof ReservingCar) {
             state = 14; //not yet parked
         }
         setLocationState(loc, state);
