@@ -29,6 +29,7 @@ public class InfoView extends AbstractView {
     private JTextField fieldparkedTotal;
     private JTextField fieldrevenueToday;
     private JTextField fieldrevenueTotal;
+    private JTextField fieldrevenueExpected;
     private JButton statsbutton;
     private JCheckBox checkNumCarsEntering;
     private JCheckBox checkNumCarsParked;
@@ -36,7 +37,6 @@ public class InfoView extends AbstractView {
     private JCheckBox checkNumCarsExiting;
     private JCheckBox checkNumFloors;
     private JCheckBox checkTime;
-    private JCheckBox checkPayment;
     private JCheckBox checkcurrentReservingCar;
     private JCheckBox checktotalReservingCar;
     private JCheckBox checkcurrentAdHocCar;
@@ -46,6 +46,7 @@ public class InfoView extends AbstractView {
     private JCheckBox checkparkedTotal;
     private JCheckBox checkrevenueToday;
     private JCheckBox checkrevenueTotal;
+    private JCheckBox checkrevenueExpected;
     private JFrame statsframe;
 
     /**
@@ -125,6 +126,9 @@ public class InfoView extends AbstractView {
         fieldrevenueTotal = new JTextField(27);
         fieldrevenueTotal.setEditable(false);
 
+        fieldrevenueExpected = new JTextField(27);
+        fieldrevenueExpected.setEditable(false);
+
     }
 
     /**
@@ -138,6 +142,9 @@ public class InfoView extends AbstractView {
         }
         statsframe.setDefaultCloseOperation(statsframe.HIDE_ON_CLOSE);
         JPanel statspanel = new JPanel();
+
+        checkrevenueExpected = new JCheckBox("Show expected revenue");
+        checkrevenueExpected.setMnemonic(KeyEvent.VK_C);
 
         checkNumCarsEntering = new JCheckBox("Show number of cars entering");
         checkNumCarsEntering.setMnemonic(KeyEvent.VK_C);
@@ -214,6 +221,7 @@ public class InfoView extends AbstractView {
         statspanel.add(checkparkedTotal);
         statspanel.add(checkrevenueToday);
         statspanel.add(checkrevenueTotal);
+        statspanel.add(checkrevenueExpected);
 
         checkNumCarsEntering.addActionListener(new ActionListener() {
             @Override
@@ -395,6 +403,18 @@ public class InfoView extends AbstractView {
             }
         });
 
+        checkrevenueExpected.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkrevenueExpected.isSelected()) {
+                    add(fieldrevenueExpected);
+                    fieldrevenueExpected.setVisible(true);
+                } else {
+                    fieldrevenueExpected.setVisible(false);
+                }
+            }
+        });
+
         statsframe.setContentPane(statspanel);
         statsframe.setSize(250, 650);
         statsframe.setVisible(true);
@@ -433,6 +453,8 @@ public class InfoView extends AbstractView {
         fieldrevenueToday.setText("Today's revenue: " + model.getStat("revenueToday", true) + ".");
 
         fieldrevenueTotal.setText("Total revenue: " + model.getStat("revenueTotal", true) + ".");
+
+        fieldrevenueExpected.setText("Expected revenue: " + model.getStat("revenueExpected", true) + ".");
 
         validate();
         repaint();
