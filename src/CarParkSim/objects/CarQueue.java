@@ -29,10 +29,26 @@ public class CarQueue {
     public Car removeCar() {
         return queue.poll();
     }
+    
+    /**
+     * 
+     * @return returns the next car to be removed; without removing it
+     */
+    public Car getNextCar(){
+        return queue.peek();
+    }
+    
+    /**
+     * 
+     * @param car removes the specified car
+     */
+    public void remove(Car car){
+        queue.remove(car);
+    }
 
     /**
      *
-     * @return
+     * @return the size
      */
     public int size() {
         return queue.size();

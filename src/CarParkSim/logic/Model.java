@@ -67,20 +67,15 @@ public class Model extends AbstractModel implements Runnable {
         //forbidden names
         if (settingName.equalsIgnoreCase("helper")) {
             return;
-        }
-        else if (settingName.equalsIgnoreCase("entranceCarQueue")) {
+        } else if (settingName.equalsIgnoreCase("entranceCarQueue")) {
             return;
-        }
-        else if (settingName.equalsIgnoreCase("paymentCarQueue")) {
+        } else if (settingName.equalsIgnoreCase("paymentCarQueue")) {
             return;
-        }
-        else if (settingName.equalsIgnoreCase("exitCarQueue")) {
+        } else if (settingName.equalsIgnoreCase("exitCarQueue")) {
             return;
-        }
-        else if (settingName.equalsIgnoreCase("grid")) {
+        } else if (settingName.equalsIgnoreCase("grid")) {
             return;
-        }
-        else if (settingName.equalsIgnoreCase("stats")) {
+        } else if (settingName.equalsIgnoreCase("stats")) {
             return;
         }
         Class<?> c = this.getClass();
@@ -92,18 +87,14 @@ public class Model extends AbstractModel implements Runnable {
 
             if ((type.equals("int"))) {
                 f.set(this, (int) value);
-            }
-            else if (type.equals("double")) {
+            } else if (type.equals("double")) {
                 f.set(this, (double) value);
             }
-        }
-        catch (NoSuchFieldException x) {
+        } catch (NoSuchFieldException x) {
             System.out.println("no such field");
-        }
-        catch (IllegalAccessException x) {
+        } catch (IllegalAccessException x) {
             System.out.println("illegal access");
-        }
-        catch (ClassCastException x) {
+        } catch (ClassCastException x) {
             System.out.println("class cast exception; name:" + type);
 
         }
@@ -126,11 +117,9 @@ public class Model extends AbstractModel implements Runnable {
     private void changeSpeed(int change, boolean increase) {
         if (!increase) {
             tickPause = tickPause + change;
-        }
-        else if ((tickPause - change) > 1) {
+        } else if ((tickPause - change) > 1) {
             tickPause = tickPause - change;
-        }
-        else {
+        } else {
             tickPause = 5;
         }
     }
@@ -150,8 +139,7 @@ public class Model extends AbstractModel implements Runnable {
     public void setNumberOfGates(int numberOfGates) {
         if (numberOfGates > 0) {
             this.numberOfGates = numberOfGates;
-        }
-        else {
+        } else {
             //throw exception
         }
     }
@@ -170,8 +158,7 @@ public class Model extends AbstractModel implements Runnable {
     public void setNumFloors(int floors) {
         if (floors > 0) {
             this.floors = floors;
-        }
-        else {
+        } else {
             //throw exeption
         }
     }
@@ -191,8 +178,7 @@ public class Model extends AbstractModel implements Runnable {
     public void setNumRows(int rows) {
         if (rows > 0) {
             this.rows = rows;
-        }
-        else {
+        } else {
             //throw exeption
         }
     }
@@ -212,8 +198,7 @@ public class Model extends AbstractModel implements Runnable {
     public void setNumPlaces(int places) {
         if (places > 0) {
             this.places = places;
-        }
-        else {
+        } else {
             //throw exeption
         }
     }
@@ -247,18 +232,14 @@ public class Model extends AbstractModel implements Runnable {
      */
     public int getNumCars(String type) {
         if (type.equalsIgnoreCase("enterq")) {
-            return getStat("entranceQ");
-        }
-        else if (type.equalsIgnoreCase("parked")) {
+            return entranceCarQueue.size();
+        } else if (type.equalsIgnoreCase("parked")) {
             return getStat("parkedCurrent");
-        }
-        else if (type.equalsIgnoreCase("payq")) {
-            return getStat("paymentQ");
-        }
-        else if (type.equalsIgnoreCase("exitq")) {
-            return getStat("exitQ");
-        }
-        else {
+        } else if (type.equalsIgnoreCase("payq")) {
+            return paymentCarQueue.size();
+        } else if (type.equalsIgnoreCase("exitq")) {
+            return exitCarQueue.size();
+        } else {
             return 0;
         }
     }
@@ -286,15 +267,12 @@ public class Model extends AbstractModel implements Runnable {
         if (rev) {
             if (key.equals("revenueTotal")) {
                 return helper.getRevenueTotal();
-            }
-            else if (key.equals("revenueToday")) {
+            } else if (key.equals("revenueToday")) {
                 return helper.getRevenueToday();
-            }
-            else {
+            } else {
                 return 0;
             }
-        }
-        else {
+        } else {
             return (double) getStat(key);
         }
     }
@@ -350,24 +328,20 @@ public class Model extends AbstractModel implements Runnable {
         if (hour < 10) {
             if (hour == 0) {
                 hourstr = "00";
-            }
-            else {
+            } else {
                 hourstr = "0" + ((Integer) hour).toString();
             }
-        }
-        else {
+        } else {
             hourstr = "" + hour;
         }
 
         if (minute < 10) {
             if (minute == 0) {
                 minstr = "00";
-            }
-            else {
+            } else {
                 minstr = "0" + ((Integer) minute).toString();
             }
-        }
-        else {
+        } else {
             minstr = "" + minute;
         }
 
@@ -381,8 +355,7 @@ public class Model extends AbstractModel implements Runnable {
     private void counterIncrease(String key, int val) {
         if (stats.get(key) == null) {
             stats.put(key, val);
-        }
-        else {
+        } else {
             stats.put(key, (stats.get(key) + val));
         }
     }
@@ -394,8 +367,7 @@ public class Model extends AbstractModel implements Runnable {
     private void counterDecrease(String key, int val) {
         if (stats.get(key) == null) {
             stats.put(key, 0);
-        }
-        else if ((stats.get(key) - val) >= 0) {
+        } else {
             stats.put(key, (stats.get(key) - val));
         }
     }
@@ -415,35 +387,17 @@ public class Model extends AbstractModel implements Runnable {
         return grid.getLocationState(location);
     }
 
-    /**
-     * start a threaded process, if not already running
-     */
-    public void start() {
-        if (!run) {
-            new Thread(this).start();
-        }
-    }
-
-    /**
-     * stop all actions
-     */
-    public void stop() {
-        run = false;
-    }
-
     private Car createNewCar() {
         Random random = new Random();
         if (random.nextDouble() <= PASSHOLDER_CAR_CREATION_PROBABILITY) {
             counterIncrease("totalPassholders");
             counterIncrease("currentPassholders");
             return new Passholders();
-        }
-        else if (random.nextDouble() <= BADPARKER_CAR_CREATION_PROBABILITY) {
+        } else if (random.nextDouble() <= BADPARKER_CAR_CREATION_PROBABILITY) {
             counterIncrease("totalBadParkerCar");
             counterIncrease("currentBadParkerCar");
             return new BadParkerCar();
-        }
-        else if (random.nextDouble() <= RESERVING_CAR_CREATION_PROBABILITY) {
+        } else if (random.nextDouble() <= RESERVING_CAR_CREATION_PROBABILITY) {
             Location freeLocation = grid.getFirstFreeLocation();
             if (freeLocation == null) {//no free spot => no reservation allowed
                 counterIncrease("totalAdHocCar");
@@ -455,7 +409,7 @@ public class Model extends AbstractModel implements Runnable {
             ReservingCar car = new ReservingCar();
             car.setLocation(freeLocation);
             car.setMinutesLeft(generateStayMinutes());
-            int minutesTillArrived = (int) (random.nextFloat() * 60 * 3);
+            int minutesTillArrived = Math.abs((int) (random.nextFloat() * 60 * 3));
             car.setMinutesTillArrived(minutesTillArrived);
             grid.setCarAt(freeLocation, car);
 
@@ -463,8 +417,7 @@ public class Model extends AbstractModel implements Runnable {
             helper.paymentAmount(car, false);
 
             return car;
-        }
-        else {
+        } else {
             counterIncrease("totalAdHocCar");
             counterIncrease("currentAdHocCar");
             return new AdHocCar();
@@ -481,9 +434,16 @@ public class Model extends AbstractModel implements Runnable {
             if (secondLoc != null) {
                 ((BadParkerCar) car).setSecondLocation(secondLoc);
                 grid.setLocationState(secondLoc, 12);
+            }else{
+                return false;
             }
-        }
-        else if (car instanceof ReservingCar) {
+        } else if (car instanceof ReservingCar) {
+            if (!((ReservingCar) car).getArriving()) {
+                //something went very wrong
+                System.out.println("ERROR reserving car was added to queue without being set to 'arriving'");
+            }
+            ((ReservingCar) car).setArriving(false);
+            ((ReservingCar) car).setArrived(true);
             grid.setLocationState(car.getLocation(), 4);
             return true;
         }
@@ -505,8 +465,7 @@ public class Model extends AbstractModel implements Runnable {
         int stayMinutes;
         if (night) {
             stayMinutes = 8 * 60 + (int) (random.nextFloat() * 2 * 60);
-        }
-        else {
+        } else {
             stayMinutes = 15 + (int) (random.nextFloat() * 10 * 60);
         }
         if (weekend) {
@@ -525,8 +484,7 @@ public class Model extends AbstractModel implements Runnable {
             if (0 < enterQSize && enterQSize >= exitQSize) {// enter queue length is between 0 and the exit queue length
                 enterGates++;
                 enterQSize -= gateSpeed * exitSpeedMult;
-            }
-            else if (0 < exitQSize && exitQSize >= enterQSize) { // exit queue length is between 0 and the enter queue length
+            } else if (0 < exitQSize && exitQSize >= enterQSize) { // exit queue length is between 0 and the enter queue length
                 exitGates++;
                 exitQSize -= gateSpeed * enterSpeedMult;
             }
@@ -537,7 +495,6 @@ public class Model extends AbstractModel implements Runnable {
     }
 
     private void tickCars() {
-        helper.resetRevenueToday();
         for (int floor = 0; floor < getNumFloors(); floor++) {
             for (int row = 0; row < getNumRows(); row++) {
                 for (int place = 0; place < getNumPlaces(); place++) {
@@ -549,36 +506,18 @@ public class Model extends AbstractModel implements Runnable {
                         if (car instanceof ReservingCar) {
                             ReservingCar reservingCar = (ReservingCar) car;
                             if (reservingCar.getMinutesTillArrived() <= 0) {
-                                if (grid.getLocationState(location) == 14 && !reservingCar.getArrived()) {
-                                    reservingCar.setArrived(true);
+                                if (!reservingCar.getArriving() && !reservingCar.getArrived()) {
+                                    reservingCar.setArriving(true);
                                     entranceCarQueue.addCar(reservingCar);
                                     this.counterIncrease("entranceQ");
                                 }
                             }
                         }
+                        
                     }
                 }
             }
         }
-    }
-
-    /**
-     * running until stopped<br>
-     * never call outside a thread!
-     */
-    @Override
-    public void run() {
-        run = true;
-        while (run) {
-            try {
-                doTick();
-                Thread.sleep(tickPause);
-                notifyViews();
-            }
-            catch (Exception e) {
-            }
-        }
-        this.stop();
     }
 
     private void doTick() {
@@ -589,6 +528,7 @@ public class Model extends AbstractModel implements Runnable {
             hour++;
         }
         while (hour > 23) {
+            helper.resetRevenueToday();
             hour -= 24;
             day++;
         }
@@ -603,16 +543,14 @@ public class Model extends AbstractModel implements Runnable {
         if (day < 5) {
             averageNumberOfCarsPerHour = weekDayArrivals;
             weekend = false;
-        }
-        else {
+        } else {
             averageNumberOfCarsPerHour = weekendArrivals;
             weekend = true;
         }
         if (hour > 20 || hour < 7) {
             night = true;
             averageNumberOfCarsPerHour = (int) Math.ceil(averageNumberOfCarsPerHour / nightReductionRate);
-        }
-        else {
+        } else {
             night = false;
         }
         this.counterIncrease("entranceQ", 0);
@@ -621,7 +559,7 @@ public class Model extends AbstractModel implements Runnable {
                 1.29,
                 ((-0.9) * (getNumCars("enterq"))) + (4.5315 * Math.log(averageNumberOfCarsPerHour)-2.6729)
         )));
-        //doesn't work as expected, because Java sucks at math :/
+        //doesn't work as expected, because.. reasons
          */
         double drCurve = averageNumberOfCarsPerHour - (10 * getNumCars("enterq"));
         if (drCurve < 1) {
@@ -630,7 +568,6 @@ public class Model extends AbstractModel implements Runnable {
         // Calculate the number of cars that arrive this minute.
         double standardDeviation = drCurve * 0.1;
         double numberOfCarsPerHour = drCurve + (random.nextGaussian() * standardDeviation);
-        //int numberOfCarsPerMinute = (int) Math.round(numberOfCarsPerHour / 60);
         int numberOfCarsPerMinute = 0;
         while (numberOfCarsPerHour > 60) {
             numberOfCarsPerMinute++;
@@ -664,8 +601,7 @@ public class Model extends AbstractModel implements Runnable {
                 this.counterIncrease("exitQ");
                 car.setIsPaying(true);
                 grid.removeCarAt(car.getLocation());
-            }
-            else {
+            } else {
                 paymentCarQueue.addCar(car);
                 this.counterIncrease("paymentQ");
                 car.setIsPaying(true);
@@ -680,7 +616,9 @@ public class Model extends AbstractModel implements Runnable {
             }
             this.counterDecrease("paymentQ");
             if (car instanceof BadParkerCar) {
-                grid.setLocationState(((BadParkerCar) car).getSecondLocation(), 0);
+                if (((BadParkerCar) car).getSecondLocation() != null) {
+                    grid.setLocationState(((BadParkerCar) car).getSecondLocation(), 0);
+                }
                 //grid.removeCarAt(((BadParkerCar) car).getSecondLocation());
             }
             grid.removeCarAt(car.getLocation());
@@ -699,14 +637,15 @@ public class Model extends AbstractModel implements Runnable {
 
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < (int) (gateSpeed * enterSpeedMult * entranceGates); i++) {
-            Car car = entranceCarQueue.removeCar();
+            Car car = entranceCarQueue.getNextCar();
             if (car == null) {
                 break;
             }
-            if (putCarInPark(car)) {
+            if (putCarInPark(car)) { //check if it's succesfully placed; if so: remove from queue and update counters
                 this.counterDecrease("entranceQ");
                 this.counterIncrease("parkedCurrent");
                 this.counterIncrease("parkedTotal");
+                entranceCarQueue.remove(car);
             }
         }
 
@@ -718,14 +657,11 @@ public class Model extends AbstractModel implements Runnable {
             }
             if (car instanceof AdHocCar) {
                 this.counterDecrease("currentAdHocCar");
-            }
-            else if (car instanceof BadParkerCar) {
+            } else if (car instanceof BadParkerCar) {
                 this.counterDecrease("currentBadParkerCar");
-            }
-            else if (car instanceof Passholders) {
+            } else if (car instanceof Passholders) {
                 this.counterDecrease("currentPassholders");
-            }
-            else if (car instanceof ReservingCar) {
+            } else if (car instanceof ReservingCar) {
                 this.counterDecrease("currentReservingCar");
             }
 
@@ -733,5 +669,39 @@ public class Model extends AbstractModel implements Runnable {
             // Bye!
         }
 
+    }
+
+    /**
+     * running until stopped<br>
+     * never call outside a thread!
+     */
+    @Override
+    public void run() {
+        run = true;
+        while (run) {
+            try {
+                doTick();
+                Thread.sleep(tickPause);
+                notifyViews();
+            } catch (Exception e) {
+            }
+        }
+        this.stop();
+    }
+
+    /**
+     * start a threaded process, if not already running
+     */
+    public void start() {
+        if (!run) {
+            new Thread(this).start();
+        }
+    }
+
+    /**
+     * stop all actions
+     */
+    public void stop() {
+        run = false;
     }
 }

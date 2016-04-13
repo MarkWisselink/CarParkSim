@@ -7,6 +7,7 @@ package CarParkSim.objects;
 public class ReservingCar extends Car {
 
     private boolean arrived = false;
+    private boolean arriving = false;
     private int minutesTillArrived = 0;
     private int payedTime = 0;
 
@@ -75,13 +76,28 @@ public class ReservingCar extends Car {
     public boolean getArrived() {
         return arrived;
     }
+    /**
+     *
+     * @param arrived if this car is arriving/in entranceQ
+     */
+    public void setArriving(boolean arriving) {
+        this.arriving = arriving;
+    }
+
+    /**
+     *
+     * @return if this car is arriving/in entranceQ
+     */
+    public boolean getArriving() {
+        return arriving;
+    }
 
     /**
      * action that happens every minute (synced with model ticks)
      */
     @Override
     public void tick() {
-        if (!arrived) {
+        if (!arriving && !arrived) {
             minutesTillArrived--;
         }
         else {
