@@ -136,7 +136,7 @@ public class InfoView extends AbstractView {
         } else {
             // Do something
         }
-        statsframe.setDefaultCloseOperation(statsframe.DISPOSE_ON_CLOSE);
+        statsframe.setDefaultCloseOperation(statsframe.HIDE_ON_CLOSE);
         JPanel statspanel = new JPanel();
 
         checkNumCarsEntering = new JCheckBox("Show number of cars entering");
@@ -162,10 +162,6 @@ public class InfoView extends AbstractView {
         checkTime = new JCheckBox("Show time");
         checkTime.setMnemonic(KeyEvent.VK_C);
         checkTime.setSelected(true);
-
-        checkPayment = new JCheckBox("Show payment check");
-        checkPayment.setMnemonic(KeyEvent.VK_C);
-        checkPayment.setSelected(false);
 
         checkcurrentReservingCar = new JCheckBox("Show current reserving cars");
         checkcurrentReservingCar.setMnemonic(KeyEvent.VK_C);
