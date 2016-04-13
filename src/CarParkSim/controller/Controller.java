@@ -119,31 +119,67 @@ public class Controller extends AbstractController implements ActionListener {
             }
             frame2.setDefaultCloseOperation(frame2.DISPOSE_ON_CLOSE);
             JPanel legendframe = new JPanel();
-            legendframe.setLayout(new BorderLayout());
+            //legendframe.setLayout(new BorderLayout());
 
             JTextField red = new JTextField(20);
             red.setText("Red");
             red.setForeground(Color.RED);
+            red.setEditable(false);
             JTextField pink = new JTextField(20);
             pink.setText("Pink");
             pink.setForeground(Color.pink);
+            pink.setEditable(false);
             JTextField blue = new JTextField(20);
             blue.setText("Blue");
             blue.setForeground(Color.BLUE);
+            blue.setEditable(false);
             JTextField yellow = new JTextField(20);
             yellow.setText("Yellow");
             yellow.setForeground(Color.YELLOW);
+            yellow.setEditable(false);
             JTextField black = new JTextField(20);
             black.setText("Black");
             black.setForeground(Color.BLACK);
+            black.setEditable(false);
             JTextField grey = new JTextField(20);
             grey.setText("Grey");
             grey.setForeground(Color.GRAY);
+            grey.setEditable(false);
 
+            JTextField badparker = new JTextField(20);
+            badparker.setText("Bad parker:");
+            badparker.setEditable(false);
+            JTextField passholder = new JTextField(20);
+            passholder.setText("Passholder:");
+            passholder.setEditable(false);
+            JTextField reservation = new JTextField(20);
+            reservation.setText("Reservation:");
+            reservation.setEditable(false);
+            JTextField reservationcar = new JTextField(20);
+            reservationcar.setText("Reservation car");
+            reservationcar.setEditable(false);
+            JTextField adhoc = new JTextField(20);
+            adhoc.setText("Ad hoc:");
+            adhoc.setEditable(false);
+            JTextField second = new JTextField(20);
+            second.setText("Second spot:");
+            second.setEditable(false);
+
+            legendframe.add(passholder);
+            legendframe.add(blue);
+            legendframe.add(adhoc);
+            legendframe.add(yellow);
+            legendframe.add(reservation);
+            legendframe.add(pink);
+            legendframe.add(reservationcar);
             legendframe.add(red);
+            legendframe.add(badparker);
+            legendframe.add(black);
+            legendframe.add(second);
+            legendframe.add(grey);
 
             frame2.setContentPane(legendframe);
-            frame2.setSize(300, 200);
+            frame2.setSize(500, 200);
             frame2.setVisible(true);
         }
 
