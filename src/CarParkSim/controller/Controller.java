@@ -461,7 +461,8 @@ public class Controller extends AbstractController implements ActionListener {
 
             // Set frame
             frame.setContentPane(mainframe);
-            frame.setSize(260, 810);
+            frame.setSize(250, 800);
+            
             frame.setVisible(true);
             frame.setResizable(false);
 
